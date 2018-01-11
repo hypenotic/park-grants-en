@@ -8,8 +8,9 @@
         </div>
         <div class="lang">
             <!-- <router-link to="" class="lang">EN</router-link> -->
-            <router-link to="https://parkpeople.ca/boursesdeparc" class="lang">FR</router-link>
-
+            <!-- <router-link to="https://parkpeople.ca/boursesdeparc" class="lang">FR</router-link> -->
+            <!-- NEED AN IF CHECK FOR IF WE'RE ON THE FAQ PAGE -->
+            <a href="https://parkpeople.ca/boursesdeparc">FR</a>
             {{ lang }}
         </div>
 
@@ -34,7 +35,7 @@ export default {
 };
 </script>
 
-<style lag="scss" scoped>
+<style lang="scss" scoped>
 .green {
     background-color: #067f1b;
 }
@@ -42,6 +43,12 @@ export default {
 .lang {
     color: white;
     margin: 1em;
+    a {
+        color: white;
+        &:hover {
+            font-weight: bold;
+        }
+    }
 }
 
 .navbar-item {
