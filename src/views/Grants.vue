@@ -99,16 +99,13 @@
 
 <script>
 import axios from 'axios';
-import { mapState } from 'vuex'
-import NewsletterForm from '../components/NewsletterForm.vue';
+// import { mapState } from 'vuex'
 export default {
-	components: {
-        appForm: NewsletterForm
-    },
 	data() {
 		return {
 			data: {},
-			relatedPosts: []
+			relatedPosts: [],
+			errors: []
 		};
 	},
 	filters: {
@@ -145,7 +142,7 @@ export default {
 
 	},
 	created() {
-		// console.log(store.state.count)
+		console.log('hi')
 		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
 		.then(response => {
             console.log(response.data)
@@ -166,10 +163,12 @@ export default {
 				this.relatedPosts = allPosts
 			}))
 			.catch(e => {
+				console.log(e)
 				this.errors.push(e)
 			})
 		})
 		.catch(e => {
+			console.log(e)
 			this.errors.push(e)
 		})
 	},
@@ -517,8 +516,8 @@ img {
 			position: absolute;
 			width: 50px;
 			height: 50px;
-			top: 200px;
 			left: -120px;
+			top: 200px;
 		}
 	}
 }
