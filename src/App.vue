@@ -216,14 +216,41 @@ ol.resource__bullets {
 
 
 .more-info {
-    text-align: center;
-    p {
+    // text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    @media #{$medium-and-down} {
+        padding: 0 24px;
+    }
+    p, li {
 		font-size: 1rem;
         line-height: 1.5;
         @media #{$large-and-up} {
-			font-size: 1.2rem;
+			font-size: 1.1rem;
             line-height: 1.7;
 		}
+    }
+    h4,h5 {
+        color: $orange;
+    }
+    h4 {
+        // margin-bottom: 8px;
+        line-height: 1.5;
+    }
+    h4 strong {
+        color: $orange !important;
+    }
+    h5 {
+        font-weight: bold;
+        line-height: 1.5;
+    }
+    ul {
+        margin-left: 40px;
+        list-style-type: disc;
+        li {
+            list-style-type: disc;
+            margin-bottom: 16px;
+        }
     }
     a {
         border-bottom: 1px solid $blue;

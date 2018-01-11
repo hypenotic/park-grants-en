@@ -151,9 +151,9 @@ export default {
             console.log(response.data)
 			this.data = response.data
 			axios.all([
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=4'),
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/research/?_embed&categories=133&per_page=4'),
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/resource/?_embed&categories=133&per_page=4')
+				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=20'),
+				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/research/?_embed&categories=133&per_page=20'),
+				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/resource/?_embed&categories=133&per_page=20')
 			])
 			.then(axios.spread((response, response1, response2) => {
 				// console.log(response.data)
@@ -420,7 +420,7 @@ img {
 
 .related-resources {
 	padding: 50px;
-	padding-bottom: 220px;
+	padding-bottom: 180px;
 	margin-top: 50px;
 	margin-bottom: -50px;
 	h3 {
