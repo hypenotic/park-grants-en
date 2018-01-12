@@ -298,6 +298,31 @@ ol.resource__bullets {
     }
 }
 
+
+.FAQ-content {
+	h2 {
+		font-size: 1.3rem;
+		line-height: 1.5;
+	}
+    p + h2 {
+        margin-top: 40px !important;
+    }
+    span {
+        color: $off-black !important;
+    }
+	ul {
+		margin: 20px 0 0 40px;
+		li {
+			line-height: 1.5;
+			margin-bottom: 1rem;
+			list-style-type: disc;
+			font-size: 1rem;
+			padding-left: .6em;
+
+		}
+	}
+}
+
 // Footer
 footer {
     font-size: 0.8rem;

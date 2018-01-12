@@ -2,14 +2,11 @@
     <nav class="navbar green">
         <div class="navbar-brand">
             <div>
-                <a><img src="https://parkpeople.ca/listings/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
+                <a href="https://parkpeople.ca/parkgrants"><img src="https://parkpeople.ca/listings/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
             </div>
             
         </div>
         <div class="lang">
-            <!-- <router-link to="" class="lang">EN</router-link> -->
-            <!-- <router-link to="https://parkpeople.ca/boursesdeparc" class="lang">FR</router-link> -->
-            <!-- NEED AN IF CHECK FOR IF WE'RE ON THE FAQ PAGE -->
             <a v-if="this.$route.path == '/faq'" href="https://parkpeople.ca/boursesdeparc/faq">FR</a>
             <a v-else href="https://parkpeople.ca/boursesdeparc">FR</a>
             {{ lang }}
@@ -17,7 +14,8 @@
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
             <div class="navbar-end">
-                <router-link to="/" class="navbar-item" exact>Home</router-link>
+                <a class="navbar-item" href="https://parkpeople.ca">Home</a>
+                <router-link v-if="this.$route.path == '/faq'" to="/" class="navbar-item" exact>Grants</router-link>
                 <router-link to="/faq" class="navbar-item" exact>FAQs</router-link>
             </div>
         </div>
