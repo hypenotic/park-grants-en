@@ -39,6 +39,11 @@
 			<div v-html="data.meta_box._page_grant_more_info"></div>
 		</div>
 	</section>
+	<section class="second-cta">
+		<div class="container">
+			<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
+		</div>
+	</section>
 	<section class="grants-newsletter">
 		<div class="container">
 			<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>

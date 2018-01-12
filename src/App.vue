@@ -218,7 +218,7 @@ ol.resource__bullets {
 .more-info {
     // text-align: center;
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     @media #{$medium-and-down} {
         padding: 0 24px;
     }
