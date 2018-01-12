@@ -1,105 +1,110 @@
-<template v-if="data && data.hasOwnProperty('meta_box')">
-<div>
-	<section class="section">
-		<div class="container">
-			<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
-            <div class="topContent" v-html="data.content.rendered"></div>
+<template>
+	<div v-if="loading==false">
+		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
+			<div class="container">
+				<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
+				<div class="topContent" v-html="data.content.rendered"></div>
 
-			<section class="application-eligibility">
-				<div class="application">
-					<h2>Application Process</h2>
-					<ol class="app-list">
-						<li v-for="point in data.meta_box._page_app_process" :key="point['_page_application_copy']" v-html="point['_page_application_copy']">
-						</li>
-					</ol>
-				</div>
-				<div class="eligibility">
-					<h2>Eligibility</h2>
-					<ul>
-						<li v-for="point in data.meta_box._page_eligibility" :key="point['_page_eligibility_copy']">
-							<img :src="point['_page_eligibility_img']" alt="">
-							<span v-html="point['_page_eligibility_copy']"></span>
-						</li>
-					</ul>
-				</div>
-			</section>
+				<section class="application-eligibility">
+					<div class="application">
+						<h2>Application Process</h2>
+						<ol class="app-list">
+							<li v-for="point in data.meta_box._page_app_process" :key="point['_page_application_copy']" v-html="point['_page_application_copy']">
+							</li>
+						</ol>
+					</div>
+					<div class="eligibility">
+						<h2>Eligibility</h2>
+						<ul>
+							<li v-for="point in data.meta_box._page_eligibility" :key="point['_page_eligibility_copy']">
+								<img :src="point['_page_eligibility_img']" alt="">
+								<span v-html="point['_page_eligibility_copy']"></span>
+							</li>
+						</ul>
+					</div>
+				</section>
 
-			<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
-		</div>
-	</section>
-    <section class="grant-illustration">
-		<div class="main-animation">
-			<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
-		</div>
-		<div class="clouds">
-		</div>
-    </section>
-	<section class="more-info">
-		<div class="container">
-			<div v-html="data.meta_box._page_grant_more_info"></div>
-		</div>
-	</section>
-	<section class="second-cta">
-		<div class="container">
-			<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
-		</div>
-	</section>
-	<section class="grants-newsletter">
-		<div class="container">
-			<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>
-			<!-- <div>
-				<app-form skin="grants" button="Okay!"></app-form>
-			</div> -->
-		</div>
-	</section>
-	<section class="grant-sponsors">
-		<p>Made possible by a great collaboration:</p>
-		<ul>
-			<li v-for="sponsor in data.meta_box._page_grant_sponsors">
-				<img :src="sponsor['_page_g_sponsor_img']" alt="">
-				<!-- <span v-html="point['_page_eligibility_copy']"></span> -->
-			</li>
-		</ul>
-	</section>
-	<section class="related-resources">
-		<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
-		<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
-		<div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Browse our resource section.</a></strong></div>
-		<div class="wide-container">
-			<div class="columns is-multiline">
-				<div class="column is-one-quarter" v-for="related in relatedPosts" :key="related.title.rendered">
-					<div class="card">
-						<div class="card-image">
-							<figure class="image is-2by1">
-								<img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
-							</figure>
-						</div>
-						<div class="card-content">
-							<div class="content">
-								<a :href="'https://parkpeople.ca/resources/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
-								<div v-html="$options.filters.readMore(related.excerpt.rendered, 100, '...')"></div>
-								<div v-if="related.pure_taxonomies.activity" class="activity-list-container">
-									<b>Do in parks:</b>
-									<ul class="card__activity-list">
-										<li v-for="tax in related.pure_taxonomies.activity">{{ tax.name | toUppercase }}</li>
-									</ul>
+				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
+			</div>
+		</section>
+		<section class="grant-illustration">
+			<div class="main-animation">
+				<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
+			</div>
+			<div class="clouds">
+			</div>
+		</section>
+		<section class="more-info">
+			<div class="container">
+				<div v-html="data.meta_box._page_grant_more_info"></div>
+			</div>
+		</section>
+		<section class="second-cta">
+			<div class="container">
+				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
+			</div>
+		</section>
+		<section class="grants-newsletter">
+			<div class="container">
+				<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>
+				<!-- <div>
+					<app-form skin="grants" button="Okay!"></app-form>
+				</div> -->
+			</div>
+		</section>
+		<section class="grant-sponsors">
+			<p>Made possible by a great collaboration:</p>
+			<ul>
+				<li v-for="sponsor in data.meta_box._page_grant_sponsors">
+					<img :src="sponsor['_page_g_sponsor_img']" alt="">
+					<!-- <span v-html="point['_page_eligibility_copy']"></span> -->
+				</li>
+			</ul>
+		</section>
+		<section class="related-resources">
+			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
+			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
+			<div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Browse our resource section.</a></strong></div>
+			<div class="wide-container">
+				<div class="columns is-multiline">
+					<div class="column is-one-quarter" v-for="related in relatedPosts" :key="related.title.rendered">
+						<div class="card">
+							<div class="card-image">
+								<figure class="image is-2by1">
+									<img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
+								</figure>
+							</div>
+							<div class="card-content">
+								<div class="content">
+									<a :href="'https://parkpeople.ca/resources/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
+									<div v-html="$options.filters.readMore(related.excerpt.rendered, 100, '...')"></div>
+									<div v-if="related.pure_taxonomies.activity" class="activity-list-container">
+										<b>Do in parks:</b>
+										<ul class="card__activity-list">
+											<li v-for="tax in related.pure_taxonomies.activity">{{ tax.name | toUppercase }}</li>
+										</ul>
+									</div>
+									<div v-if="related.pure_taxonomies.learn" class="activity-list-container">
+										<b>Know about parks:</b>
+										<ul class="card__learn-list">
+											<li v-for="tax in related.pure_taxonomies.learn">{{ tax.name | toUppercase }}</li>
+										</ul>
+									</div>
+									<small>{{ related.type | removeHyphen | toTitleCase }}</small>
 								</div>
-								<div v-if="related.pure_taxonomies.learn" class="activity-list-container">
-									<b>Know about parks:</b>
-									<ul class="card__learn-list">
-										<li v-for="tax in related.pure_taxonomies.learn">{{ tax.name | toUppercase }}</li>
-									</ul>
-								</div>
-								<small>{{ related.type | removeHyphen | toTitleCase }}</small>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</section>
+		<!-- <div class="skewed-bg"></div> -->
+	</div>
+	<div v-else class="loading-panel">
+		<div>
+			<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/birdflying_pp_small.gif" alt="">
 		</div>
-	</section>
-	<!-- <div class="skewed-bg"></div> -->
-</div>
+	</div>
 </template>
 
 <script>
@@ -110,7 +115,8 @@ export default {
 		return {
 			data: {},
 			relatedPosts: [],
-			errors: []
+			errors: [],
+			loading: true
 		};
 	},
 	filters: {
@@ -152,6 +158,9 @@ export default {
 		.then(response => {
             console.log(response.data)
 			this.data = response.data
+			
+			this.loading = false
+
 			axios.all([
 				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=20'),
 				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/research/?_embed&categories=133&per_page=20'),
@@ -171,6 +180,7 @@ export default {
 				console.log(e)
 				this.errors.push(e)
 			})
+
 		})
 		.catch(e => {
 			console.log(e)
@@ -203,6 +213,14 @@ h1 {
 .container {
     max-width: 800px;
     margin: 0 auto;
+}
+
+.loading-panel {
+	min-height: 100vh;
+	background: $white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .wide-container {
