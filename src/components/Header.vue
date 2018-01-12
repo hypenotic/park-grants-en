@@ -10,7 +10,8 @@
             <!-- <router-link to="" class="lang">EN</router-link> -->
             <!-- <router-link to="https://parkpeople.ca/boursesdeparc" class="lang">FR</router-link> -->
             <!-- NEED AN IF CHECK FOR IF WE'RE ON THE FAQ PAGE -->
-            <a href="https://parkpeople.ca/boursesdeparc">FR</a>
+            <a v-if="this.$route.path == '/faq'" href="https://parkpeople.ca/boursesdeparc/faq">FR</a>
+            <a v-else href="https://parkpeople.ca/boursesdeparc">FR</a>
             {{ lang }}
         </div>
 
@@ -36,6 +37,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import '../styles/variables.scss';
+
 .green {
     background-color: #067f1b;
 }
@@ -43,6 +47,8 @@ export default {
 .lang {
     color: white;
     margin: 1em;
+    display: flex;
+    align-items: center;
     a {
         color: white;
         &:hover {
@@ -56,9 +62,21 @@ export default {
 }
 
 .grants-logo {
-    max-height: 55px;
+    max-height: 50px;
     width: auto;
     margin-top: 3px;
     margin-left: 8px; 
+    @media #{$large-and-up} {
+		max-height: 70px;
+        width: auto;
+        margin-top: 3px;
+        margin-left: 8px; 
+	}
+    @media #{$xlarge-and-up} {
+		max-height: 80px;
+        width: auto;
+        margin-top: 3px;
+        margin-left: 8px; 
+	}
 }
 </style>

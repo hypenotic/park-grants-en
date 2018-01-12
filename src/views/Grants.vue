@@ -71,7 +71,7 @@
 						</div>
 						<div class="card-content">
 							<div class="content">
-								<router-link :to="'/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></router-link>
+								<a :href="'https://parkpeople.ca/resources/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
 								<div v-html="$options.filters.readMore(related.excerpt.rendered, 100, '...')"></div>
 								<div v-if="related.pure_taxonomies.activity" class="activity-list-container">
 									<b>Do in parks:</b>

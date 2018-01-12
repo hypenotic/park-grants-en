@@ -245,7 +245,7 @@ ol.resource__bullets {
         line-height: 1.5;
     }
     ul {
-        margin-left: 40px;
+        margin-left: 48px;
         list-style-type: disc;
         li {
             list-style-type: disc;
