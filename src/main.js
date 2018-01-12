@@ -4,6 +4,7 @@ import store from './store'
 import App from './App.vue'
 // After install add Vue Router to our main app
 import VueRouter from 'vue-router'
+import VueAnalytics from 'vue-analytics'
 import { routes } from './routes'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
@@ -40,6 +41,21 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 })
+
+Vue.use(VueAnalytics, {
+	id: 'UA-73699301-1',
+	// commands: {
+	// 	trackClick (name = 'unknown') {
+	// 	   $ga.track('Social Link', 'click', 'Social Account', name)
+	// 	}
+	// }
+	// debug: {
+	// 	enabled: true,
+	// 	trace: false,
+	// 	sendHitTask: true
+	// },
+	router
+});
 
 new Vue({
   el: '#app',
