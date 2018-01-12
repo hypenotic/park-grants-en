@@ -111,6 +111,7 @@ small {
     p {
 		font-size: 0.8rem;
 		line-height: 1.3rem;
+        margin-bottom: 0.8rem;
 	}
 }
 
@@ -241,6 +242,7 @@ ol.resource__bullets {
         color: $orange !important;
     }
     h5 {
+        font-size: 1.3rem;
         font-weight: bold;
         line-height: 1.5;
     }
