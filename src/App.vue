@@ -64,7 +64,7 @@ h1 {
 }
 
 h2 {
-    font-size: 2.375rem;
+    font-size: 2rem;
     @media #{$large-and-up} {
         font-size: 3.375rem;
     }

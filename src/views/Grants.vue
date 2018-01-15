@@ -194,6 +194,9 @@ export default {
 
 .section {
 	background-color: #fff;
+	@media #{$small-and-down} {
+		padding: 24px 1.5rem !important;
+	}
 }
 
 .card-content {
@@ -202,7 +205,7 @@ export default {
 
 h1 {
     color: $orange;
-	font-size: 45px;
+	font-size: 40px;
 	line-height: 1.2;
 	font-weight: 700;
 	@media #{$large-and-up} {
@@ -320,6 +323,13 @@ img {
 }
 
 .application-eligibility {
+	position: relative;
+	z-index: 500;
+	@media #{$small-and-down} {
+        div + div {
+			margin-top: 40px;
+		}
+	}
 	@media #{$large-and-up} {
         display: flex;
 		justify-content: space-between;
@@ -485,13 +495,20 @@ img {
 }
 
 .related-resources {
-	padding: 50px;
+	padding: 24px;
 	padding-bottom: 180px;
 	margin-top: 50px;
 	margin-bottom: -50px;
+	@media #{$medium-and-up} {
+		padding: 50px;
+	}
 	h3 {
 		color: $green;
 		font-size: 40px;
+		@media #{$small-and-down} {
+			font-size: 32px;
+			font-weight: bold;
+		}
 	}
 	a {
         border-bottom: 1px solid $blue;
@@ -529,7 +546,7 @@ img {
 	.main-animation {
 		position: absolute;
 		left: 0;
-		top: 100px;
+		top: 130px;
 		z-index: 20;
 		@media #{$large-and-up} {
 			top: -15%;
@@ -556,7 +573,9 @@ img {
 		z-index: 10;
 		-webkit-animation: slide 40s linear infinite alternate;
 		animation: slide 40s linear infinite alternate;
-
+		@media #{$small-and-down} {
+			height: 350px;
+		}
 		@media #{$xlarge-and-up} {
 			// width: 1000px;
 			background-size: contain;
