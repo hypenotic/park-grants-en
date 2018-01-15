@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="position: relative;">
         <app-header></app-header>
         <transition name="fade">
             <router-view :key="$route.fullPath"></router-view>
@@ -45,14 +45,14 @@ html, body {
 
 .credits {
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     p {
         margin: 0;
         font-size: 0.7rem;
         color: $white;
         text-align: right;
-        padding: 16px 0;
+        padding: 16px;
         opacity: 0.4;
         a {
             color: $white;
