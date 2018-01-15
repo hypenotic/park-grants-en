@@ -80,7 +80,7 @@
 								<div class="content">
 									<small style="font-family: 'Dosis';font-size: 12px;"> {{ related.type | removeHyphen | toTitleCase }}</small>
 
-									<a :href="'https://parkpeople.ca/resources/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
+									<a :href="'https://parkpeople.ca/resources/en/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
 									<div v-html="$options.filters.readMore(related.excerpt.rendered, 100, '...')"></div>
 									<div v-if="related.pure_taxonomies.activity" class="activity-list-container">
 										<strong>Do in parks</strong>: <span v-for="tax in related.pure_taxonomies.activity" :key="tax.name">{{ tax.name  }}</span>
