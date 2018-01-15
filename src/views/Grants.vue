@@ -501,6 +501,7 @@ img {
 	margin-bottom: -50px;
 	@media #{$medium-and-up} {
 		padding: 50px;
+		padding-bottom: 200px;
 	}
 	h3 {
 		color: $green;
