@@ -66,7 +66,7 @@
 		<section class="related-resources">
 			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
 			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
-			<div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div>
+			<!-- <div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div> -->
 			<div class="wide-container">
 				<div class="columns is-multiline">
 					<div class="column is-one-quarter" v-for="related in relatedPosts" :key="related.title.rendered">
