@@ -481,7 +481,12 @@ img {
 		padding: 16px 32px;
 		height: 50px;
 		@media #{$small-and-down} {
+			height: auto;
 			margin-top: 8px;
+			width: 80%;
+			white-space: normal;
+			display: block;
+			margin: 0 auto;
 		}
 		&:hover {
 			background: $blue;
