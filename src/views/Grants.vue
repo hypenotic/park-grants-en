@@ -205,7 +205,7 @@ export default {
 
 h1 {
     color: $orange;
-	font-size: 40px;
+	font-size: 35px;
 	line-height: 1.2;
 	font-weight: 700;
 	@media #{$large-and-up} {
@@ -316,7 +316,10 @@ img {
 .topContent {
     margin: 32px 0;
 	margin-bottom: 50px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+	@media #{$medium-and-up} {
+		font-size: 1.2rem;
+    }
     p {
         font-size: 1.2rem;
     }
@@ -337,9 +340,12 @@ img {
 			width: 45%;
 			// margin: 0 1%;
 			h2 {
-				font-size: 1.2rem;
+				font-size: 1rem;
 				font-weight: 700;
 				font-family: $family-sanserif;
+				@media #{$medium-and-up} {
+					font-size: 1.2rem;
+				}
 			}
 		}
 	}
@@ -475,7 +481,7 @@ img {
 		padding: 16px 32px;
 		height: 50px;
 		@media #{$small-and-down} {
-			margin-top: 100px;
+			margin-top: 8px;
 		}
 		&:hover {
 			background: $blue;

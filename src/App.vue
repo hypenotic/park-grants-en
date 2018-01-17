@@ -37,10 +37,14 @@ $family-sanserif: "Dosis", sans-serif;
 $serif: "Merriweather", serif;
 
 html, body {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 1.5;
     font-family: $family-cursive;
     color: $body-color;
+    @media #{$medium-and-down} {
+		font-size: 18px;
+        line-height: 26px;
+    }
 }
 
 .credits {
@@ -87,7 +91,7 @@ h1 {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     @media #{$large-and-up} {
         font-size: 3.375rem;
     }
@@ -100,7 +104,7 @@ h3 {
 h4 {
     font-size: 2.25rem;
     @media #{$small-and-down} {
-		font-size: 1.9rem;
+		font-size: 1.3rem;
     }
 }
 
@@ -220,10 +224,17 @@ ol.resource__bullets {
 
 .topContent {
     margin: 32px 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    @media #{$medium-and-up} {
+		 font-size: 1.2rem;
+    }
     p {
-        font-size: 1.2rem;
-        line-height: 1.5;
+        font-size: 1rem;
+        line-height: 1.6;
+        @media #{$medium-and-up} {
+		 font-size: 1.2rem;
+         line-height: 1.5;
+        }
     }
     a {
         border-bottom: 1px solid $blue;
@@ -271,9 +282,12 @@ ol.resource__bullets {
         color: $orange !important;
     }
     h5 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: bold;
         line-height: 1.5;
+        @media #{$medium-and-up} {
+            font-size: 1.3rem;
+        }
     }
     ul {
         margin-left: 48px;

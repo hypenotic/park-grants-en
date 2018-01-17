@@ -3,7 +3,7 @@
 	<img class="heading" src="https://parkpeople.ca/listings/custom/uploads/2018/01/placeimg_1000_500_nature2.jpg">
 	<section style="margin-top: -200px;">
 		<div class="columns">
-			<div class="column is-three-fifths is-offset-one-fifth" style="background-color: white; padding: 72px 72px 0;position: relative;margin-bottom: 30px;">
+			<div class="column is-three-fifths is-offset-one-fifth">
 				<h1 v-html="data.meta_box._page_grant_faq_heading"></h1>
 				<div class="FAQ-content" v-html="data.meta_box._page_grant_faq_copy"></div>
 			</div>
@@ -79,6 +79,16 @@ export default {
 <style lang="scss" scoped>
 
 @import '../styles/variables.scss';
+
+.column {
+	background-color: white; 
+	padding: 72px 72px 0;
+	position: relative;
+	margin-bottom: 30px;
+	@media #{$small-and-down} {
+        padding: 40px;
+    }
+}
 
 h1 {
 	color: $off-black;
