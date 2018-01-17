@@ -63,7 +63,7 @@
 				</li>
 			</ul>
 		</section>
-		<section class="related-resources">
+		<section class="related-resources" id="related-resources-jump">
 			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
 			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
 			<!-- <div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div> -->
