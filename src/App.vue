@@ -41,7 +41,7 @@ html, body {
     line-height: 1.5;
     font-family: $family-cursive;
     color: $body-color;
-    @media #{$medium-and-down} {
+    @media #{$medium-and-up} {
 		font-size: 18px;
         line-height: 26px;
     }
