@@ -423,6 +423,9 @@ img {
 	font-size: 32px;
 	margin: 32px 0;
 	font-weight: bold;
+	@media #{$large-and-up} {
+        padding: 4px 40px;
+	}
 	&:hover {
 		background-color: $white;
 		color: $orange;
