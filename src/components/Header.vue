@@ -123,7 +123,7 @@ export default {
 }
 
 nav#scrolling {
-    @media #{$small-and-down} {
+    @media #{$medium-and-down} {
 		// display: block;
 		position: fixed; 
         width: 100%;
@@ -140,7 +140,7 @@ nav#scrolling {
 		color: $white;
 		font-size: 30px;
 	}
-	@media #{$small-and-down} {
+	@media #{$medium-and-down} {
 		display: block;
 		position: fixed; 
 		right: 30px;
@@ -151,7 +151,7 @@ nav#scrolling {
 }
 
 .navbar {
-    @media #{$small-and-down} {
+    @media #{$medium-and-down} {
         display: flex;
         align-items: center;
         position: relative;
@@ -160,7 +160,7 @@ nav#scrolling {
 }
 
 .navbar-brand {
-    @media #{$small-and-down} {
+    @media #{$medium-and-down} {
         display: inline-block;
     }
 }
@@ -185,7 +185,7 @@ nav#scrolling {
 }
 
 .navbar-menu.menu-open {
-    @media #{$small-and-down} {
+    @media #{$medium-and-down} {
         position: absolute;
         display: inline-block;
         top: 55px;
@@ -199,7 +199,7 @@ nav#scrolling {
     align-items: center;
     color: white;
     margin: 1em;
-    @media #{$small-and-down} {
+    @media #{$medium-and-down} {
         display: inline-block;
         margin: 0 0 0 16px;
     }

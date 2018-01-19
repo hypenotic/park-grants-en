@@ -49,17 +49,13 @@
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
 				<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>
-				<!-- <div>
-					<app-form skin="grants" button="Okay!"></app-form>
-				</div> -->
 			</div>
 		</section>
 		<section class="grant-sponsors">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
 				<li v-for="sponsor in data.meta_box._page_grant_sponsors">
-					<img :src="sponsor['_page_g_sponsor_img']" alt="">
-					<!-- <span v-html="point['_page_eligibility_copy']"></span> -->
+					<img :src="sponsor['_page_g_sponsor_img']" alt="logo">
 				</li>
 			</ul>
 		</section>
@@ -96,7 +92,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- <div class="skewed-bg"></div> -->
 	</div>
 	<div v-else class="loading-panel">
 		<div>
@@ -552,6 +547,9 @@ img {
 	z-index: 100;
 	padding-bottom: 15%;
 	min-height: 300px;
+	@media #{$medium-and-up} {
+		min-height: 300px;
+	}
 	@media #{$large-and-up} {
 		min-height: 500px;
 	}
@@ -560,6 +558,13 @@ img {
 		left: 0;
 		top: 130px;
 		z-index: 20;
+		@media #{$medium-and-up} {
+			top: 15%;
+			width: 700px;
+			left: 50%;
+			margin-left: -350px;
+			// right: 50%;
+		}
 		@media #{$large-and-up} {
 			top: -15%;
 			width: 1300px;
@@ -587,6 +592,12 @@ img {
 		animation: slide 40s linear infinite alternate;
 		@media #{$small-and-down} {
 			height: 350px;
+		}
+		@media #{$medium-and-up} {
+			height: 400px;
+		}
+		@media #{$large-and-up} {
+			height: 500px;
 		}
 		@media #{$xlarge-and-up} {
 			// width: 1000px;

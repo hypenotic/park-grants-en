@@ -263,6 +263,12 @@ ol.resource__bullets {
     @media #{$medium-and-down} {
         padding: 0 24px;
     }
+    @media #{$medium-and-up} {
+		margin-top: 150px;
+	}
+    @media #{$large-and-up} {
+		margin-top: 50px;
+	}
     p, li {
 		font-size: 1rem;
         line-height: 1.5;
