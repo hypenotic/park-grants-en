@@ -6,7 +6,7 @@
 				
 				<div class="topContent" v-html="data.content.rendered"></div>
 
-				<section class="application-eligibility">
+				<!-- <section class="application-eligibility">
 					<div class="application">
 						<h2>Application Process</h2>
 						<ol class="app-list">
@@ -23,9 +23,9 @@
 							</li>
 						</ul>
 					</div>
-				</section>
+				</section> -->
 
-				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
+				<!-- <div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div> -->
 			</div>
 		</section>
 		<section class="grant-illustration">
@@ -35,7 +35,7 @@
 			<div class="clouds">
 			</div>
 		</section>
-		<section class="more-info">
+		<!-- <section class="more-info">
 			<div class="container">
 				<div v-html="data.meta_box._page_grant_more_info"></div>
 			</div>
@@ -44,7 +44,7 @@
 			<div class="container">
 				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
 			</div>
-		</section>
+		</section> -->
 		<section class="grants-newsletter">
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
@@ -59,7 +59,7 @@
 				</li>
 			</ul>
 		</section>
-		<section class="related-resources" id="related-resources-jump">
+		<section class="related-resources" id="related-resources-jump" style="display:none;">
 			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
 			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
 			<!-- <div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div> -->
@@ -188,7 +188,9 @@ export default {
 @import '../styles/variables.scss';
 
 .section {
-	background-color: #fff;
+	// background-color: #fff;
+	position: relative;
+	z-index: 200;
 	@media #{$small-and-down} {
 		padding: 24px 1.5rem !important;
 	}
@@ -543,7 +545,7 @@ img {
 
 .grant-illustration {
 	position: relative;
-	margin-top: -200px;
+	margin-top: -50px;
 	z-index: 100;
 	padding-bottom: 15%;
 	min-height: 300px;
