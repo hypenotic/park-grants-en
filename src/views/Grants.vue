@@ -35,12 +35,12 @@
 			<div class="clouds">
 			</div>
 		</section>
-		<!-- <section class="more-info">
+		<section class="more-info">
 			<div class="container">
 				<div v-html="data.meta_box._page_grant_more_info"></div>
 			</div>
 		</section>
-		<section class="second-cta">
+		<!-- <section class="second-cta">
 			<div class="container">
 				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
 			</div>
@@ -59,7 +59,7 @@
 				</li>
 			</ul>
 		</section>
-		<section class="related-resources" id="related-resources-jump" style="display:none;">
+		<section class="related-resources" id="related-resources-jump">
 			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
 			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
 			<!-- <div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div> -->
