@@ -2,9 +2,14 @@
 	<div v-if="loading==false">
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
 			<div class="container">
-				<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
-				
-				<div class="topContent" v-html="data.content.rendered"></div>
+				<!-- <h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1> -->
+				<h1 id="bird-anchor">TD Park People Grants: Bringing People Together in City Parks</h1>
+
+				<div class="topContent">
+					<p>TD Park People Grants are helping community groups host over 160 great events in city parks across Canada.  We know that when we gather together in our parks people are happier, communities are more connected and cities thrive.</p>
+				</div>
+
+				<!-- <div class="topContent" v-html="data.content.rendered"></div> -->
 
 				<!-- <section class="application-eligibility">
 					<div class="application">
@@ -28,6 +33,36 @@
 				<!-- <div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div> -->
 			</div>
 		</section>
+
+		<section class="map-section">
+			<h2>TD Park People Events Across Canada</h2>
+
+			<section class="google-map" id="contact-map"></section>
+		</section>
+				
+
+		<section class="event-templates">
+			<h3>Spread the word about your community events in city parks</h3>
+			<div class="three-column">
+				<div>
+					<h4>Posters and Flyers</h4>
+					<p>Editable PDF posters you can use to make your event shine all around the neighbourhood.</p>
+					<a href="#">Download</a>
+				</div>
+				<div>
+					<h4>Social Media Graphics</h4>
+					<p>Get your Twitter, Facebook, and Instagram graphics ready to give your event the social media fame it deserves.</p>
+					<a href="#">Download</a>
+				</div>
+				<div>
+					<h4>Wordmark and Usage Guidelines</h4>
+					<p>Making your own poster? Grab the logo version that best fits your design</p>
+					<a href="#">Download</a>
+				</div>
+			</div>
+
+		</section>
+
 		<section class="grant-illustration">
 			<div class="main-animation">
 				<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
@@ -35,11 +70,19 @@
 			<div class="clouds">
 			</div>
 		</section>
-		<section class="more-info">
+
+		<!-- <section class="grant-illustration">
+			<div class="main-animation">
+				<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
+			</div>
+			<div class="clouds">
+			</div>
+		</section> -->
+		<!-- <section class="more-info">
 			<div class="container">
 				<div v-html="data.meta_box._page_grant_more_info"></div>
 			</div>
-		</section>
+		</section> -->
 		<!-- <section class="second-cta">
 			<div class="container">
 				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
@@ -106,10 +149,18 @@ import axios from 'axios';
 export default {
 	data() {
 		return {
+			mapName: "contact-map",
 			data: {},
 			relatedPosts: [],
 			errors: [],
-			loading: true
+			loading: true,
+			markerCoordinates: [],
+			map: null,
+			bounds: null,
+			markers: [],
+			posts: [],
+			lat: '',
+			lng: ''
 		};
 	},
 	filters: {
@@ -143,8 +194,64 @@ export default {
 
 	},
 	mounted() {
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                var isDraggable = false;
+            } else {
+                var isDraggable = true;
+            }
+            this.markerCoordinates.push(
+                {latitude: 43.52385109999999, longitude: -79.71254299999998},
+            );
+            this.bounds     = new google.maps.LatLngBounds();
+            const element   = document.getElementById(this.mapName)
+            const mapCentre = this.markerCoordinates[0]
+            const options   = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 15,
 
-	},
+                scrollwheel:  false,
+                draggable: isDraggable,
+
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(43.52385109999999, -79.71254299999998), 
+
+                // How you would like to style the map. 
+                // This is where you would paste any style found on Snazzy Maps.
+                styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#2d2d2d"}]},{"featureType":"landscape","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"landscape","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#2d2d2d"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#a68d29"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#a68d29"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"},{"color":"#a68d29"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#2d2d2d"},{"lightness":9},{"visibility":"simplified"}]},{"featureType":"transit.station","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.station.airport","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"water","elementType":"geometry","stylers":[{"saturation":-83},{"lightness":-51}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]}]
+            }
+            this.map = new google.maps.Map(element, options);
+            this.markerCoordinates.forEach((coord) => {
+                const position  = new google.maps.LatLng(coord.latitude, coord.longitude);
+                const theicon = 'https://ingenuity.ca/custom/themes/ingenuity/dist/images/homemap.png'
+                const marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(43.52385109999999, -79.71254299999998),
+                    map: this.map,
+                    icon: theicon
+                });
+                this.markers.push(marker)
+
+                const contentString = '<div id="info-window-content">'+
+                '<h3 id="firstHeading" class="firstHeading">Drop by for an espresso!</h3>'+
+                '<a href="https://www.google.com/maps/place/Ingenuity/@43.523322,-79.7135727,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x390b5b52408b8c40!8m2!3d43.523322!4d-79.711384?hl=en" target="_blank"><p>3800A Laird Rd. - Unit 1 </p>'+
+                '<p>Mississauga, ON L5L 0B2</p></a>'+
+                '<a href="tel:+1-905-569-2624" target="_blank"><p>(905) 569-2624</p></a>'+
+                '</div>';
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(this.map,marker);
+                });
+
+                infowindow.open(this.map,marker);
+
+                // this.map.fitBounds(this.bounds.extend(position))
+            });
+            this.map.panBy(0, -120);
+
+        },
 	created() {
 		console.log('hi')
 		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
@@ -191,8 +298,65 @@ export default {
 	// background-color: #fff;
 	position: relative;
 	z-index: 200;
+	padding-bottom: 0;
 	@media #{$small-and-down} {
 		padding: 24px 1.5rem !important;
+	}
+}
+
+.map-section {
+	h2 {
+		color: $green;
+		text-align: center;
+		font-size: 40px;
+		max-width: 960px;
+		margin: 0 auto 24px;
+	}
+}
+
+#contact-map {
+	width: 100%;
+	min-height: 80vh;
+	background: #eee;
+	margin-bottom: 56px;
+	@media #{$small-and-down} {
+		min-height: 90vh;
+	}
+}
+
+.event-templates {
+	h3 {
+		color: $green;
+		text-align: center;
+		font-size: 40px;
+	}
+	h4 {
+		font-size: 30px;
+	}
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.three-column {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 32px;
+	padding-bottom: 100px;
+	> div {
+		width: 30%;
+		a {
+			display: inline-block;
+			border-radius: 50px;
+			padding: 16px 24px;
+			color: $orange;
+			border: 2px solid $orange;
+			background: $white;
+			&:hover {
+				background: $orange;
+				color: $white;
+				border: 2px solid $orange;
+			}
+		}
 	}
 }
 
@@ -206,7 +370,7 @@ h1 {
 	line-height: 1.2;
 	font-weight: 700;
 	@media #{$large-and-up} {
-		font-size: 56px;
+		font-size: 45px;
 		line-height: 1.3;
 		font-weight: 700;
 		margin-top: 20px;
@@ -553,7 +717,7 @@ img {
 		min-height: 300px;
 	}
 	@media #{$large-and-up} {
-		min-height: 500px;
+		min-height: 400px;
 	}
 	.main-animation {
 		position: absolute;
@@ -569,9 +733,9 @@ img {
 		}
 		@media #{$large-and-up} {
 			top: -15%;
-			width: 1300px;
+			width: 800px;
 			left: 50%;
-			margin-left: -650px;
+			margin-left: -400px;
 			// right: 50%;
 		}
 		@media #{$xlarge-and-up} {
@@ -599,7 +763,7 @@ img {
 			height: 400px;
 		}
 		@media #{$large-and-up} {
-			height: 500px;
+			height: 350px;
 		}
 		@media #{$xlarge-and-up} {
 			// width: 1000px;
