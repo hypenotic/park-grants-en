@@ -308,7 +308,7 @@ export default {
 	h2 {
 		color: $green;
 		text-align: center;
-		font-size: 40px;
+		font-size: 35px;
 		max-width: 960px;
 		margin: 0 auto 24px;
 	}
@@ -340,14 +340,14 @@ export default {
 .three-column {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 32px;
+	margin-top: 40px;
 	padding-bottom: 100px;
 	> div {
 		width: 30%;
 		a {
 			display: inline-block;
 			border-radius: 50px;
-			padding: 16px 24px;
+			padding: 8px 32px;
 			color: $orange;
 			border: 2px solid $orange;
 			background: $white;
