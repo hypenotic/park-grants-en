@@ -1,0 +1,601 @@
+<template v-if="this.$store.state.locationList != null">
+    <section class="filter" >
+        <div id="mobile-filter-trigger">
+            <i class="fa fa-sliders" aria-hidden="true"></i> <span>Filters</span>
+        </div>
+        <div class="filter-bar">
+            <ul>
+                <li><span style="color: white;">SHOW :</span></li>
+                <li class="groups-check">
+                    <input type="checkbox" id="groups" class="selector" checked>
+                    <label for="groups"><span class="checkbox">View park groups</span></label>
+                </li>
+                <li class="events-check">
+                    <input type="checkbox" id="events" class="selector" checked>
+                    <label for="events"><span class="checkbox">View park events</span></label>
+                </li>
+                <li><span>FILTER: </span><span style="text-transform: none;"><a href="#" class="info"> Find park groups and events based on the kinds of activities they do</a></span><span id="copy-selected-acts"></span></li>
+            </ul>
+
+            <div class="activity-list">
+                <form>
+                    <div class="activity-groups">
+                            <div class="activity-groups__single mb30">
+                                <div class="activity-groups__single__header">
+                                    <img src="<?php echo $iconURL[0];?>" alt="">
+                                    <h6 style="color: white;">
+                                    </h6>
+                                </div>
+                                <ul>
+                                    <li class="map-chbx-trigger"> 
+                                        <input type="checkbox" class="chk-btn" data-term="<?php echo $child_term->term_id; ?>" id="<?php echo $child_term->slug; ?>" name="<?php echo $activity->slug; ?>[]" value="<?php echo $child_term->term_id; ?>">
+                                        <label for="<?php echo $child_term->slug; ?>">
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="submit-bar">
+                        <div class="submit-bar-wrapper">
+                            <span id="whole-sentence-count"><span id="activities-selected">0</span> activities selected. Ready?</span>
+                            <div type="submit" class="button button--small" id="apply-search">Search!</div>
+                            <div id="clear-filters" class="hidden-clear"><span>Clear All Activities</span></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>        
+        
+        <ul class="map-type">
+            <li id="map-view-trigger" class="view-trigger active-trigger"><i class="fa fa-map-o fa-2x" aria-hidden="true"></i></li>
+            <li id="list-view-trigger" class="view-trigger"><i class="fa fa-list fa-2x" aria-hidden="true"></i></li>
+        </ul>
+    </section>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                
+            }
+        },
+        mounted() {
+            
+        },
+        methods: {
+           
+        },
+        computed: {
+        },
+    }
+</script>
+
+<style lang="scss" scoped>
+
+@import '../styles/variables.scss';
+
+.filter {
+  background-color:rgba(63,63,63,1);
+  height: 62px; 
+  position: relative; 
+  top:10px; 
+  z-index: 50; 
+  width: 100%;
+  a {
+    color: white;
+    font-family: $nav-type;
+  }
+}
+
+.filter .filter-bar,
+.filter form  {
+  position: relative;
+  float: left;
+  ul {
+    list-style-type: none; 
+    margin: 1.2em; 
+    padding: 0; 
+    overflow: hidden;
+    li {
+        float:left; 
+        margin-right: 3em;
+    }
+  }
+}
+
+.filter .fa {
+    color: white;
+}
+
+.filter input[type="checkbox"]{
+  display: none;
+}
+
+.filter label {
+  position: relative;
+}
+
+.filter span {
+    // text-transform: uppercase;
+    font-family: $nav-type;
+    color: white;
+    opacity: 0.8;
+    letter-spacing: 0.4px;
+}
+
+/* Base styles for spans */
+.filter span::before,
+.filter span::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/* Check-boxes */
+.filter span.checkbox::before {
+  width: 24px;
+  height: 24px;
+  // background-color: #000;
+  border-radius: 50%;
+  left: -30px;
+  box-sizing: border-box;
+  // border: 3px solid #FF6A00;
+
+  transition: border-color .2s;
+}
+// .filter span.checkbox:hover::before {
+//   border: 3px solid #FF6A00;
+// }
+.groups-check span.checkbox::before {
+  border: 3px solid orange;
+  background: #eaeaea;
+}
+
+.groups-check span.checkbox:hover::before {
+  border: 3px solid orange;
+  background: #eaeaea;
+}
+.events-check span.checkbox::before {
+  border: 3px solid $blue;
+  background: #eaeaea;
+}
+
+.events-check span.checkbox:hover::before {
+  border: 3px solid $blue;
+  background: #eaeaea;
+}
+.filter span.checkbox::after {
+  content: '\f00c';
+  font-family: 'FontAwesome';
+  left: -25px;
+  top: -1px;
+  color: transparent;
+  // color: #3f3f3f;
+  transition: color .2s;
+}
+.filter input[type="checkbox"]:checked + label span.checkbox::after {
+  color: white;
+  color: #3f3f3f;
+}
+
+// Home Activities
+
+.filter-bar{
+  z-index: 80;
+  position: relative;
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid $white;
+  }
+  @media #{$small-and-down} {
+    display: none;
+  }
+}
+
+.filter-bar.active-mobile{
+  @media #{$small-and-down} {
+    display: block;
+    background: $grey;
+  }
+}
+
+#mobile-filter-trigger {
+  color: $white;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 20px;
+  i {
+    color: white;
+    font-size: 30px;
+    margin-right: 5px;
+  }
+  @media #{$medium-and-up} {
+    display: none;
+  }
+}
+
+.filter .map-type {
+  list-style-type: none; 
+  @media #{$small-and-down} {
+    position: absolute;
+    top: 0px;
+    right: 30px;
+    li {
+      display:inline-block;
+      padding-left: 10px;
+    }
+  }
+  @media #{$medium-and-up} {
+    float: right;
+    li {
+      float:left; margin-right: 2em;
+    }
+  }
+}
+
+.activity-list {
+  z-index: 70;
+  background-color:rgba(63,63,63,1);
+  // display: none; 
+  // padding: 30px 20px;
+  transition: height 0.5s ease;
+  width: 50vw;
+  top: -50px;
+  // z-index: -1;
+  @media #{$small-and-down} {
+    display: block;
+    min-height: 100vh;
+    opacity: 1;
+    overflow: inherit;
+    width: 100vw;
+    // z-index: 5;
+    top: 60px;
+  }
+  @media #{$medium-and-up} {
+    position: absolute;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+}
+.hidden {
+  display: block;
+  min-height: 100vh;
+  opacity: 1;
+  overflow: inherit;
+  width: 100vw;
+  // z-index: 5;
+  top: 50px;
+  transition: height 0.5s ease;
+}
+
+.filter .activity-list {
+  form ul li {
+    margin: 0 10px 5px 0;
+  }
+}
+
+.filter .activity-list input[type="checkbox"]{
+  // display: inline-block;
+}
+
+.activity-groups__single__header {
+  margin-bottom: 15px;
+  @media #{$medium-and-up} {
+    display: flex;
+    align-items:center;
+  }
+  img {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+  }
+  h6 {
+    display: inline-block;
+    margin: 0;
+  }
+}
+
+.filter-bar .activity-groups {
+  padding: 30px 20px;
+  overflow-y: scroll;
+  max-height: 250px;
+  @media #{$medium-and-up} {
+    max-height: 400px;
+  }
+  @media #{$large-and-up} {
+    max-height: 65vh;
+  }
+}
+
+.submit-bar {
+  text-align: right;
+  position: fixed;
+  // right: 192px;
+  // bottom: -70px;
+  font-family: $nav-type;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  display: block;
+  // &:hover {
+
+  // }
+  width: 100%;
+  border-radius: 0;
+  bottom: 0;
+  background: $blue;
+  @media #{$small-and-down} {
+    text-align: center;
+    padding: 15px 0;
+  }
+  .submit-bar-wrapper {
+    max-width: 90%;
+    margin: 0 auto;
+    @media #{$small-and-down} {
+      // max-width: 70%;
+    }
+    >span {
+      display: inline-block;
+      // padding-top: 15px;
+      line-height: 20px;
+      opacity: 1;
+      span {
+        opacity: 1;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.filter li.radius-filters {
+  color: $white;
+  // opacity: 0.8;
+  text-transform: uppercase;
+  font-family: $nav-type;
+  vertical-align: top;
+  display: flex;
+  align-items: center;
+  padding: 30px 20px 0;
+  >span {
+    margin-right: 10px;
+  }
+  ul {
+    margin: 0;
+    display: inline-block;
+    li {
+      input {
+        margin: 0;
+      }
+      label {
+        color: $white;
+        font-family: $nav-type;
+      }
+      margin: 0;
+      margin-right: 15px;
+    }
+  }
+}
+
+#apply-search {
+  display: inline-block;
+  background: $white;
+  color: $blue;
+  border: 2px solid $white;
+  margin-left: 8px;
+  // text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px 30px;
+  &:hover {
+    // background: lighten($blue, 20);
+    background: $blue;
+    color: $white;
+  }
+}
+
+/* Absolute Center Spinner */
+#main-map {
+  // position:relative;
+}
+
+.loading {
+  display: none;
+}
+
+.loading.active-loader {
+  display: block;
+  position: fixed;
+  z-index: 80;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+// .initial-load-overlay {
+//   display: block;
+//   // display: none;
+//   position: fixed;
+//   z-index: 1;
+//   height: 2em;
+//   width: 2em;
+//   overflow: show;
+//   margin: auto;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   &:before {
+//     content: '';
+//     display: block;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(0,0,0,0.3);
+//   }
+// }
+
+/* Transparent Overlay */
+.loading.active-loader:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading.active-loader:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading.active-loader:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+#clear-filters {
+  display: inline-block;
+  margin-left: 10px;
+  &:hover span {
+    opacity: 1;
+  }
+}
+
+#clear-filters span {
+  // border-radius: 0;
+  border-bottom: 1px solid $white;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#clear-filters.hidden-clear {
+  display: none;
+}
+
+#reset-location {
+  display: block;
+  top: 70px;
+  left: 15px;
+  font-family: $nav-type;
+  z-index: 1;
+}
+
+#reset-location.hidden-reset-loc {
+  display: none;
+}
+
+#no-results {
+  display: none;
+}
+
+#no-results.active-no-results {
+  display: block;
+  span {
+    color: $blue;
+    border-bottom: 1px solid $blue;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+</style>

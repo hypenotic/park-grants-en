@@ -1,5 +1,5 @@
 <template>
-	<div v-if="loading==false">
+	<div v-if="data != null">
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
 			<div class="container">
 				<!-- <h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1> -->
@@ -9,35 +9,13 @@
 					<p>TD Park People Grants are helping community groups host over 160 great events in city parks across Canada.  We know that when we gather together in our parks people are happier, communities are more connected and cities thrive.</p>
 				</div>
 
-				<!-- <div class="topContent" v-html="data.content.rendered"></div> -->
-
-				<!-- <section class="application-eligibility">
-					<div class="application">
-						<h2>Application Process</h2>
-						<ol class="app-list">
-							<li v-for="point in data.meta_box._page_app_process" :key="point['_page_application_copy']" v-html="point['_page_application_copy']">
-							</li>
-						</ol>
-					</div>
-					<div class="eligibility">
-						<h2>Eligibility</h2>
-						<ul>
-							<li v-for="point in data.meta_box._page_eligibility" :key="point['_page_eligibility_copy']">
-								<img :src="point['_page_eligibility_img']" alt="">
-								<span v-html="point['_page_eligibility_copy']"></span>
-							</li>
-						</ul>
-					</div>
-				</section> -->
-
-				<!-- <div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div> -->
 			</div>
 		</section>
 
 		<section class="map-section">
 			<h2>TD Park People Events Across Canada</h2>
 
-			<section class="google-map" id="contact-map"></section>
+			<app-map></app-map>
 		</section>
 				
 
@@ -71,23 +49,6 @@
 			</div>
 		</section>
 
-		<!-- <section class="grant-illustration">
-			<div class="main-animation">
-				<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
-			</div>
-			<div class="clouds">
-			</div>
-		</section> -->
-		<!-- <section class="more-info">
-			<div class="container">
-				<div v-html="data.meta_box._page_grant_more_info"></div>
-			</div>
-		</section> -->
-		<!-- <section class="second-cta">
-			<div class="container">
-				<div class="align-center"><a class="cta_button" :href="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></a></div>
-			</div>
-		</section> -->
 		<section class="grants-newsletter">
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
@@ -97,7 +58,7 @@
 		<section class="grant-sponsors">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
-				<li v-for="sponsor in data.meta_box._page_grant_sponsors">
+				<li v-for="sponsor in data.meta_box._page_grant_sponsors" :key="sponsor['_page_g_sponsor_img']">
 					<img :src="sponsor['_page_g_sponsor_img']" alt="logo">
 				</li>
 			</ul>
@@ -145,22 +106,19 @@
 
 <script>
 import axios from 'axios';
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+import Map from '../components/Map.vue';
 export default {
+	components: {
+        appMap: Map
+    },
+	props: ['name'],
 	data() {
 		return {
-			mapName: "contact-map",
-			data: {},
+			data: null,
 			relatedPosts: [],
 			errors: [],
 			loading: true,
-			markerCoordinates: [],
-			map: null,
-			bounds: null,
-			markers: [],
-			posts: [],
-			lat: '',
-			lng: ''
 		};
 	},
 	filters: {
@@ -194,64 +152,8 @@ export default {
 
 	},
 	mounted() {
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                var isDraggable = false;
-            } else {
-                var isDraggable = true;
-            }
-            this.markerCoordinates.push(
-                {latitude: 43.52385109999999, longitude: -79.71254299999998},
-            );
-            this.bounds     = new google.maps.LatLngBounds();
-            const element   = document.getElementById(this.mapName)
-            const mapCentre = this.markerCoordinates[0]
-            const options   = {
-                // How zoomed in you want the map to start at (always required)
-                zoom: 15,
 
-                scrollwheel:  false,
-                draggable: isDraggable,
-
-                // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(43.52385109999999, -79.71254299999998), 
-
-                // How you would like to style the map. 
-                // This is where you would paste any style found on Snazzy Maps.
-                styles: [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#2d2d2d"}]},{"featureType":"landscape","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"landscape","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#2d2d2d"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#a68d29"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#a68d29"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"},{"color":"#a68d29"}]},{"featureType":"transit.station","elementType":"geometry","stylers":[{"color":"#2d2d2d"},{"lightness":9},{"visibility":"simplified"}]},{"featureType":"transit.station","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.station.airport","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]},{"featureType":"water","elementType":"geometry","stylers":[{"saturation":-83},{"lightness":-51}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#2d2d2d"}]}]
-            }
-            this.map = new google.maps.Map(element, options);
-            this.markerCoordinates.forEach((coord) => {
-                const position  = new google.maps.LatLng(coord.latitude, coord.longitude);
-                const theicon = 'https://ingenuity.ca/custom/themes/ingenuity/dist/images/homemap.png'
-                const marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(43.52385109999999, -79.71254299999998),
-                    map: this.map,
-                    icon: theicon
-                });
-                this.markers.push(marker)
-
-                const contentString = '<div id="info-window-content">'+
-                '<h3 id="firstHeading" class="firstHeading">Drop by for an espresso!</h3>'+
-                '<a href="https://www.google.com/maps/place/Ingenuity/@43.523322,-79.7135727,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x390b5b52408b8c40!8m2!3d43.523322!4d-79.711384?hl=en" target="_blank"><p>3800A Laird Rd. - Unit 1 </p>'+
-                '<p>Mississauga, ON L5L 0B2</p></a>'+
-                '<a href="tel:+1-905-569-2624" target="_blank"><p>(905) 569-2624</p></a>'+
-                '</div>';
-
-                const infowindow = new google.maps.InfoWindow({
-                    content: contentString
-                });
-
-                google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.open(this.map,marker);
-                });
-
-                infowindow.open(this.map,marker);
-
-                // this.map.fitBounds(this.bounds.extend(position))
-            });
-            this.map.panBy(0, -120);
-
-        },
+	},
 	created() {
 		console.log('hi')
 		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
@@ -314,7 +216,7 @@ export default {
 	}
 }
 
-#contact-map {
+#grants-map {
 	width: 100%;
 	min-height: 80vh;
 	background: #eee;
@@ -338,23 +240,25 @@ export default {
 }
 
 .three-column {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 40px;
-	padding-bottom: 100px;
-	> div {
-		width: 30%;
-		a {
-			display: inline-block;
-			border-radius: 50px;
-			padding: 8px 32px;
-			color: $orange;
-			border: 2px solid $orange;
-			background: $white;
-			&:hover {
-				background: $orange;
-				color: $white;
+	@media #{$medium-and-up} {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 40px;
+		padding-bottom: 100px;
+		> div {
+			width: 30%;
+			a {
+				display: inline-block;
+				border-radius: 50px;
+				padding: 8px 32px;
+				color: $orange;
 				border: 2px solid $orange;
+				background: $white;
+				&:hover {
+					background: $orange;
+					color: $white;
+					border: 2px solid $orange;
+				}
 			}
 		}
 	}

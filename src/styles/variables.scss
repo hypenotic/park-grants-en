@@ -1,6 +1,7 @@
 // Colours
 $white: rgba(255,255,255,1);
 $black: rgba(0,0,0,1);
+$grey: rgba(0,0,0,0.3);
 $off-black: rgba(0,0,0,0.65);
 $blue: rgba(30, 177, 242,1);
 $green: rgba(182, 193, 54,1);
@@ -13,6 +14,7 @@ $main-accent: $blue;
 // Font
 $family-cursive: "Comfortaa", cursive;
 $family-sanserif: "Dosis", sans-serif;
+$nav-type: $family-sanserif;
 
 // MQs
 $small-screen-up: 601px !default;

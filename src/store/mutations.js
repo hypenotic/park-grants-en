@@ -10,12 +10,16 @@ import {
     SET_RESOURCES, 
     RECEIVE_GRANT_DATA, 
     TOGGLE_LANGUAGE, 
-    ADD_SINGLE_RESOURCE 
+    ADD_SINGLE_RESOURCE,
+    SET_LOCATION_LIST 
 } from './mutation-types'
 
 export const mutations = {
     SET_RESOURCES(state, list) {
         state.resourceList = list
+    },
+    SET_LOCATION_LIST(state, list) {
+        state.locationList = list
     },
     TOGGLE_LANGUAGE(state, lang) {
         state.language = lang
