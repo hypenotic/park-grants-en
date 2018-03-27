@@ -15,49 +15,56 @@
         components: {
             appFilter: Filter
         },
-        props: ['data'],
+        props: {
+            'latitude': {
+                type: Number,
+                default: function(){
+                return 43.52385109999999
+                }
+            },
+            'longitude': {
+                type: Number,
+                default: function(){
+                return -79.71254299999998
+                }
+            },
+            'zoom': {
+                type: Number,
+                default: function(){
+                return 4
+                }
+            }
+        },
         data() {
             return {
                 mapName: "grants-map",
-                markerCoordinates: [],
-                map: null,
-                bounds: null,
+                // markerCoordinates: [],
+                // bounds: null,
                 markers: [],
                 posts: [],
-                lat: '',
-                lng: ''
+                // lat: '',
+                // lng: ''
             }
         },
         mounted() {
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-                var isDraggable = false;
-            } else {
-                var isDraggable = true;
-            }
-            this.markerCoordinates.push(
-                {latitude: 43.52385109999999, longitude: -79.71254299999998},
-            );
             this.bounds     = new google.maps.LatLngBounds();
-            const element   = document.getElementById(this.mapName)
-            const mapCentre = this.markerCoordinates[0]
+            const element   = document.getElementById('grants-map');
+            // const mapCentre = this.markerCoordinates[0]
             const options   = {
                 // How zoomed in you want the map to start at (always required)
-                zoom: 15,
+                zoom: 4,
 
                 scrollwheel:  false,
-                draggable: isDraggable,
+                // draggable: isDraggable,
 
                 // The latitude and longitude to center the map (always required)
-                center: new google.maps.LatLng(43.52385109999999, -79.71254299999998), 
+                center: {lat: this.latitude, lng: this.longitude}, 
 
                 // How you would like to style the map. 
                 // This is where you would paste any style found on Snazzy Maps.
                 styles: [{"featureType": 'poi.park', elementType: 'geometry',stylers: [{color: '#137E23'}]},{"featureType":"poi.business","stylers": [{ "visibility": "off" }]},{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}]
             }
             this.map = new google.maps.Map(element, options);
-            
-            var markers_array = [];
-            this.map.panBy(0, -120);
 
             this.buildMarkers();
         },
@@ -67,7 +74,7 @@
                 /*
                     Iterate over all of the cafes
                 */
-                for( var i = 0; i < this.$store.state.locationList.length; i++ ){
+                for( var i = 0; i < this.locations.length; i++ ){
 
                     /*
                     Create the marker for each of the cafes and set the
@@ -75,7 +82,7 @@
                     of the cafe. Also set the map to be the local map.
                     */
                     var marker = new google.maps.Marker({
-                    position: { lat: parseFloat( this.$store.state.locationList[i].lat ), lng: parseFloat( this.$store.state.locationList[i].lng ) },
+                    position: { lat: parseFloat( this.locations[i].lat ), lng: parseFloat( this.locations[i].lng ) },
                     map: this.map
                     });
 
@@ -84,9 +91,31 @@
                     */
                     this.markers.push( marker );
                 }
-            }
+            },
+            clearMarkers(){
+                /*
+                Iterate over all of the markers and set the map
+                to null so they disappear.
+                */
+                for( var i = 0; i < this.markers.length; i++ ){
+                this.markers[i].setMap( null );
+                }
+            },
         },
         computed: {
+            locations(){
+                return this.$store.getters.allLocations;
+            }
+        },
+        watch: {
+            /*
+                Watches the cafes. When they are updated, clear the markers
+                and re build them.
+            */
+            locations(){
+                this.clearMarkers();
+                this.buildMarkers();
+            }
         },
     }
 </script>
