@@ -240,26 +240,26 @@ export default {
 }
 
 .three-column {
-	@media #{$medium-and-up} {
+	@media #{$large-and-up} {
 		display: flex;
 		justify-content: space-between;
 		margin-top: 40px;
 		padding-bottom: 100px;
 		> div {
 			width: 30%;
-			a {
-				display: inline-block;
-				border-radius: 50px;
-				padding: 8px 32px;
-				color: $orange;
-				border: 2px solid $orange;
-				background: $white;
-				&:hover {
-					background: $orange;
-					color: $white;
-					border: 2px solid $orange;
-				}
-			}
+		}
+	}
+	a {
+		display: inline-block;
+		border-radius: 50px;
+		padding: 8px 32px;
+		color: $orange;
+		border: 2px solid $orange;
+		background: $white;
+		&:hover {
+			background: $orange;
+			color: $white;
+			border: 2px solid $orange;
 		}
 	}
 }
@@ -618,7 +618,8 @@ img {
 	padding-bottom: 15%;
 	min-height: 300px;
 	@media #{$medium-and-up} {
-		min-height: 300px;
+		margin-top: 0px;
+		min-height: 400px;
 	}
 	@media #{$large-and-up} {
 		min-height: 400px;
@@ -629,7 +630,7 @@ img {
 		top: 130px;
 		z-index: 20;
 		@media #{$medium-and-up} {
-			top: 15%;
+			top: 5%;
 			width: 700px;
 			left: 50%;
 			margin-left: -350px;

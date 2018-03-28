@@ -6,7 +6,7 @@
             <section class="map-list"></section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
             <input id="pac-input" class="controls small-search" type="text" placeholder="Enter your address to find park groups and events near you." style="position: absolute; top: 0; z-index: 15; ">
-            <!-- <div id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1; ">Reset Location</div> -->
+            <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1; ">Reset Location</button>
         </div>
     </div>
 </template>
@@ -73,82 +73,9 @@
             this.searchBox = new google.maps.places.SearchBox(input);
             
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+            let app = this;
             this.searchBox.addListener('places_changed', function() {
-                console.log('rbwrbwrvsr');
-                // var places = searchBox.getPlaces();
-                
-                // if (places.length == 0) {
-                //     return;
-                // }
-
-                // $('#reset-location').removeClass('hidden-reset-loc');
-                // $('#pac-input').addClass('small-search');
-                // // console.log(places);
-
-                // // Might have to do a check for activities and type filter
-                // // TK NOTE
-                // showAllMarkers();
-                // showListAll('list-item');
-                // hide10k();
-                // showHide();
-                
-
-                // // Clear out the old markers.
-                // markers.forEach(function(marker) {
-                //     marker.setMap(null);
-                // });
-                // markers = [];
-                // // console.log(markers);
-
-                // // For each place, get the icon, name and location.
-                // // for (var i=0, n=arr.length; i < n; i++){}
-                // var bounds = new google.maps.LatLngBounds();
-                // places.forEach(function(place) {
-                //     if (!place.geometry) {
-                //         console.log("Returned place contains no geometry");
-                //         return;
-                //     }
-
-                //     var placeLat = place.geometry.location.lat();
-                //     var placeLng = place.geometry.location.lng();
-
-                //     var originPlace = new google.maps.LatLng(placeLat, placeLng);
-                //     // console.log(originPlace); 
-                //     // console.log(placeLat, placeLng); 
-                    
-                //     var icon = {
-                //         url: place.icon,
-                //         size: new google.maps.Size(71, 71),
-                //         origin: new google.maps.Point(0, 0),
-                //         anchor: new google.maps.Point(17, 34),
-                //         scaledSize: new google.maps.Size(25, 25)
-                //     };
-
-                //     // Create a marker for each place.
-                //     markers.push(new google.maps.Marker({
-                //         map: map,
-                //         icon: icon,
-                //         title: place.name,
-                //         position: place.geometry.location,
-                //     }));
-
-                //     if (place.geometry.viewport) {
-                //     // Only geocodes have viewport.
-                //         bounds.union(place.geometry.viewport);
-                //     } else {
-                //         bounds.extend(place.geometry.location);
-                //     }
-                // })
-                // map.fitBounds(bounds);
-                // zoomChangeBoundsListener = 
-                // google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
-                //     if (this.getZoom()){
-                //         console.log(map.getZoom());
-                //         var oldZoom = map.getZoom();
-                //         this.setZoom(oldZoom-1);
-                //     }
-                // });
-                // setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 1000);
+                app.triggerSearch();
             });
 
             this.map = new google.maps.Map(element, options);
@@ -164,6 +91,93 @@
         methods: {
             triggerSearch() {
                 console.log('CHANGE');
+                console.log(this.searchBox.getPlaces());
+                let places = this.searchBox.getPlaces();
+                
+                if (places.length == 0) {
+                    return;
+                }
+
+                // $('#reset-location').removeClass('hidden-reset-loc');
+                // $('#pac-input').addClass('small-search');
+                // // console.log(places);
+
+                // // Might have to do a check for activities and type filter
+                // // TK NOTE
+                // showAllMarkers();
+                // showListAll('list-item');
+                let app = this;
+                hide10k();
+                // showHide();
+                
+                // THIS WORKS!
+                // Clear out the old markers.
+                // this.markers.forEach(function(marker) {
+                //     marker.setMap(null);
+                // });
+                // this.markers = [];
+                console.log('TK1');
+
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+
+                    var placeLat = place.geometry.location.lat();
+                    var placeLng = place.geometry.location.lng();
+
+                    var originPlace = new google.maps.LatLng(placeLat, placeLng);
+                    // console.log(originPlace); 
+                    // console.log(placeLat, placeLng); 
+                    
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    app.markers.push(new google.maps.Marker({
+                        map: app.map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location,
+                    }));
+
+                    if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                })
+                app.map.fitBounds(bounds);
+                // hide markers outside of 10km 
+                
+                function hide10k() {
+                    console.log('bloop');
+                    var placeLat = places[0].geometry.location.lat();
+                    var placeLng = places[0].geometry.location.lng();
+
+                    var originPlace = new google.maps.LatLng(placeLat, placeLng);
+
+                    for (var i=0; i<app.locations.length; i++) {
+                        console.log('TK2');
+                        let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
+                        var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
+
+                        if (distanceBT > 5000) {
+                            console.log('TK3');
+                            app.markers[i].setVisible(false);
+                            // var stringID = 'item-'+locations[i][4];
+                            // hideList10k(stringID);
+                        }
+                    }
+                }
             },
             buildMarkers(){
                 this.markers = [];
@@ -322,126 +336,5 @@
 @import '../styles/variables.scss';
 @import '../styles/components/loader.scss';
 @import '../styles/components/map.scss';
-
-.contact-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 50px 0;
-}
-
-.map-container {
-    position: relative;
-}
-
-.map-container.list-open {
-    .map-list {
-        display: inline-block;
-        width: 30%;
-        height: 80vh;
-        background: $white;
-    }
-    #grants-map {
-	    width: 70%;
-    }
-}
-
-#grants-map {
-	width: 100%;
-    min-height: 80vh;
-    margin-bottom: 50px;
-    display: inline-block;
-}
-
-
-.contact__single__copy {
-    font-size: 21px;
-    line-height: 1.3;
-    h4 {
-        font-size: 32px;
-        margin: 0;
-        color: #444;
-    }
-    img {
-        display: block;
-        margin: 0 auto;
-    }
-}
-
-.contact__single__buttons {
-    text-align: center;
-    button {
-        font-family: "Audimat3000-Regulier",sans-serif;
-        font-size: 24px;
-        width: 90%;
-        height: 60px;
-        padding: 10px 15px;
-        color: #fcd838;
-        margin-top: 20px;
-        background-color: #000;
-        border: none;
-    }
-    a, h3 {
-        text-decoration: none;
-        font-family: 'Audimat3000-Leger',sans-serif;
-    }
-    h3 span {
-        border-bottom: 1px solid grey;
-    }
-}
-
-#pac-input {
-	background-color: #fff;
-	font-size: 16px;
-	font-weight: 300;
-	margin-left: 12px;
-	text-overflow: ellipsis;
-	width: 400px;
-	border: 2px dashed #0072C2;
-	border-radius: 5px;
-	color: #666666;
-	padding: .9em .5em;
-	transition: all 0.5s ease;
-	font-family: 'Dosis', sans-serif;
-	@media #{$medium-and-up} {
-		width: 80%;
-		font-size: 40px;
-		margin-left: 10%;
-		margin-top: 15%;
-		padding: 20px;
-	}
-	@media #{$small-and-down} {
-		width: 90%;
-		margin-left: 5%;
-		margin-top: 5%;
-	}
-}   
-
-#pac-input.small-search {
-	background-color: #fff;
-	font-size: 16px;
-	font-weight: 300;
-	margin-left: 12px;
-	text-overflow: ellipsis;
-	width: 400px;
-	border: 2px dashed #0072C2;
-	border-radius: 5px;
-	color: #666666;
-	padding: .8em;
-	@media #{$medium-and-up} {
-		width: 600px;
-		margin-left: 12px;
-		margin-top: 16px;
-		// font-size: 30px;
-	}
-	@media #{$small-and-down} {
-		width: 90%;
-		margin-left: 5%;
-		margin-top: 5%;
-	}
-}
-
-#pac-input:focus {
-		border-color: #4d90fe;
-}
 
 </style>
