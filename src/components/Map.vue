@@ -70,22 +70,22 @@
             }
             this.map = new google.maps.Map(element, options);
 
+            this.oms = new OverlappingMarkerSpiderfier(this.map, {
+                markersWontMove: true,
+                markersWontHide: true,
+                basicFormatEvents: true
+            });
+
             this.buildMarkers();
         },
         methods: {
             buildMarkers(){
                 this.markers = [];
-                this.windows = [];
-                // var oms = new OverlappingMarkerSpiderfier(map, {
-                //     markersWontMove: true,
-                //     markersWontHide: true,
-                //     basicFormatEvents: true
-                // });
+                this.infoWindows = [];
                 /*
                     Iterate over all of the cafes
                 */
                 for( var i = 0; i < this.locations.length; i++ ){
-                    var windowArray = [];
                     /*
                         Set marker position
                     */
@@ -122,7 +122,7 @@
                         */
                         this.markers.push( marker );
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '/&id='+ this.locations[i].id +'" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
@@ -142,15 +142,22 @@
                             // if (infoWindow) { infoWindow.close();}
                             infoWindow.open(this.map, this);
                         });
-                        // Allow each marker to have an info window    
+                        //Allow each marker to have an info window    
                         // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
+                        //     console.log('hey');
                         //     return function() {
-                        //         infoWindow.setContent(this.windows[i][0]);
+                        //         infoWindow.setContent(windowString);
                         //         infoWindow.open(this.map, marker);
                         //     }
                         // })(marker, i));
+                        // let theMap = this.map;
+                        // let infoWindow = new google.maps.InfoWindow();
+                        // this.oms.addListener('click', function(marker, event, i) {
+                        //     infoWindow.setContent('hey');
+                        //     infoWindow.open(theMap, marker);
+                        // });
                         
-                        // oms.addMarker(marker);
+                        this.oms.addMarker(marker);
 
                         // var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
