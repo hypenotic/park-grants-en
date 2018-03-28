@@ -5,7 +5,7 @@
         </div>
         <div class="filter-bar">
             <ul>
-                <li><span style="color: white;">SHOW :</span></li>
+                <!-- <li><span style="color: white;">SHOW :</span></li>
                 <li class="groups-check">
                     <input type="checkbox" id="groups" class="selector" checked>
                     <label for="groups"><span class="checkbox">View park groups</span></label>
@@ -13,7 +13,7 @@
                 <li class="events-check">
                     <input type="checkbox" id="events" class="selector" checked>
                     <label for="events"><span class="checkbox">View park events</span></label>
-                </li>
+                </li> -->
                 <li><span>FILTER: </span><span style="text-transform: none;"><a href="#" class="info"> Find park groups and events based on the kinds of activities they do</a></span><span id="copy-selected-acts"></span></li>
             </ul>
 

@@ -3,6 +3,8 @@
         <app-filter></app-filter>
         <div class="map-container">
             <section class="google-map" id="grants-map"></section>
+            <section class="map-list"></section>
+            <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
             <!-- <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park groups and events near you." style="position: absolute; top: 0; z-index: 15; ">
             <div id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1; ">Reset Location</div> -->
         </div>
@@ -41,7 +43,9 @@
                 // markerCoordinates: [],
                 // bounds: null,
                 markers: [],
+                infoWindows: [],
                 posts: [],
+                showLoader: true
                 // lat: '',
                 // lng: ''
             }
@@ -71,34 +75,112 @@
         methods: {
             buildMarkers(){
                 this.markers = [];
+                this.windows = [];
+                // var oms = new OverlappingMarkerSpiderfier(map, {
+                //     markersWontMove: true,
+                //     markersWontHide: true,
+                //     basicFormatEvents: true
+                // });
                 /*
                     Iterate over all of the cafes
                 */
                 for( var i = 0; i < this.locations.length; i++ ){
+                    var windowArray = [];
+                    /*
+                        Set marker position
+                    */
+                    let theposition = new google.maps.LatLng(this.locations[i].lat, this.locations[i].lng);
 
                     /*
-                    Create the marker for each of the cafes and set the
-                    latitude and longitude to the latitude and longitude
-                    of the cafe. Also set the map to be the local map.
+                        Choose marker style based on type
                     */
-                    var marker = new google.maps.Marker({
-                    position: { lat: parseFloat( this.locations[i].lat ), lng: parseFloat( this.locations[i].lng ) },
-                    map: this.map
-                    });
+                    if (this.locations[i].type == 'event') {
 
-                    /*
-                    Push the new marker on to the array.
-                    */
-                    this.markers.push( marker );
+                        console.log(this.locations[i]);
+
+                        let the_icon = 'data:image/svg+xml;utf-8, \
+                        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
+                        </svg>';
+
+                        /*
+                            Create the marker for each of the locations and set the
+                            latitude and longitude to the latitude and longitude
+                            of the location. Also set the map to be the local map.
+                        */
+                        var marker = new google.maps.Marker({
+                            position: theposition,
+                            map: this.map,
+                            title: this.locations[i].title,
+                            icon: {
+                                url: the_icon
+                            }
+                        });
+
+                        /*
+                            Push the new marker on to the array.
+                        */
+                        this.markers.push( marker );
+
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+
+                        /*
+                            Create the info window and add it to the local
+                            array.
+                        */
+                        let infoWindow = new google.maps.InfoWindow({
+                            content: windowString
+                        });
+
+                        this.infoWindows.push( infoWindow );
+                        
+                        /*
+                        Add the event listener to open the info window for the marker.
+                        */ 
+                        marker.addListener('click', function() {
+                            // infoWindow.close();
+                            // if (infoWindow) { infoWindow.close();}
+                            infoWindow.open(this.map, this);
+                        });
+                        // Allow each marker to have an info window    
+                        // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
+                        //     return function() {
+                        //         infoWindow.setContent(this.windows[i][0]);
+                        //         infoWindow.open(this.map, marker);
+                        //     }
+                        // })(marker, i));
+                        
+                        // oms.addMarker(marker);
+
+                        // var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+
+                        // windowArray.push(windowString);
+                        // this.windows.push(windowArray);
+                        
+                        // var infoWindow = new google.maps.InfoWindow(), marker, i;
+                    } else {
+                        return
+                    }
+
                 }
+
+                this.map.panBy(-80, -120);
+
             },
             clearMarkers(){
                 /*
-                Iterate over all of the markers and set the map
-                to null so they disappear.
+                    Iterate over all of the markers and set the map
+                    to null so they disappear.
                 */
                 for( var i = 0; i < this.markers.length; i++ ){
                 this.markers[i].setMap( null );
+                }
+            },
+            checkLoader(){
+                if (this.$store.state.locationList.length > 0) {
+                    this.showLoader = false;
+                } else {
+                    this.showLoader = true;
                 }
             },
         },
@@ -115,6 +197,7 @@
             locations(){
                 this.clearMarkers();
                 this.buildMarkers();
+                this.checkLoader();
             }
         },
     }
@@ -123,6 +206,8 @@
 <style lang="scss" scoped>
 
 @import '../styles/variables.scss';
+@import '../styles/components/loader.scss';
+@import '../styles/components/map.scss';
 
 .contact-container {
     max-width: 1100px;
@@ -134,11 +219,25 @@
     position: relative;
 }
 
+.map-container.list-open {
+    .map-list {
+        display: inline-block;
+        width: 30%;
+        height: 80vh;
+        background: $white;
+    }
+    #grants-map {
+	    width: 70%;
+    }
+}
+
 #grants-map {
 	width: 100%;
     min-height: 80vh;
     margin-bottom: 50px;
+    display: inline-block;
 }
+
 
 .contact__single__copy {
     font-size: 21px;
