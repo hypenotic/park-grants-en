@@ -97,11 +97,24 @@
                     if (this.locations[i].type == 'event') {
 
                         console.log(this.locations[i]);
-
-                        let the_icon = 'data:image/svg+xml;utf-8, \
-                        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                            <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
-                        </svg>';
+                        
+                        let the_icon = '';
+                        if (this.locations[i].timeframe =='morethan30') {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
+                            </svg>';
+                        } else if (this.locations[i].timeframe =='within30') {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
+                            </svg>';
+                        } else {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
+                            </svg>';
+                        }
 
                         /*
                             Create the marker for each of the locations and set the
@@ -121,6 +134,14 @@
                             Push the new marker on to the array.
                         */
                         this.markers.push( marker );
+
+
+                        // let groupString ='';
+                        // if (locations[i].listing[1] != undefined) {
+                        //     groupString = '<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p>';
+                        // } else {
+                        //     groupString = '';
+                        // }
 
                         var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '/&id='+ this.locations[i].id +'" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
