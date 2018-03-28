@@ -72,11 +72,17 @@
             let input = document.getElementById('pac-input');
             this.searchBox = new google.maps.places.SearchBox(input);
             
-            // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+            // Store 'this' in a variable, so you can referecne 'this' properly in
+            // the following fucntions
             let app = this;
+            // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
             this.searchBox.addListener('places_changed', function() {
                 app.triggerSearch();
             });
+            // Listen for when the reset location button is pressed
+            document.getElementById("reset-location").onclick = function() {
+                app.triggerSearchReset();
+            };
 
             this.map = new google.maps.Map(element, options);
 
@@ -89,7 +95,56 @@
             this.buildMarkers();
         },
         methods: {
+            triggerSearchReset() {
+                let app = this;
+                console.log('resetting location');
+
+                // Clear out the old markers.
+                this.markers.forEach(function(marker) {
+                    // marker.setMap(null);
+                    marker.setVisible(true);
+                });
+                // this.markers = [];
+
+                // $('#pac-input').removeClass('small-search');
+                // $('#pac-input').val("");
+                // $('#pac-input').focus();
+                
+                // showAllMarkers();
+                // showListAll('list-item');
+                // showHide();
+                
+                // $(this).addClass('hidden-reset-loc');
+                // // check activities filter 
+                // var check = $('.chk-btn:checkbox:checked').length;
+                // var group = document.getElementById("groups").checked;
+                // var event = document.getElementById("events").checked;
+                // // if there are activities filled out & only one of the type filters are checked
+                // if (check > 0 && (group !== true || event !== true) ){
+                //     var termsArray = [];
+                //     $('.chk-btn:checkbox:checked').each(function(){
+                //         termsArray.push($(this).data('term'));
+                //     });
+                //     if ( group == true ) {
+                //         hideTerms10k(termsArray, 'listing');
+                //     } else {
+                //         hideTerms10k(termsArray, 'event');
+                //     }
+                // } else if (check > 0 && (group == true && event == true)) {
+                //     // grab activities and search 
+                //     var termsArray = [];
+                //     $('.chk-btn:checkbox:checked').each(function(){
+                //         termsArray.push($(this).data('term'));
+                //     });
+                //     hideTerms(termsArray);
+                // } else {
+                //     // hideTerms(termsArray);
+                // }
+
+            },
             triggerSearch() {
+                // DONT FORGET TO CLEAR PLACES ON EVERY SEARCH
+                // OR YOU GET TWO YOU MARKERS
                 console.log('CHANGE');
                 console.log(this.searchBox.getPlaces());
                 let places = this.searchBox.getPlaces();
@@ -141,10 +196,17 @@
                     };
 
                     // Create a marker for each place.
+                    var markerLabel = "YOU";
                     app.markers.push(new google.maps.Marker({
                         map: app.map,
-                        icon: icon,
-                        title: place.name,
+                        label: {
+                            text: markerLabel,
+                            color: "#ffffff",
+                            fontSize: "10px",
+                            fontWeight: "bold"
+                        },
+                        // icon: icon,
+                        // title: place.name,
                         position: place.geometry.location,
                     }));
 
