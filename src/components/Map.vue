@@ -5,7 +5,7 @@
             <section class="google-map" id="grants-map"></section>
             <section class="map-list"></section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
-            <input id="pac-input" class="controls small-search" type="text" placeholder="Enter your address to find park gevents near you." style="position: absolute; top: 0; z-index: 15; ">
+            <input id="pac-input" class="controls small-search" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15; ">
             <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1; ">Reset Location</button>
         </div>
     </div>
@@ -42,6 +42,7 @@
                 mapName: "grants-map",
                 // markerCoordinates: [],
                 // bounds: null,
+                filters: [],
                 markers: [],
                 infoWindows: [],
                 posts: [],
@@ -95,6 +96,9 @@
             this.buildMarkers();
         },
         methods: {
+            applyFilters() {
+
+            },
             triggerSearchReset() {
                 let app = this;
                 console.log('resetting location');

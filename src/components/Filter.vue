@@ -5,7 +5,7 @@
         </div>
         <div class="filter-bar">
             <ul>
-                <li><span>FILTER: </span><span style="text-transform: none;"><span class="info" v-on:click="showActivityList = !showActivityList"> Find park events based on the kinds of activities they do</span></span><span id="copy-selected-acts"></span></li>
+                <li><span>FILTER: </span><span style="text-transform: none;"><span class="info" v-on:click="showActivityList = !showActivityList">Find park events based on the kinds of activities they do</span></span><span id="copy-selected-acts"></span></li>
             </ul>
 
             <div class="activity-list" v-bind:class="{ 'not-hidden': showActivityList }">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="submit-bar">
                         <div class="submit-bar-wrapper">
-                            <span id="whole-sentence-count"><span id="activities-selected">0</span> activities selected. Ready?</span>
+                            <span id="whole-sentence-count"><span id="activities-selected" v-html="filterCount"></span> activities selected. Ready?</span>
                             <div type="submit" class="button button--small" id="apply-search">Search!</div>
                             <div id="clear-filters" class="hidden-clear"><span>Clear All Activities</span></div>
                         </div>
@@ -48,16 +48,18 @@
     export default {
         data() {
             return {
-                showActivityList: false
+                showActivityList: false,
+                filters: []
             }
         },
         mounted() {
-            console.log('test', this.$store.state.activityList);
         },
-        methods: {
-           
+        methods: { 
         },
         computed: {
+            filterCount() {
+                return this.filters.length;
+            }
         },
     }
 </script>
