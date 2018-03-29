@@ -2,19 +2,33 @@
     position: relative;
 }
 
+.map-list {
+    transition: all 0.5s ease;
+    width: 0%;
+    display: inline-block;
+}
+
 .map-container.list-open {
     .map-list {
         display: inline-block;
-        width: 30%;
-        height: 80vh;
+        width: 38%;
+        min-height: 80vh;
         background: $white;
+        vertical-align: top;
     }
     #grants-map {
-	    width: 70%;
+	    width: 60%;
     }
+    #pac-input {
+        left: 0px;
+    }
+}
+#pac-input {
+    left: 0px;
 }
 
 #grants-map {
+    transition: all 0.5s ease;
 	width: 100%;
     min-height: 80vh;
     margin-bottom: 50px;
@@ -110,7 +124,7 @@
 }
 
 #pac-input:focus {
-		border-color: #4d90fe;
+	border-color: #4d90fe;
 }
 
 #reset-location {

@@ -5,5 +5,6 @@ export const state = {
     grantsData: [],
     singlePostCache: {},
     language: '',
-    checkedActivityList: []
+    checkedActivityList: [],
+    listViewState: false
 }

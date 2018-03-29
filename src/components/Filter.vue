@@ -5,7 +5,12 @@
         </div>
         <div class="filter-bar">
             <ul>
-                <li><span>FILTER: </span><span style="text-transform: none;"><span class="info" v-on:click="showActivityList = !showActivityList">Find park events based on the kinds of activities they do</span></span><span id="copy-selected-acts"></span></li>
+                <li>
+                    <p>Filter: 
+                        <span class="info" id="filter-dropdown" if v-on:click="showActivityList = !showActivityList">Find park events based on the kinds of activities they do</span>
+                        <span id="copy-selected-acts"></span>
+                    </p>
+                </li>
             </ul>
 
             <div class="activity-list" v-bind:class="{ 'not-hidden': showActivityList }">
@@ -39,8 +44,8 @@
         </div>        
         
         <ul class="map-type">
-            <li id="map-view-trigger" class="view-trigger active-trigger"><i class="fa fa-map-o fa-2x" aria-hidden="true"></i></li>
-            <li id="list-view-trigger" class="view-trigger"><i class="fa fa-list fa-2x" aria-hidden="true"></i></li>
+            <li id="map-view-trigger" v-on:click="listTrigger" class="view-trigger active-trigger"><i class="fa fa-map-o fa-2x" aria-hidden="true"></i></li>
+            <li id="list-view-trigger" v-on:click="listTrigger" class="view-trigger"><i class="fa fa-list fa-2x" aria-hidden="true"></i></li>
         </ul>
     </section>
 </template>
@@ -84,6 +89,9 @@
                 // } else {
                 //     return
                 // }
+            },
+            listTrigger() {
+                this.$store.dispatch("listViewState",this.$store.state.listViewState );
             }
         },
         computed: {

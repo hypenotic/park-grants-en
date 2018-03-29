@@ -1,7 +1,7 @@
 <template v-if="this.$store.state.locationList != null">
     <div>
         <app-filter></app-filter>
-        <div class="map-container">
+        <div class="map-container" v-bind:class="{ 'list-open': this.$store.state.listViewState }">
             <section class="google-map" id="grants-map"></section>
             <section class="map-list"></section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
@@ -46,7 +46,8 @@
                 markers: [],
                 infoWindows: [],
                 posts: [],
-                showLoader: false
+                showLoader: false,
+                showList: false,
                 // lat: '',
                 // lng: ''
             }

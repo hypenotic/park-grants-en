@@ -40,5 +40,13 @@ export const actions = {
         // } else {
         //     return
         // }
+    },
+    listViewState({commit, dispatch, context, state}, status) {
+        console.log('getLocations dispatched', status);
+        if (status == true) {
+            commit(types.SET_LIST_STATE, false);
+        } else {
+            commit(types.SET_LIST_STATE, true);
+        }
     }
 }
