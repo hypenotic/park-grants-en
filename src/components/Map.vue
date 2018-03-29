@@ -45,7 +45,7 @@
                 markers: [],
                 infoWindows: [],
                 posts: [],
-                showLoader: true
+                showLoader: false
                 // lat: '',
                 // lng: ''
             }
@@ -370,7 +370,7 @@
                 if (this.$store.state.locationList.length > 0) {
                     this.showLoader = false;
                 } else {
-                    this.showLoader = true;
+                    this.showLoader = false;
                 }
             },
         },
