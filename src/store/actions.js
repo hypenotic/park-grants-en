@@ -18,5 +18,17 @@ export const actions = {
             console.log(error)
         })
     },
+    getActivities({commit, dispatch, context, state}, info) {
+        console.log('getActivities dispatched');
+        // axios.get('http://dev.hypenotic.com/pp-map/wp-json/mapdata/v1/all')
+        // axios.get('https://parkpeople.ca/listings/wp-json/mapdata/v1/all')
+        axios.get('http://dev.hypenotic.com/pp-map/wp-json/activitydata/v1/all')
+        .then(function (response) {
+            commit(types.SET_ACTIVITY_LIST, response.data);
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+    },
     
 }

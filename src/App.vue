@@ -24,6 +24,7 @@
     },
     mounted: function() {
         this.$store.dispatch("getLocations", {'type': 'initial-load'});
+        this.$store.dispatch("getActivities", {'type': 'initial-load'});
     },
     created: function() {
         

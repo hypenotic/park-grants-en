@@ -1,17 +1,12 @@
 import { state } from './state'
-// export const state = {
-//   resourceList: [],
-//   grantsData: [],
-//   singlePostCache: {},
-//   language: ''
-// }
 
 import { 
     SET_RESOURCES, 
     RECEIVE_GRANT_DATA, 
     TOGGLE_LANGUAGE, 
     ADD_SINGLE_RESOURCE,
-    SET_LOCATION_LIST 
+    SET_LOCATION_LIST,
+    SET_ACTIVITY_LIST 
 } from './mutation-types'
 
 export const mutations = {
@@ -20,6 +15,9 @@ export const mutations = {
     },
     SET_LOCATION_LIST(state, list) {
         state.locationList = list
+    },
+    SET_ACTIVITY_LIST(state, list) {
+        state.activityList = list
     },
     TOGGLE_LANGUAGE(state, lang) {
         state.language = lang
