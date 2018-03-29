@@ -648,6 +648,7 @@ input.chk-btn:checked + label {
 }
 
 .filter-bar {
+    font-family: $family-sanserif;
     p {
         color: $white;
         text-transform: none;

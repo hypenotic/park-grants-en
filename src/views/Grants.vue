@@ -17,6 +17,10 @@
 
 			<app-map></app-map>
 		</section>
+
+		<section class="grant-recipients">
+			<h3>Grant Recipients</h3>
+		</section>
 				
 
 		<section class="event-templates">
@@ -226,7 +230,8 @@ export default {
 	}
 }
 
-.event-templates {
+.event-templates,
+.grant-recipients {
 	h3 {
 		color: $green;
 		text-align: center;
@@ -237,6 +242,10 @@ export default {
 	}
 	max-width: 960px;
 	margin: 0 auto;
+}
+
+.grant-recipients {
+	min-height: 40vh;
 }
 
 .three-column {

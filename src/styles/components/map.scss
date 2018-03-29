@@ -11,13 +11,18 @@
 .map-container.list-open {
     .map-list {
         display: inline-block;
-        width: 38%;
+        width: 100%;
         min-height: 80vh;
         background: $white;
         vertical-align: top;
+        @media #{$medium-and-up} {
+            width: 38%;
+        }
     }
     #grants-map {
-	    width: 60%;
+        @media #{$medium-and-up} {
+            width: 60%;
+        }
     }
     #pac-input {
         left: 0px;
