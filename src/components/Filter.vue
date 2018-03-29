@@ -5,7 +5,7 @@
         </div>
         <div class="filter-bar">
             <ul>
-                <li><span>FILTER: </span><span style="text-transform: none;"><span class="info" v-on:click="showActivityList = !showActivityList"> Find park groups and events based on the kinds of activities they do</span></span><span id="copy-selected-acts"></span></li>
+                <li><span>FILTER: </span><span style="text-transform: none;"><span class="info" v-on:click="showActivityList = !showActivityList"> Find park events based on the kinds of activities they do</span></span><span id="copy-selected-acts"></span></li>
             </ul>
 
             <div class="activity-list" v-bind:class="{ 'not-hidden': showActivityList }">
