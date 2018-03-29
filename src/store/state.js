@@ -4,5 +4,6 @@ export const state = {
     activityList: null,
     grantsData: [],
     singlePostCache: {},
-    language: ''
+    language: '',
+    checkedActivityList: []
 }

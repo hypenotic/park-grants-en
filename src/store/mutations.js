@@ -6,7 +6,8 @@ import {
     TOGGLE_LANGUAGE, 
     ADD_SINGLE_RESOURCE,
     SET_LOCATION_LIST,
-    SET_ACTIVITY_LIST 
+    SET_ACTIVITY_LIST,
+    SET_ACTIVE_CATEGORIES 
 } from './mutation-types'
 
 export const mutations = {
@@ -18,6 +19,9 @@ export const mutations = {
     },
     SET_ACTIVITY_LIST(state, list) {
         state.activityList = list
+    },
+    SET_ACTIVE_CATEGORIES(state, list) {
+        state.checkedActivityList = list
     },
     TOGGLE_LANGUAGE(state, lang) {
         state.language = lang

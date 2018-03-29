@@ -30,5 +30,15 @@ export const actions = {
             console.log(error)
         })
     },
-    
+    filterChange({commit, dispatch, context, state}, checkedCategories) {
+        // dispatch("renderList", {'type': 'filter-change', 'list': state.activeList, 'checked': checkedCategories});
+        commit(types.SET_ACTIVE_CATEGORIES, checkedCategories);
+    },
+    clearFilters({commit, dispatch, context, state}, status) {
+        // if (status == 'active') {
+        //     dispatch("renderList", {'type': 'filter-reset', 'list': state.activeList})
+        // } else {
+        //     return
+        // }
+    }
 }

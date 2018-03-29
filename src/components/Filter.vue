@@ -17,11 +17,12 @@
                                 <h6 style="color: white;" v-html="parent.name">
                                 </h6>
                             </div>
-                            <ul>
-                                <li class="map-chbx-trigger" v-for="child in parent.children" :key="child.id"> 
-                                    <input type="checkbox" class="chk-btn" :data-term="child.name" :id="child.slug" :name="parent.slug+'[]'" :value="child.id">
-                                    <label :for="child.slug" v-html="child.name">
-                                    </label>
+                            <ul id="ck-button">
+                                <li class="map-chbx-trigger" v-for="child in parent.children" :key="child.term_id"> 
+                                    <label>
+									<input type="checkbox" @change="filterChange" hidden v-model="checkedCategories" :value="child.term_id" />
+									<span>{{child.name}}</span>
+									</label>
                                 </li>
                             </ul>
                         </div>
@@ -49,16 +50,45 @@
         data() {
             return {
                 showActivityList: false,
-                filters: []
+                filters: [],
+                checkedCategories: [],
+                clearFilterCheck: []
             }
         },
         mounted() {
         },
         methods: { 
+            changeFilters() {
+                console.log('change filters');
+
+            },
+            applyFilters() {
+                console.log('apply filters');
+            },
+            filterChange() {
+                // Check if there are any active category buttons
+                if (this.checkedCategories.length > 0) {
+                    this.$store.dispatch("filterChange", this.checkedCategories);
+                    this.clearFilterCheck = [];
+                } else {
+                    // if not, just reset everything
+                    this.$store.dispatch("clearFilters", 'active');
+                    this.checkedCategories = [];
+                    this.clearFilterCheck = ['all'];
+                }
+            },
+            clearFilters(event) {
+                // if (event.target.checked) {
+                //     this.$store.dispatch("clearFilters", 'active');
+                //     this.checkedCategories = [];
+                // } else {
+                //     return
+                // }
+            }
         },
         computed: {
             filterCount() {
-                return this.filters.length;
+                return this.checkedCategories.length;
             }
         },
     }

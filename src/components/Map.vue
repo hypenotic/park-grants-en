@@ -84,6 +84,10 @@
             document.getElementById("reset-location").onclick = function() {
                 app.triggerSearchReset();
             };
+            // Listen for when the filter submit button is pressed
+            document.getElementById("apply-search").onclick = function() {
+                app.applyFilters();
+            };
 
             this.map = new google.maps.Map(element, options);
 
@@ -97,7 +101,38 @@
         },
         methods: {
             applyFilters() {
+                console.log('applyFilters');
+                let app = this;
 
+                // Clear out the old markers.
+                this.markers.forEach(function(marker) {
+                    // marker.setMap(null);
+                    marker.setVisible(true);
+                });
+
+                // Grab the IDs of the checked activities
+                let nameArray = app.$store.state.checkedActivityList;
+
+                // This function tests whether two array have at least one matching value
+                let findOne = function (haystack, arr) {
+                    return arr.some(function (v) {
+                        return haystack.indexOf(v) >= 0;
+                    });
+                }
+
+                for (var i=0; i<app.locations.length; i++) {
+                    // Grab the array of activity (taxonomy) IDs
+                    let combined = app.locations[i].activity;
+
+                    // Compare both 
+                    var test = findOne(combined,nameArray);
+                    
+                    // If false, event does not include at least one of the 
+                    // activities in the checkedActivityList array in the store
+                    if (test == false) {
+                        app.markers[i].setVisible(false);
+                    }
+                }
             },
             triggerSearchReset() {
                 let app = this;
