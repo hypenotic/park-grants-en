@@ -8,7 +8,8 @@ import {
     SET_LOCATION_LIST,
     SET_ACTIVITY_LIST,
     SET_ACTIVE_CATEGORIES,
-    SET_LIST_STATE  
+    SET_LIST_STATE,
+    SET_FILTER_STATE  
 } from './mutation-types'
 
 export const mutations = {
@@ -18,8 +19,11 @@ export const mutations = {
     SET_LOCATION_LIST(state, list) {
         state.locationList = list
     },
-    SET_LIST_STATE(state, list) {
-        state.listViewState = list
+    SET_LIST_STATE(state, status) {
+        state.listViewState = status
+    },
+    SET_FILTER_STATE(state, status) {
+        state.filterViewState = status
     },
     SET_ACTIVITY_LIST(state, list) {
         state.activityList = list

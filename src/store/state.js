@@ -6,5 +6,7 @@ export const state = {
     singlePostCache: {},
     language: '',
     checkedActivityList: [],
-    listViewState: false
+    listViewState: false,
+    filterViewState: false,
+    activeEvents: []
 }

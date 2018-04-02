@@ -3,7 +3,30 @@
         <app-filter></app-filter>
         <div class="map-container" v-bind:class="{ 'list-open': this.$store.state.listViewState }">
             <section class="google-map" id="grants-map"></section>
-            <section class="map-list"></section>
+            <section class="map-list">
+                <div class="map-list-container">
+                    <div class="single-list-item" v-for="item in locations" :key="item.id">
+                        <div class="single-list-item-container">
+                            <div class="single-list-item__image">
+                                <img :src="item.image" :alt="item.title">
+                            </div>
+
+                            <h5>
+                                <a :href="'https://parkpeople.ca/listings/events/?n='+ item.slug+ '&id='+ item.id" target="_blank" v-html="item.title" v-if="item.timeframe !== 'past'"></a>
+                                <span v-html="item.title" v-if="item.timeframe == 'past'"></span>
+                            </h5>
+                            
+                            <p><i class="fa fa-users"></i> <span v-html="item.listing[1]"></span></p>
+    
+                            <p><i class="fa fa-calendar-o" aria-hidden="true"></i> <span v-html="item.start_date"></span></p>
+    
+                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> <span v-html="item.start_time + ' - ' + item.end_time"></span></p>
+                            
+                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> <span v-html="item.address"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
             <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15; ">
             <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Location</button>
@@ -91,6 +114,20 @@
             };
 
             this.map = new google.maps.Map(element, options);
+            
+            // Add a couple map listeners for the searchbox
+            this.map.addListener('zoom_changed', function() {  
+                if (input.classList.contains('small-search')) {
+                } else {
+                    input.classList.add('small-search');
+                }
+            });
+            this.map.addListener('drag', function() {  
+                if (input.classList.contains('small-search')) {
+                } else {
+                    input.classList.add('small-search');
+                }
+            });
 
             this.oms = new OverlappingMarkerSpiderfier(this.map, {
                 markersWontMove: true,
@@ -107,11 +144,12 @@
             },
             showAllMarkers() {
                 console.log('showAllMarkers');
+
                 let app = this;
                 let bounds = new google.maps.LatLngBounds();
 
                 for (var i=0; i< app.locations.length; i++) {
-                    bounds.extend( app.markers[i].getPosition() ); 
+                    bounds.extend( app.markers[i].getPosition()); 
                     app.markers[i].setVisible(true);
                 }
 
@@ -136,14 +174,19 @@
                 }
             },
             applyFilters() {
-                console.log('applyFilters');
                 let app = this;
 
-                // Clear out the old markers.
-                this.markers.forEach(function(marker) {
-                    // marker.setMap(null);
-                    marker.setVisible(true);
-                });
+                console.log('applyFilters');
+
+                // Close the activity filter
+                this.$store.dispatch("filterViewState",this.$store.state.filterViewState );
+
+                // Make sure the searchbox shrinks
+                let input = document.getElementById('pac-input');
+                if (input.classList.contains('small-search')) {
+                } else {
+                    input.classList.add('small-search');
+                }
 
                 // Grab the IDs of the checked activities
                 let nameArray = app.$store.state.checkedActivityList;
@@ -155,19 +198,89 @@
                     });
                 }
 
-                for (var i=0; i<app.locations.length; i++) {
-                    // Grab the array of activity (taxonomy) IDs
-                    let combined = app.locations[i].activity;
-
-                    // Compare both 
-                    var test = findOne(combined,nameArray);
-                    
-                    // If false, event does not include at least one of the 
-                    // activities in the checkedActivityList array in the store
-                    if (test == false) {
-                        app.markers[i].setVisible(false);
+                // Check if there is a value in the searchbox and checked checkboxes
+                let value = input.value;
+                let checkboxes = document.getElementsByClassName('ck-box');
+                let check = [];
+                for(var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].checked == true) {
+                        check.push(i);
                     }
                 }
+
+                if ((value.length == 0 && check.length == 0) || (value.length==0 && check.length > 0) ) {
+                    console.log('Filter Option 1');
+                    app.showAllMarkers();
+
+                    let bounds = new google.maps.LatLngBounds();
+
+                    for (var i=0; i<app.locations.length; i++) {
+                        // Grab the array of activity (taxonomy) IDs
+                        let combined = app.locations[i].activity;
+
+                        // Compare both 
+                        var test = findOne(combined,nameArray);
+                        
+                        // If false, event does not include at least one of the 
+                        // activities in the checkedActivityList array in the store
+                        if (test == false) {
+                            app.markers[i].setVisible(false);
+                        } else {
+                            bounds.extend( app.markers[i].getPosition()); 
+                        }
+                    }
+
+                    console.log(bounds);
+                    if (bounds.b.b != 180 ) {
+                        app.map.fitBounds(bounds);
+                    } else {
+                        // TK ISSUE
+                    }
+
+                } else if (value.length>0 && check.length > 0) {
+                    console.log('Filter Option 2');
+                    let bounds = new google.maps.LatLngBounds();
+
+                    let places = app.searchBox.getPlaces();
+                    var placeLat = places[0].geometry.location.lat();
+                    var placeLng = places[0].geometry.location.lng();
+
+                    var originPlace = new google.maps.LatLng(placeLat, placeLng);
+
+                    for (var i=0; i<app.locations.length; i++) {
+                        // Grab the array of activity (taxonomy) IDs
+                        let combined = app.locations[i].activity;
+
+                        // Compare both 
+                        var test = findOne(combined,nameArray);
+
+                        let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
+                        var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
+                        
+                        // If false, event does not include at least one of the 
+                        // activities in the checkedActivityList array in the store
+                        if (test == false || distanceBT > 5000) {
+                            app.markers[i].setVisible(false);
+                        } else {
+                            bounds.extend( app.markers[i].getPosition()); 
+                        }
+                    }
+
+                    console.log(bounds);
+                    if (bounds.b.b != 180 ) {
+                        app.map.fitBounds(bounds);
+                    } else {
+                        // TKISSUE
+                    }
+
+                } else if (value.length>0 && check.length == 0) {
+                    console.log('Filter Option 3');
+                } else if (value.length==0 && check.length > 0) {
+                    console.log('Filter Option 4');
+                } else {
+                    console.log('Filter Option 5');
+                }    
+
             },
             triggerSearchReset() {
                 let app = this;
@@ -354,7 +467,7 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '/&id='+ this.locations[i].id +'" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
@@ -426,11 +539,14 @@
         computed: {
             locations(){
                 return this.$store.getters.allLocations;
+            },
+            activeEvents(){
+                return this.$store.getters.activeEvents;
             }
         },
         watch: {
             /*
-                Watches the cafes. When they are updated, clear the markers
+                Watches the events. When they are updated, clear the markers
                 and re build them.
             */
             locations(){

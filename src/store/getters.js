@@ -4,5 +4,8 @@ export const getters = {
     },
     allActivities: state => {
         return state.activityList
+    },
+    allActiveEvents: state => {
+        return state.activeEvents
     }
 }

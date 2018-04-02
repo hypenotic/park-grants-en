@@ -42,11 +42,27 @@ export const actions = {
         // }
     },
     listViewState({commit, dispatch, context, state}, status) {
-        console.log('getLocations dispatched', status);
+        console.log('listViewState dispatched', status);
         if (status == true) {
             commit(types.SET_LIST_STATE, false);
         } else {
             commit(types.SET_LIST_STATE, true);
+        }
+    },
+    filterViewState({commit, dispatch, context, state}, status) {
+        console.log('filterViewState dispatched', status);
+        if (status == true) {
+            commit(types.SET_FILTER_STATE, false);
+        } else {
+            commit(types.SET_FILTER_STATE, true);
+        }
+    },
+    setActiveEvents({commit, dispatch, context, state}, list) {
+        console.log('setActiveList dispatched',list);
+        if (status == true) {
+            commit(types.SET_FILTER_STATE, false);
+        } else {
+            commit(types.SET_FILTER_STATE, true);
         }
     }
 }

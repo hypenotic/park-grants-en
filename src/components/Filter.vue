@@ -7,13 +7,13 @@
             <ul>
                 <li>
                     <p>Filter: 
-                        <span class="info" id="filter-dropdown" if v-on:click="showActivityList = !showActivityList">Find park events based on the kinds of activities they do</span>
+                        <span class="info" id="filter-dropdown" if v-on:click="filterTrigger">Find park events based on the kinds of activities they do</span>
                         <span id="copy-selected-acts"></span>
                     </p>
                 </li>
             </ul>
 
-            <div class="activity-list" v-bind:class="{ 'not-hidden': showActivityList }">
+            <div class="activity-list" v-bind:class="{ 'not-hidden': this.$store.state.filterViewState }">
                 <form>
                     <div class="activity-groups">
                         <div class="activity-groups__single mb30" v-for="parent in this.$store.state.activityList" :key="parent.id">
@@ -25,7 +25,7 @@
                             <ul id="ck-button">
                                 <li class="map-chbx-trigger" v-for="child in parent.children" :key="child.term_id"> 
                                     <label>
-									<input type="checkbox" @change="filterChange" hidden v-model="checkedCategories" :value="child.term_id" />
+									<input type="checkbox" class="ck-box" @change="filterChange" hidden v-model="checkedCategories" :value="child.term_id" />
 									<span>{{child.name}}</span>
 									</label>
                                 </li>
@@ -92,6 +92,16 @@
             },
             listTrigger() {
                 this.$store.dispatch("listViewState",this.$store.state.listViewState );
+
+                // TK – Might wanna store the searchbox status in the store
+                let input = document.getElementById('pac-input');
+                if (input.classList.contains('small-search')) {
+                } else {
+                    input.classList.add('small-search');
+                }
+            },
+            filterTrigger() {
+                this.$store.dispatch("filterViewState",this.$store.state.filterViewState );
             }
         },
         computed: {
