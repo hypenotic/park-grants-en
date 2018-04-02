@@ -5,7 +5,7 @@
             <section class="google-map" id="grants-map"></section>
             <section class="map-list">
                 <div class="map-list-container">
-                    <div class="single-list-item" v-for="item in locations" :key="item.id">
+                    <div class="single-list-item" v-for="item in activeEvents" :key="item.id">
                         <div class="single-list-item-container">
                             <div class="single-list-item__image">
                                 <img :src="item.image" :alt="item.title">
@@ -28,7 +28,7 @@
                 </div>
             </section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
-            <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15; ">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15;">
             <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Location</button>
         </div>
     </div>
@@ -164,14 +164,21 @@
 
                 var originPlace = new google.maps.LatLng(placeLat, placeLng);
 
+                let active = [];
+
                 for (var i=0; i<app.locations.length; i++) {
                     let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
                     var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
 
                     if (distanceBT > 5000) {
                         app.markers[i].setVisible(false);
+                        
+                    } else {
+                        active.push(app.locations[i]);
                     }
                 }
+
+                app.$store.dispatch("setActiveEvents", active );
             },
             applyFilters() {
                 let app = this;
@@ -459,7 +466,9 @@
                         */
                         this.markers.push( marker );
 
-
+                        /*
+                            Create the group string
+                        */
                         // let groupString ='';
                         // if (locations[i].listing[1] != undefined) {
                         //     groupString = '<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p>';
@@ -541,7 +550,17 @@
                 return this.$store.getters.allLocations;
             },
             activeEvents(){
-                return this.$store.getters.activeEvents;
+                // console.log(this.$store.state.activeEvents[0]);
+                if (this.$store.state.activeEvents[0] == 'init') {
+                    console.log('activeEvents = initial load');
+                    return this.$store.state.allLocations;
+                } else if (this.$store.state.activeEvents.length > 0) {
+                    console.log('activeEvents is not empty');
+                    return this.$store.state.activeEvents;
+                } else {
+                    console.log('activeEvents is empty');
+                    return this.$store.state.activeEvents;
+                }
             }
         },
         watch: {

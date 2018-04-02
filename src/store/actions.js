@@ -59,10 +59,6 @@ export const actions = {
     },
     setActiveEvents({commit, dispatch, context, state}, list) {
         console.log('setActiveList dispatched',list);
-        if (status == true) {
-            commit(types.SET_FILTER_STATE, false);
-        } else {
-            commit(types.SET_FILTER_STATE, true);
-        }
+        commit(types.SET_ACTIVE_LIST, list);
     }
 }

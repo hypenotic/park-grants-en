@@ -9,7 +9,8 @@ import {
     SET_ACTIVITY_LIST,
     SET_ACTIVE_CATEGORIES,
     SET_LIST_STATE,
-    SET_FILTER_STATE  
+    SET_FILTER_STATE,
+    SET_ACTIVE_LIST  
 } from './mutation-types'
 
 export const mutations = {
@@ -27,6 +28,9 @@ export const mutations = {
     },
     SET_ACTIVITY_LIST(state, list) {
         state.activityList = list
+    },
+    SET_ACTIVE_LIST(state, list) {
+        state.activeEvents = list
     },
     SET_ACTIVE_CATEGORIES(state, list) {
         state.checkedActivityList = list

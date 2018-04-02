@@ -8,5 +8,8 @@ export const state = {
     checkedActivityList: [],
     listViewState: false,
     filterViewState: false,
-    activeEvents: []
+    activeEvents: [],
+    activeMarkers: []
 }
+
+// Should we split these up into modules?

@@ -644,3 +644,10 @@ input.chk-btn:checked + label {
         margin: 0;
     }
 }
+
+#map-view-trigger.active-trigger,
+#list-view-trigger.active-trigger {
+	i {
+		color: #FF6A00;
+	}
+}
