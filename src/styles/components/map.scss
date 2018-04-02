@@ -162,3 +162,15 @@ button, .button {
         color: $white;
     }
 }
+
+#reset-location {
+    display: block;
+    top: 80px;
+    left: 15px;
+    font-family: $nav-type;
+    z-index: 1;
+}
+
+#reset-location.hidden-reset-loc {
+    display: none;
+}

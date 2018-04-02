@@ -5,8 +5,8 @@
             <section class="google-map" id="grants-map"></section>
             <section class="map-list"></section>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
-            <input id="pac-input" class="controls small-search" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15; ">
-            <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1; ">Reset Location</button>
+            <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15; ">
+            <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Location</button>
         </div>
     </div>
 </template>
@@ -101,6 +101,40 @@
             this.buildMarkers();
         },
         methods: {
+            showAllList() {
+                console.log('showAllList');
+                let app = this;
+            },
+            showAllMarkers() {
+                console.log('showAllMarkers');
+                let app = this;
+                let bounds = new google.maps.LatLngBounds();
+
+                for (var i=0; i< app.locations.length; i++) {
+                    bounds.extend( app.markers[i].getPosition() ); 
+                    app.markers[i].setVisible(true);
+                }
+
+                app.map.fitBounds(bounds);
+            },
+            hideOutsideRadius(places) {
+                console.log('hideOutsideRadius');
+                let app = this;
+                
+                var placeLat = places[0].geometry.location.lat();
+                var placeLng = places[0].geometry.location.lng();
+
+                var originPlace = new google.maps.LatLng(placeLat, placeLng);
+
+                for (var i=0; i<app.locations.length; i++) {
+                    let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
+                    var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
+
+                    if (distanceBT > 5000) {
+                        app.markers[i].setVisible(false);
+                    }
+                }
+            },
             applyFilters() {
                 console.log('applyFilters');
                 let app = this;
@@ -183,35 +217,32 @@
 
             },
             triggerSearch() {
-                // DONT FORGET TO CLEAR PLACES ON EVERY SEARCH
-                // OR YOU GET TWO YOU MARKERS
-                console.log('CHANGE');
-                console.log(this.searchBox.getPlaces());
+                console.log('triggerSearch');
+                let app = this;
+
                 let places = this.searchBox.getPlaces();
                 
                 if (places.length == 0) {
                     return;
                 }
 
-                // $('#reset-location').removeClass('hidden-reset-loc');
-                // $('#pac-input').addClass('small-search');
-                // // console.log(places);
-
-                // // Might have to do a check for activities and type filter
-                // // TK NOTE
-                // showAllMarkers();
-                // showListAll('list-item');
-                let app = this;
-                hide10k();
-                // showHide();
+                let input = document.getElementById('pac-input');
+                if (input.classList.contains('small-search')) {
+                } else {
+                    input.classList.add('small-search');
+                }
                 
-                // THIS WORKS!
+                let reset = document.getElementById('reset-location');
+                if (reset.classList.contains('hidden-reset-loc')) {
+                    reset.classList.remove('hidden-reset-loc');
+                }
+
                 // Clear out the old markers.
-                // this.markers.forEach(function(marker) {
-                //     marker.setMap(null);
-                // });
-                // this.markers = [];
-                console.log('TK1');
+                app.markers.forEach(function(marker) {
+                    marker.setVisible(false);
+                });
+                this.showAllMarkers();
+                this.hideOutsideRadius(places);
 
                 var bounds = new google.maps.LatLngBounds();
                 places.forEach(function(place) {
@@ -258,28 +289,6 @@
                     }
                 })
                 app.map.fitBounds(bounds);
-                // hide markers outside of 10km 
-                
-                function hide10k() {
-                    console.log('bloop');
-                    var placeLat = places[0].geometry.location.lat();
-                    var placeLng = places[0].geometry.location.lng();
-
-                    var originPlace = new google.maps.LatLng(placeLat, placeLng);
-
-                    for (var i=0; i<app.locations.length; i++) {
-                        console.log('TK2');
-                        let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
-                        var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
-
-                        if (distanceBT > 5000) {
-                            console.log('TK3');
-                            app.markers[i].setVisible(false);
-                            // var stringID = 'item-'+locations[i][4];
-                            // hideList10k(stringID);
-                        }
-                    }
-                }
             },
             buildMarkers(){
                 this.markers = [];

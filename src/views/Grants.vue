@@ -14,13 +14,8 @@
 
 		<section class="map-section">
 			<h2>TD Park People Events Across Canada</h2>
-
 			<app-map></app-map>
 		</section>
-
-		<!-- <section class="grant-recipients">
-			<h3>Grant Recipients</h3>
-		</section> -->
 				
 		<section class="recipients">
 			<div class="align-center"><router-link class="cta_button" to="/recipients">See all grant recipients!</router-link></div>
