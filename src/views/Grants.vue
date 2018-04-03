@@ -2,13 +2,8 @@
 	<div v-if="data != null">
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
 			<div class="container">
-				<!-- <h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1> -->
-				<h1 id="bird-anchor">TD Park People Grants: Bringing People Together in City Parks</h1>
-
-				<div class="topContent">
-					<p>TD Park People Grants are helping community groups host over 160 great events in city parks across Canada.  We know that when we gather together in our parks people are happier, communities are more connected and cities thrive.</p>
-				</div>
-
+				<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
+				<div class="topContent" v-html="data.content.rendered"></div>
 			</div>
 		</section>
 
@@ -18,26 +13,18 @@
 		</section>
 				
 		<section class="recipients">
-			<div class="align-center"><router-link class="cta_button" to="/recipients">See all grant recipients!</router-link></div>
+			<div class="align-center">
+				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
+			</div>
 		</section>
 
 		<section class="event-templates">
-			<h3>Spread the word about your community events in city parks</h3>
+			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
 			<div class="three-column">
-				<div>
-					<h4>Posters and Flyers</h4>
-					<p>Editable PDF posters you can use to make your event shine all around the neighbourhood.</p>
-					<a href="#">Download</a>
-				</div>
-				<div>
-					<h4>Social Media Graphics</h4>
-					<p>Get your Twitter, Facebook, and Instagram graphics ready to give your event the social media fame it deserves.</p>
-					<a href="#">Download</a>
-				</div>
-				<div>
-					<h4>Wordmark and Usage Guidelines</h4>
-					<p>Making your own poster? Grab the logo version that best fits your design</p>
-					<a href="#">Download</a>
+				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
+					<h4 v-html="bucket._page_bucket_heading"></h4>
+					<p v-html="bucket._page_bucket_copy"></p>
+					<a :href="bucket._page_bucket_link">Download</a>
 				</div>
 			</div>
 
@@ -158,7 +145,7 @@ export default {
 	},
 	created() {
 		console.log('hi')
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
+		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/1825?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data
