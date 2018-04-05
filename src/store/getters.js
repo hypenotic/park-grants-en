@@ -7,5 +7,11 @@ export const getters = {
     },
     allActiveEvents: state => {
         return state.activeEvents
+    },
+    activeMarkers: state => {
+        return state.activeMarkers
+    },
+    activeInfoWindows: state => {
+        return state.activeInfoWindows
     }
 }

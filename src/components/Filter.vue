@@ -36,7 +36,7 @@
                         <div class="submit-bar-wrapper">
                             <span id="whole-sentence-count"><span id="activities-selected" v-html="filterCount"></span> activities selected. Ready?</span>
                             <div type="submit" class="button button--small" id="apply-search">Search!</div>
-                            <div id="clear-filters" class="hidden-clear"><span>Clear All Activities</span></div>
+                            <div id="clear-filters" v-bind:class="[checkedCategories.length >0 ? '' : 'hidden-clear']"><span>Clear All Activities</span></div>
                         </div>
                     </div>
                 </form>
@@ -61,6 +61,11 @@
             }
         },
         mounted() {
+            let app = this;
+            // Listen for when the filter submit button is pressed
+            document.getElementById("clear-filters").onclick = function() {
+                app.checkedCategories = [];
+            };
         },
         methods: { 
             changeFilters() {

@@ -1,15 +1,18 @@
 export const state = {
-    resourceList: [],
-    locationList: null,
-    activityList: null,
-    grantsData: [],
-    singlePostCache: {},
-    language: '',
-    checkedActivityList: [],
-    listViewState: false,
-    filterViewState: false,
     activeEvents: [],
-    activeMarkers: []
+    activeInfoWindows: [],
+    activeMarkers: [],
+    activityList: null,
+    checkedActivityList: [],
+    filterViewState: false,
+    grantsData: [],
+    initialLoadCheck: true,
+    language: '',
+    listViewState: false,
+    listViewState: false,
+    locationList: null,
+    resourceList: [],
+    singlePostCache: {}
 }
 
 // Should we split these up into modules?

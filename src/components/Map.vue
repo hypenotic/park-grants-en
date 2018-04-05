@@ -5,7 +5,7 @@
             <section class="google-map" id="grants-map"></section>
             <section class="map-list">
                 <div class="map-list-container">
-                    <div class="single-list-item" v-for="item in activeEvents" :key="item.id">
+                    <div class="single-list-item" v-for="item in activeMarkers" :key="item.id">
                         <div class="single-list-item-container">
                             <div class="single-list-item__image">
                                 <img :src="item.image" :alt="item.title">
@@ -166,21 +166,20 @@
 
                 let active = [];
 
-                for (var i=0; i<app.locations.length; i++) {
+                for (var i=0; i < app.locations.length; i++) {
                     let newPlace = new google.maps.LatLng(app.locations[i].lat, app.locations[i].lng);
                     var distanceBT = google.maps.geometry.spherical.computeDistanceBetween(originPlace, newPlace);
 
                     if (distanceBT > 5000) {
-                        app.markers[i].setVisible(false);
-                        
+                        // app.markers[i].setVisible(false);
                     } else {
                         active.push(app.locations[i]);
                     }
                 }
 
-                app.$store.dispatch("setActiveEvents", active );
+                return active;
             },
-            applyFilters() {
+            applyFilters(filtered = null) {
                 let app = this;
 
                 console.log('applyFilters');
@@ -217,10 +216,12 @@
 
                 if ((value.length == 0 && check.length == 0) || (value.length==0 && check.length > 0) ) {
                     console.log('Filter Option 1');
-                    app.showAllMarkers();
+                    // app.showAllMarkers();
+                    app.clearMarkers();
 
-                    let bounds = new google.maps.LatLngBounds();
+                    // let bounds = new google.maps.LatLngBounds();
 
+                    let active = [];
                     for (var i=0; i<app.locations.length; i++) {
                         // Grab the array of activity (taxonomy) IDs
                         let combined = app.locations[i].activity;
@@ -231,22 +232,27 @@
                         // If false, event does not include at least one of the 
                         // activities in the checkedActivityList array in the store
                         if (test == false) {
-                            app.markers[i].setVisible(false);
+                            // app.markers[i].setVisible(false);
                         } else {
-                            bounds.extend( app.markers[i].getPosition()); 
+                            // bounds.extend( app.markers[i].getPosition()); 
+                            active.push(app.locations[i]);
                         }
                     }
 
-                    console.log(bounds);
-                    if (bounds.b.b != 180 ) {
-                        app.map.fitBounds(bounds);
-                    } else {
-                        // TK ISSUE
-                    }
+                    console.log('activityMatch', active);
+                    app.$store.dispatch("setActiveEvents", active );
+
+                    app.rebuildMarkers();
+                    // console.log(bounds);
+                    // if (bounds.b.b != 180 ) {
+                    //     app.map.fitBounds(bounds);
+                    // } else {
+                    //     // TK ISSUE
+                    // }
 
                 } else if (value.length>0 && check.length > 0) {
                     console.log('Filter Option 2');
-                    let bounds = new google.maps.LatLngBounds();
+                    // let bounds = new google.maps.LatLngBounds();
 
                     let places = app.searchBox.getPlaces();
                     var placeLat = places[0].geometry.location.lat();
@@ -254,6 +260,7 @@
 
                     var originPlace = new google.maps.LatLng(placeLat, placeLng);
 
+                    let active = [];
                     for (var i=0; i<app.locations.length; i++) {
                         // Grab the array of activity (taxonomy) IDs
                         let combined = app.locations[i].activity;
@@ -267,18 +274,24 @@
                         // If false, event does not include at least one of the 
                         // activities in the checkedActivityList array in the store
                         if (test == false || distanceBT > 5000) {
-                            app.markers[i].setVisible(false);
+                            // app.markers[i].setVisible(false);
                         } else {
-                            bounds.extend( app.markers[i].getPosition()); 
+                            // bounds.extend( app.markers[i].getPosition()); 
+                            active.push(app.locations[i]);
                         }
                     }
 
-                    console.log(bounds);
-                    if (bounds.b.b != 180 ) {
-                        app.map.fitBounds(bounds);
-                    } else {
-                        // TKISSUE
-                    }
+                    // console.log(bounds);
+                    // if (bounds.b.b != 180 ) {
+                    //     app.map.fitBounds(bounds);
+                    // } else {
+                    //     // TKISSUE
+                    // }
+
+                    console.log('activityMatch', active);
+                    app.$store.dispatch("setActiveEvents", active );
+
+                    app.rebuildMarkers();
 
                 } else if (value.length>0 && check.length == 0) {
                     console.log('Filter Option 3');
@@ -295,11 +308,18 @@
 
                 // Clear out the old markers.
                 this.markers.forEach(function(marker) {
-                    // marker.setMap(null);
-                    marker.setVisible(true);
+                    marker.setMap(null);
+                    // marker.setVisible(true);
                 });
                 // this.markers = [];
 
+                app.clearMarkers();
+
+                let input = document.getElementById('pac-input');
+                input.value ='';
+                input.focus();
+
+                this.buildMarkers();
                 // $('#pac-input').removeClass('small-search');
                 // $('#pac-input').val("");
                 // $('#pac-input').focus();
@@ -358,11 +378,14 @@
                 }
 
                 // Clear out the old markers.
-                app.markers.forEach(function(marker) {
-                    marker.setVisible(false);
-                });
-                this.showAllMarkers();
-                this.hideOutsideRadius(places);
+                // app.markers.forEach(function(marker) {
+                //     marker.setVisible(false);
+                // });
+                // this.showAllMarkers();
+                // this.hideOutsideRadius(places);
+
+                this.clearMarkers();
+                let inRange = this.hideOutsideRadius(places);
 
                 var bounds = new google.maps.LatLngBounds();
                 places.forEach(function(place) {
@@ -409,8 +432,16 @@
                     }
                 })
                 app.map.fitBounds(bounds);
+
+                console.log('inRange', inRange);
+                app.$store.dispatch("setActiveEvents", inRange );
+
+                this.rebuildMarkers();
+
             },
             buildMarkers(){
+                // Let's combine this method with rebuildMarkers
+                // We can set a variable to contain the right set of locations with a conditional
                 this.markers = [];
                 this.infoWindows = [];
                 /*
@@ -476,7 +507,7 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'&tdgrant=true" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
@@ -529,13 +560,24 @@
 
             },
             clearMarkers(){
+                console.log('clearMarkers', this.markers);
+                // let app = this;
                 /*
                     Iterate over all of the markers and set the map
                     to null so they disappear.
                 */
+                // for( var i = 0; i < this.markers.length; i++ ){
+                //     // console.log(i);
+                //     app.markers[i].setMap(null);
+                //     // app.markers[i].setVisible(false);
+                // }
+                // this.markers = [];
+                // this.buildMarkers();
                 for( var i = 0; i < this.markers.length; i++ ){
-                this.markers[i].setMap( null );
+                    this.markers[i].setMap( null );
                 }
+
+                this.rebuildMarkers();
             },
             checkLoader(){
                 if (this.$store.state.locationList.length > 0) {
@@ -544,10 +586,140 @@
                     this.showLoader = false;
                 }
             },
+            rebuildMarkers(){
+                console.log('rebuild markers');
+                
+                this.markers = [];
+                this.infoWindows = [];
+
+                let bounds = new google.maps.LatLngBounds();
+
+                /*
+                    Iterate over all of the cafes
+                */
+                for( var i = 0; i < this.activeMarkers.length; i++ ){
+                    /*
+                        Set marker position
+                    */
+                    let theposition = new google.maps.LatLng(this.activeMarkers[i].lat, this.activeMarkers[i].lng);
+
+                    /*
+                        Choose marker style based on type
+                    */
+                    if (this.activeMarkers[i].type == 'event') {
+
+                        // console.log(this.locations[i]);
+                        
+                        let the_icon = '';
+                        if (this.activeMarkers[i].timeframe =='morethan30') {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
+                            </svg>';
+                        } else if (this.activeMarkers[i].timeframe =='within30') {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
+                            </svg>';
+                        } else {
+                            the_icon = 'data:image/svg+xml;utf-8, \
+                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                                <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
+                            </svg>';
+                        }
+
+                        /*
+                            Create the marker for each of the locations and set the
+                            latitude and longitude to the latitude and longitude
+                            of the location. Also set the map to be the local map.
+                        */
+                        var marker = new google.maps.Marker({
+                            position: theposition,
+                            map: this.map,
+                            title: this.activeMarkers[i].title,
+                            icon: {
+                                url: the_icon
+                            }
+                        });
+
+                        /*
+                            Push the new marker on to the array.
+                        */
+                        this.markers.push( marker );
+
+                        /*
+                            Create the group string
+                        */
+                        // let groupString ='';
+                        // if (locations[i].listing[1] != undefined) {
+                        //     groupString = '<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p>';
+                        // } else {
+                        //     groupString = '';
+                        // }
+
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p></div>';
+
+                        /*
+                            Create the info window and add it to the local
+                            array.
+                        */
+                        let infoWindow = new google.maps.InfoWindow({
+                            content: windowString
+                        });
+
+                        this.infoWindows.push( infoWindow );
+                        
+                        /*
+                        Add the event listener to open the info window for the marker.
+                        */ 
+                        marker.addListener('click', function() {
+                            // infoWindow.close();
+                            // if (infoWindow) { infoWindow.close();}
+                            infoWindow.open(this.map, this);
+                        });
+                        // Allow each marker to have an info window    
+                        // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
+                        //     return function() {
+                        //         infoWindow.setContent(windowString);
+                        //         infoWindow.open(this.map, marker);
+                        //     }
+                        // })(marker, i));
+                        // let theMap = this.map;
+                        // let infoWindow = new google.maps.InfoWindow();
+                        // this.oms.addListener('click', function(marker, event, i) {
+                        //     infoWindow.setContent('hey');
+                        //     infoWindow.open(theMap, marker);
+                        // });
+                        
+                        bounds.extend( this.markers[i].getPosition()); 
+                        this.oms.addMarker(marker);
+
+                        // var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+
+                        // windowArray.push(windowString);
+                        // this.windows.push(windowArray);
+                        
+                        // var infoWindow = new google.maps.InfoWindow(), marker, i;
+                    } else {
+                        return
+                    }
+
+                    this.map.fitBounds(bounds);
+                }
+
+            },
         },
         computed: {
             locations(){
                 return this.$store.getters.allLocations;
+                // return this.$store.getters.allActiveEvents;
+            },
+            activeMarkers(){
+                // return this.$store.getters.activeMarkers;
+                return this.$store.getters.allActiveEvents;
+            },
+            activeInfoWindows(){
+                return this.$store.getters.activeInfoWindows;
             },
             activeEvents(){
                 // console.log(this.$store.state.activeEvents[0]);
@@ -565,13 +737,19 @@
         },
         watch: {
             /*
-                Watches the events. When they are updated, clear the markers
-                and re build them.
+                Watches the list of locations in the store. 
+                When they are updated, clear the markers and re build them.
+                TKNOTE: This is eventually should be attached to the getter that contained filtered results.
             */
             locations(){
-                this.clearMarkers();
-                this.buildMarkers();
-                this.checkLoader();
+                // this.clearMarkers();
+                // this.buildMarkers();
+                // this.checkLoader();
+            },
+            activeMarkers(){
+                // this.clearMarkers();
+                // this.rebuildMarkers();
+                // this.checkLoader();
             }
         },
     }

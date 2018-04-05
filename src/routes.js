@@ -14,5 +14,6 @@ export const routes = [
 	{ path:'/', component: Grants, props: true },
 	{ path:'/grants', component: Grants, props: true },
 	{ path:'/faq', component: Single, props: true },
+	{ path:'/grant-recipients', component: Single, props: true },
 	{ path: '*', redirect: '/' }
 ]
