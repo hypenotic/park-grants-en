@@ -18,8 +18,8 @@
         <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'menu-open': showMobileMenu }">
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
-                <!-- <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/faq'"><router-link to="/" exact>Grants</router-link></span>
-                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/faq"  exact>FAQ</router-link></span> -->
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients"  exact>2018 Recipients</router-link></span>
             </div>
         </div>
     </nav>
@@ -42,8 +42,8 @@
         <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'menu-open': showMobileMenu }">
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
-                <!-- <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/faq'"><router-link to="/" exact>Grants</router-link></span>
-                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/faq"  exact>FAQ</router-link></span> -->
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients" exact>2018 Recipients</router-link></span>
             </div>
         </div>
     </nav>
@@ -117,120 +117,7 @@ export default {
 <style lang="scss" scoped>
 
 @import '../styles/variables.scss';
+@import '../styles/components/nav.scss';
 
-.green {
-    background-color: #067f1b;
-}
 
-nav#scrolling {
-    @media #{$medium-and-down} {
-		// display: block;
-		position: fixed; 
-        width: 100%;
-		z-index: 6000;
-    }
-}
-
-#mobile-menu-trigger {
-	display: none;
-	&:hover {
-		cursor: pointer;
-	}
-	i {
-		color: $white;
-		font-size: 30px;
-	}
-	@media #{$medium-and-down} {
-		display: block;
-		position: fixed; 
-		right: 30px;
-		top: 15px;
-		z-index: 5000000;
-    }
-	
-}
-
-.navbar {
-    @media #{$medium-and-down} {
-        display: flex;
-        align-items: center;
-        position: relative;
-        z-index: 5000;
-    }
-}
-
-.navbar-brand {
-    @media #{$medium-and-down} {
-        display: inline-block;
-    }
-}
-
-.navbar-menu {
-    a {
-        color: $white;
-        &:hover {
-            color: $blue;
-            background: $white;
-        }
-    }
-    span {
-        &:hover {
-            background: $white;
-            color: $blue;
-            a {
-                color: $blue;
-            }
-        }
-    }
-}
-
-.navbar-menu.menu-open {
-    @media #{$medium-and-down} {
-        position: absolute;
-        display: inline-block;
-        top: 55px;
-        width: 100%;
-        background:  #067f1b;
-    }
-}
-
-.lang {
-    display: flex;
-    align-items: center;
-    color: white;
-    margin: 1em;
-    @media #{$medium-and-down} {
-        display: inline-block;
-        margin: 0 0 0 16px;
-    }
-    a {
-        color: white;
-        &:hover {
-            font-weight: bold;
-        }
-    }
-}
-
-.navbar-item {
-    color: white;
-}
-
-.grants-logo {
-    max-height: 50px;
-    width: auto;
-    margin-top: 3px;
-    margin-left: 8px; 
-    @media #{$large-and-up} {
-		max-height: 70px;
-        width: auto;
-        margin-top: 3px;
-        margin-left: 8px; 
-	}
-    @media #{$xlarge-and-up} {
-		max-height: 80px;
-        width: auto;
-        margin-top: 3px;
-        margin-left: 8px; 
-	}
-}
 </style>

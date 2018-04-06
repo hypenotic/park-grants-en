@@ -5,7 +5,7 @@
             <section class="google-map" id="grants-map"></section>
             <section class="map-list">
                 <div class="map-list-container">
-                    <div class="single-list-item" v-for="item in activeMarkers" :key="item.id">
+                    <div class="single-list-item" v-for="item in activeMarkers" :key="item.id" v-if="item.timeframe != 'past'">
                         <div class="single-list-item-container">
                             <div class="single-list-item__image">
                                 <img :src="item.image" :alt="item.title">
@@ -462,20 +462,27 @@
                         
                         let the_icon = '';
                         if (this.locations[i].timeframe =='morethan30') {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
-                            </svg>';
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_small.png';
+                            // the_icon = {
+                            //     url: 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker.png',
+                            //     size: new google.maps.Size(20, 32),
+                            // }
                         } else if (this.locations[i].timeframe =='within30') {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
-                            </svg>';
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_small.png';
                         } else {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
-                            </svg>';
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.png';
                         }
 
                         /*
@@ -611,21 +618,28 @@
                         // console.log(this.locations[i]);
                         
                         let the_icon = '';
-                        if (this.activeMarkers[i].timeframe =='morethan30') {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
-                            </svg>';
-                        } else if (this.activeMarkers[i].timeframe =='within30') {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
-                            </svg>';
+                        if (this.locations[i].timeframe =='morethan30') {
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#1687b7" stroke-width="4" fill="#1a97c9" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_small.png';
+                            // the_icon = {
+                            //     url: 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker.png',
+                            //     size: new google.maps.Size(20, 32),
+                            // }
+                        } else if (this.locations[i].timeframe =='within30') {
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#1eb1f2" stroke-width="4" fill="#eaeaea" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_small.png';
                         } else {
-                            the_icon = 'data:image/svg+xml;utf-8, \
-                            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
-                                <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
-                            </svg>';
+                            // the_icon = 'data:image/svg+xml;utf-8, \
+                            // <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"> \
+                            //     <circle cx="16" cy="16" r="12" stroke="#d1d1d1" stroke-width="4" fill="#e3e3e3" /> \
+                            // </svg>';
+                            the_icon = 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.png';
                         }
 
                         /*
@@ -742,8 +756,8 @@
                 TKNOTE: This is eventually should be attached to the getter that contained filtered results.
             */
             locations(){
-                // this.clearMarkers();
-                // this.buildMarkers();
+                this.clearMarkers();
+                this.buildMarkers();
                 // this.checkLoader();
             },
             activeMarkers(){

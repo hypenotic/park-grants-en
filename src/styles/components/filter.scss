@@ -1,10 +1,15 @@
 .filter {
     background-color:rgba(63,63,63,1);
-    height: 62px; 
+    height: 80px; 
     position: relative; 
     top:10px; 
     z-index: 50; 
     width: 100%;
+    @media #{$medium-and-up} {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     a {
       color: white;
       font-family: $nav-type;
@@ -650,4 +655,41 @@ input.chk-btn:checked + label {
 	i {
 		color: #FF6A00;
 	}
+}
+
+.legend {
+    color: $white;
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        // margin-top: 8px;
+        li {
+            // width: 25%;
+        }
+    }
+    li:first-child {
+        font-family: $family-sanserif;
+    font-weight: bold;
+    margin-right: 20px;
+    }
+    ul li:not(:first-child) {
+        color: $white;
+        font-family: $family-sanserif;
+        font-weight: normal;
+        margin-right: 24px;
+        text-align: center;
+        font-size: 16px;
+        display: flex;
+        // flex-direction: column;
+        align-items: center;
+        svg {
+            width: 20px;
+            height: auto;
+            margin-right: 4px;
+        }
+        span {
+            // display: block;
+        }
+    }
 }
