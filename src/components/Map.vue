@@ -522,7 +522,13 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'&tdgrant=true" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+                        let windowString = '';
+
+                        if (this.locations[i].timeframe == 'past') {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;">'+ this.locations[i].title + '</h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p><span>'+this.locations[i].timeframe+'</span></div>';
+                        } else {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'&tdgrant=true" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p><span>'+this.locations[i].timeframe+'</span></div>';
+                        }
 
                         /*
                             Create the info window and add it to the local
@@ -587,7 +593,7 @@
 
                 app.markers = [];
                 app.infoWindows = [];
-                console.log('clearMarkers end', this.markers, this.infoWindows);
+                console.log('clearMarkers end', app.markers, app.infoWindows);
             },
             checkLoader(){
                 if (this.$store.state.locationList.length > 0) {
@@ -599,8 +605,8 @@
             rebuildMarkers(){
                 console.log('rebuild markers');
                 
-                // this.markers = [];
-                // this.infoWindows = [];
+                this.markers = [];
+                this.infoWindows = [];
 
                 let app = this;
 
@@ -665,7 +671,13 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ app.activeMarkers[i].slug+ '&id='+ app.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ app.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  app.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  app.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+app.activeMarkers[i].start_time+' - '+app.activeMarkers[i].end_time+'</p></div>';
+                         let windowString = '';
+
+                        if (this.activeMarkers[i].timeframe == 'past') {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;">'+ this.activeMarkers[i].title + '</h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p><span>'+this.activeMarkers[i].timeframe+'</span></div>';
+                        } else {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p><span>'+this.activeMarkers[i].timeframe+'</span></div>';
+                        }
 
                         /*
                             Create the info window and add it to the local
@@ -678,20 +690,20 @@
                         app.infoWindows.push( infoWindow );
                         
                         /*
-                        appthe event listener to open the info window for the marker.
+                        Add the event listener to open the info window for the marker.
                         */ 
-                        marker.addListener('click', function() {
-                            // infoWindow.close();
-                            // if (infoWindow) { infoWindow.close();}
-                            infoWindow.open(app.map, this);
-                        });
+                        // marker.addListener('click', function() {
+                        //     // infoWindow.close();
+                        //     // if (infoWindow) { infoWindow.close();}
+                        //     infoWindow.open(app.map, this);
+                        // });
                         // Allow each marker to have an info window    
-                        // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
-                        //     return function() {
-                        //         infoWindow.setContent(windowString);
-                        //         infoWindow.open(this.map, marker);
-                        //     }
-                        // })(marker, i));
+                        google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
+                            return function() {
+                                infoWindow.setContent(windowString);
+                                infoWindow.open(this.map, marker);
+                            }
+                        })(marker, i));
                         // let theMap = this.map;
                         // let infoWindow = new google.maps.InfoWindow();
                         // this.oms.addListener('click', function(marker, event, i) {
