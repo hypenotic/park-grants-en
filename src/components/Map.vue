@@ -376,6 +376,8 @@
                 console.log('triggerSearch');
                 let app = this;
 
+                app.clearMarkers();
+
                 let places = this.searchBox.getPlaces();
                 
                 if (places.length == 0) {
@@ -431,6 +433,14 @@
                         // title: place.name,
                         position: place.geometry.location,
                     }));
+
+                    let windowString = "Current Location";
+
+                    let infoWindow = new google.maps.InfoWindow({
+                        content: windowString
+                    });
+
+                    app.infoWindows.push( infoWindow );
 
                     if (place.geometry.viewport) {
                     // Only geocodes have viewport.
@@ -589,8 +599,8 @@
             rebuildMarkers(){
                 console.log('rebuild markers');
                 
-                this.markers = [];
-                this.infoWindows = [];
+                // this.markers = [];
+                // this.infoWindows = [];
 
                 let app = this;
 
@@ -618,9 +628,9 @@
                         // console.log(this.locations[i]);
                         
                         let the_icon = '';
-                        if (app.locations[i].timeframe == 'morethan30') {
+                        if (app.activeMarkers[i].timeframe == 'morethan30') {
                             the_icon = blueMarker;
-                        } else if (app.locations[i].timeframe == 'within30') {
+                        } else if (app.activeMarkers[i].timeframe == 'within30') {
                             the_icon = orangeMarker;
                         } else {
                             the_icon = greenMarker; 
@@ -741,12 +751,12 @@
                 TKNOTE: This is eventually should be attached to the getter that contained filtered results.
             */
             locations(){
-                this.clearMarkers();
+                // this.clearMarkers();
                 this.buildMarkers();
                 // this.checkLoader();
             },
             activeMarkers(){
-                this.clearMarkers();
+                // this.clearMarkers();
                 this.rebuildMarkers();
                 // this.checkLoader();
             }
