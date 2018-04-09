@@ -9,7 +9,7 @@
     height: 0;
     overflow: hidden;
     position: relative;
-    background: $white;
+    background: #e3e3e3;
     z-index: 40;
 }
 
@@ -20,7 +20,8 @@
         min-height: 80vh;
         max-height: 80vh;
         overflow-y: scroll;
-        background: $white;
+        // background: $white;
+        background: #e3e3e3;
         vertical-align: top;
         @media #{$medium-and-up} {
             width: 99.5%;
@@ -196,6 +197,7 @@ button, .button {
 }
 
 .single-list-item {
+    // background: $white;
     h5 {
         font-size: 20px;
         line-height: 1.3;

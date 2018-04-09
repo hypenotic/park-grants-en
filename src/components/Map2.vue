@@ -103,18 +103,15 @@
             let app = this;
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
             this.searchBox.addListener('places_changed', function() {
-                // app.triggerSearch();
-                app.chooseFilter();
+                app.triggerSearch();
             });
             // Listen for when the reset location button is pressed
             document.getElementById("reset-location").onclick = function() {
-                // app.triggerSearchReset();
-                app.chooseFilter();
+                app.triggerSearchReset();
             };
             // Listen for when the filter submit button is pressed
             document.getElementById("apply-search").onclick = function() {
-                // app.applyFilters();
-                app.chooseFilter();
+                app.applyFilters();
             };
 
             this.map = new google.maps.Map(element, options);
@@ -142,50 +139,9 @@
             this.buildMarkers();
         },
         methods: {
-            chooseFilter() {
+            showAllList() {
+                console.log('showAllList');
                 let app = this;
-                // Check if there is a value in the searchbox and checked checkboxes
-                let input = document.getElementById('pac-input');
-                let value = input.value;
-                let checkboxes = document.getElementsByClassName('ck-box');
-                let check = [];
-                for(var i = 0; i < checkboxes.length; i++) {
-                    if (checkboxes[i].checked == true) {
-                        check.push(i);
-                    }
-                }
-
-                if (value.length==0 && check.length > 0) {
-                    // If search bar is empty, and activities are checked 
-                    console.log(1, 'no search, yes activities');
-                } else if (value.length>0 && check.length > 0) {
-                    // If both search bar and activities are full
-                    console.log(2, 'yes search, yes activities');
-                
-                } else if (value.length>0 && check.length == 0) {
-                    // If search bar is not empty, and activities are not checked
-                    console.log(3, 'yes search, no activities');
-                    
-                    // app.hideOutsideRadius();
-                    app.triggerSearch();
-
-                } else {
-                    console.log(4, 'catch all - initial render?');
-                    // Fire this in mounted()
-
-                    // app.showAll();
-                }
-                
-            },
-            showAll() {
-                console.log('showAll');
-                let app = this;
-                
-                // send all locations to activeList prop in state
-                // Make sure activeList is what buildMarkers uses
-
-                // app.buildMarkers();
-
             },
             showAllMarkers() {
                 console.log('showAllMarkers');
@@ -223,10 +179,6 @@
                 }
 
                 return active;
-                // send active to activeList prop in state
-                // Make sure activeList is what buildMarkers uses
-
-                // app.buildMarkers();
             },
             applyFilters(filtered = null) {
                 let app = this;
@@ -393,6 +345,14 @@
                     reset.classList.remove('hidden-reset-loc');
                 }
 
+                // Clear out the old markers.
+                // app.markers.forEach(function(marker) {
+                //     marker.setVisible(false);
+                // });
+                // this.showAllMarkers();
+                // this.hideOutsideRadius(places);
+
+                // this.clearMarkers();
                 let inRange = this.hideOutsideRadius(places);
 
                 var bounds = new google.maps.LatLngBounds();
@@ -444,7 +404,7 @@
                 console.log('inRange', inRange);
                 app.$store.dispatch("setActiveEvents", inRange );
 
-                // this.rebuildMarkers();
+                this.rebuildMarkers();
 
             },
             buildMarkers(){
@@ -565,19 +525,24 @@
 
             },
             clearMarkers(){
-                console.log('clearMarkers start', this.markers, this.infoWindows);
-                let app = this;
+                console.log('clearMarkers', this.markers);
+                // let app = this;
                 /*
                     Iterate over all of the markers and set the map
                     to null so they disappear.
                 */
-                for( var i = 0; i < app.markers.length; i++ ){
-                    app.markers[i].setMap( null );
+                // for( var i = 0; i < this.markers.length; i++ ){
+                //     // console.log(i);
+                //     app.markers[i].setMap(null);
+                //     // app.markers[i].setVisible(false);
+                // }
+                // this.markers = [];
+                // this.buildMarkers();
+                for( var i = 0; i < this.markers.length; i++ ){
+                    this.markers[i].setMap( null );
                 }
 
-                app.markers = [];
-                app.infoWindows = [];
-                console.log('clearMarkers end', this.markers, this.infoWindows);
+                this.rebuildMarkers();
             },
             checkLoader(){
                 if (this.$store.state.locationList.length > 0) {
@@ -592,8 +557,6 @@
                 this.markers = [];
                 this.infoWindows = [];
 
-                let app = this;
-
                 // Icons
                 let blueMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg';
                 let orangeMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_svg.svg';
@@ -604,23 +567,23 @@
                 /*
                     Iterate over all of the cafes
                 */
-                for( var i = 0; i < app.activeMarkers.length; i++ ){
+                for( var i = 0; i < this.activeMarkers.length; i++ ){
                     /*
                         Set marker position
                     */
-                    let theposition = new google.maps.LatLng(app.activeMarkers[i].lat, app.activeMarkers[i].lng);
+                    let theposition = new google.maps.LatLng(this.activeMarkers[i].lat, this.activeMarkers[i].lng);
 
                     /*
                         Choose marker style based on type
                     */
-                    if (app.activeMarkers[i].type == 'event') {
+                    if (this.activeMarkers[i].type == 'event') {
 
                         // console.log(this.locations[i]);
                         
                         let the_icon = '';
-                        if (app.locations[i].timeframe == 'morethan30') {
+                        if (this.locations[i].timeframe == 'morethan30') {
                             the_icon = blueMarker;
-                        } else if (app.locations[i].timeframe == 'within30') {
+                        } else if (this.locations[i].timeframe == 'within30') {
                             the_icon = orangeMarker;
                         } else {
                             the_icon = greenMarker; 
@@ -633,8 +596,8 @@
                         */
                         var marker = new google.maps.Marker({
                             position: theposition,
-                            map: app.map,
-                            title: app.activeMarkers[i].title,
+                            map: this.map,
+                            title: this.activeMarkers[i].title,
                             icon: {
                                 url: the_icon
                             }
@@ -643,7 +606,7 @@
                         /*
                             Push the new marker on to the array.
                         */
-                        app.markers.push( marker );
+                        this.markers.push( marker );
 
                         /*
                             Create the group string
@@ -655,7 +618,7 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ app.activeMarkers[i].slug+ '&id='+ app.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ app.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  app.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  app.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+app.activeMarkers[i].start_time+' - '+app.activeMarkers[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
@@ -665,15 +628,15 @@
                             content: windowString
                         });
 
-                        app.infoWindows.push( infoWindow );
+                        this.infoWindows.push( infoWindow );
                         
                         /*
-                        appthe event listener to open the info window for the marker.
+                        Add the event listener to open the info window for the marker.
                         */ 
                         marker.addListener('click', function() {
                             // infoWindow.close();
                             // if (infoWindow) { infoWindow.close();}
-                            infoWindow.open(app.map, this);
+                            infoWindow.open(this.map, this);
                         });
                         // Allow each marker to have an info window    
                         // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
@@ -689,8 +652,8 @@
                         //     infoWindow.open(theMap, marker);
                         // });
                         
-                        bounds.extend( app.markers[i].getPosition()); 
-                        app.oms.addMarker(marker);
+                        bounds.extend( this.markers[i].getPosition()); 
+                        this.oms.addMarker(marker);
 
                         // var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
@@ -702,7 +665,7 @@
                         return
                     }
 
-                    app.map.fitBounds(bounds);
+                    this.map.fitBounds(bounds);
                 }
 
             },
@@ -746,8 +709,8 @@
                 // this.checkLoader();
             },
             activeMarkers(){
-                this.clearMarkers();
-                this.rebuildMarkers();
+                // this.clearMarkers();
+                // this.rebuildMarkers();
                 // this.checkLoader();
             }
         },
