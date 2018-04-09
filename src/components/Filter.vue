@@ -68,7 +68,7 @@
                             </g>
                         </g>
                     </svg>
-                    <span>- In &lt; 30 days</span>
+                    <span>- Within the next 30 days</span>
                 </li>
                 <li>
                     <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -80,7 +80,7 @@
                             </g>
                         </g>
                     </svg>
-                    <span>- In &gt; 30 days</span>
+                    <span>- In 30+ days</span>
                 </li>    
             </ul>
         </div>      

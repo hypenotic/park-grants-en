@@ -485,8 +485,6 @@
                         Choose marker style based on type
                     */
                     if (this.locations[i].type == 'event') {
-
-                        // console.log(this.locations[i]);
                         
                         let the_icon = '';
                         if (this.locations[i].timeframe == 'morethan30') {
@@ -717,8 +715,6 @@
                         
                         bounds.extend( app.markers[i].getPosition()); 
                         app.oms.addMarker(marker);
-
-                        // var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="'+ 'eLink' +'">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
                         // windowArray.push(windowString);
                         // this.windows.push(windowArray);
