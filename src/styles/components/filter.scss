@@ -629,7 +629,7 @@ input.chk-btn:checked + label {
         li {
         float:left; 
         margin-right: 2em;
-        margin-top: 12px;
+        // margin-top: 12px;
         }
     }
 }
@@ -692,4 +692,8 @@ input.chk-btn:checked + label {
             // display: block;
         }
     }
+}
+
+#copy-selected-acts {
+  // font-style: italic;
 }

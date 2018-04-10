@@ -11,9 +11,13 @@
     position: relative;
     background: #e3e3e3;
     z-index: 40;
+    h3 {
+        padding: 40px 0 0 24px;
+    }
 }
 
 .map-container.list-open {
+    background: #e3e3e3;
     .map-list {
         display: inline-block;
         width: 100%;
@@ -21,7 +25,7 @@
         max-height: 80vh;
         overflow-y: scroll;
         // background: $white;
-        background: #e3e3e3;
+        // background: #e3e3e3;
         vertical-align: top;
         @media #{$medium-and-up} {
             width: 99.5%;

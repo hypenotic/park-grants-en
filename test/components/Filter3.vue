@@ -7,8 +7,8 @@
             <ul>
                 <li>
                     <p><strong style="color: white;">Filter</strong>: 
-                        <span class="info" id="filter-dropdown" if v-on:click="filterTrigger">Find park events based on activities</span> 
-                        <span id="copy-selected-acts">- (<span v-html="filterCount"></span> selected)</span>
+                        <span class="info" id="filter-dropdown" if v-on:click="filterTrigger">Find park events based on the kinds of activities they do</span>
+                        <span id="copy-selected-acts"></span>
                     </p>
                 </li>
             </ul>
