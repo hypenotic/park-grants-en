@@ -1,6 +1,6 @@
 <template v-if="this.$store.state.locationList != null">
     <section class="filter" >
-        <div id="mobile-filter-trigger">
+        <div id="mobile-filter-trigger" v-on:click="filterTrigger" v-bind:class="{ 'not-hidden-mobile': this.$store.state.filterViewState }">
             <i class="fa fa-sliders" aria-hidden="true"></i> <span>Filters</span>
         </div>
         <div class="filter-bar">
@@ -80,7 +80,8 @@
                 showActivityList: false,
                 filters: [],
                 checkedCategories: [],
-                clearFilterCheck: []
+                clearFilterCheck: [],
+                mobileFilter: false
             }
         },
         mounted() {

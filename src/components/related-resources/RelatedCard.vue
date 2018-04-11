@@ -8,7 +8,7 @@
             </div>
             <div class="card-content">
                 <div class="content">
-                    <a :href="'https://parkpeople.ca/resources/en/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
+                    <a :href="'https://parkpeople.ca/resources/en/'+related.type + '/' + related.id + '/' + related.slug" target="_blank"><h4 v-html="related.title.rendered"></h4></a>
                     <p class="card-type-label"> {{ related.type | removeHyphen | toTitleCase }}</p> 	
                 </div>
             </div>

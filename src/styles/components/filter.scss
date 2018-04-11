@@ -122,6 +122,19 @@
       display: none;
     }
   }
+
+  #mobile-filter-trigger.not-hidden-mobile + .filter-bar {
+    @media #{$small-and-down} {
+      display: block;
+      background: $grey;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      > ul {
+        display: none;
+      }
+    }
+  }
   
   .filter-bar.active-mobile{
     @media #{$small-and-down} {
@@ -659,10 +672,16 @@ input.chk-btn:checked + label {
 
 .legend {
     color: $white;
+    @media #{$small-and-down} {
+      background: #3f3f3f;
+    }
     ul {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        @media #{$small-and-down} {
+          padding: 0 20px;
+        }
         // margin-top: 8px;
         li {
             // width: 25%;
