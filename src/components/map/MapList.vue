@@ -67,6 +67,7 @@
     z-index: 40;
     h3 {
         padding: 40px 0 0 24px;
+        font-size: 32px;
     }
 }
 

@@ -287,7 +287,11 @@ h1 {
 		margin: 0 auto;
 		li {
 			display: block;
-			margin: 40px;
+			margin: 20px 0;
+			@media #{$medium-and-up} {
+				display: inline-block;
+				margin: 0px 40px;
+			}
 			img {
 				display: inline-block;
 				vertical-align: top;

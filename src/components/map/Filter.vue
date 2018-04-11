@@ -47,10 +47,6 @@
         <div class="legend">
             <ul>
                 <li>Legend:</li>
-                <li>                    
-                    <app-marker color="green"></app-marker>
-                    <span>- Past</span>
-                </li>
                 <li>
                     <app-marker color="orange"></app-marker>
                     <span>- In less than 30 days</span>
@@ -59,6 +55,10 @@
                     <app-marker color="blue"></app-marker>
                     <span>- In more than 30 days</span>
                 </li>    
+                <li>                    
+                    <app-marker color="green"></app-marker>
+                    <span>- Past</span>
+                </li>
             </ul>
         </div>      
         
