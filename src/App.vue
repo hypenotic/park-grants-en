@@ -320,44 +320,6 @@ ol.resource__bullets {
     }
 }
 
-// Newsletter 
-.mailchimp-form-container {
-    #MERGE0{
-        border: 2px dashed rgb(17, 116, 191) !important;
-        min-width: 400px;
-        // max-width: 300px;
-        padding: 2px 16px;
-        border-radius: 8px;
-        min-height: 45px;
-        font-size: 0.8rem;
-        font-family: $family-cursive;
-        background-color: rgb(242, 248, 252);
-        &:focus,
-        &:active {
-            background-color: $white;
-        }
-    }   
-    #mc-embedded-subscribe {
-        border-radius: 50px;
-        background-color: $blue;
-        color: $white;
-        box-shadow: none;
-        border: 2px solid $blue;
-        min-height: 45px;
-        padding: 0 42px;
-        font-family: $family-sanserif;
-        font-weight: bold;
-        margin-left: 16px;
-        border: 2px solid $blue;
-        &:hover {
-            border: 2px solid $blue;
-            color: $blue;
-            background: $white;
-        }
-    }
-}
-
-
 .FAQ-content {
 	h2 {
 		font-size: 1.3rem;

@@ -52,10 +52,9 @@
 				</li>
 			</ul>
 		</section>
-		<section class="related-resources" id="related-resources-jump">
+		<!-- <section class="related-resources" id="related-resources-jump">
 			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
 			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
-			<!-- <div class="related-resources-copy"><strong><a href="http://parkpeople.hypenotic.com/">Or browse our entire resource section.</a></strong></div> -->
 			<div class="wide-container">
 				<div class="columns is-multiline">
 					<div class="column is-one-quarter" v-for="related in relatedPosts" :key="related.title.rendered">
@@ -84,7 +83,8 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
+		<app-related :title="data.meta_box._page_grant_resource_heading" :copy="data.meta_box._page_grant_resource_copy" :posts="relatedPosts"></app-related>
 	</div>
 	<div v-else class="loading-panel">
 		<div>
@@ -96,10 +96,12 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import Map from '../components/Map.vue';
+import Map from '../components/map/Map.vue';
+import RelatedList from '../components/related-resources/RelatedList.vue';
 export default {
 	components: {
-        appMap: Map
+		appMap: Map,
+		appRelated: RelatedList
     },
 	props: ['name'],
 	data() {

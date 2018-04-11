@@ -6,9 +6,10 @@
         <div class="filter-bar">
             <ul>
                 <li>
-                    <p><strong style="color: white;">Filter</strong>: 
-                        <span class="info" id="filter-dropdown" if v-on:click="filterTrigger">Find park events based on activities</span> 
-                        <span id="copy-selected-acts">- (<span v-html="filterCount"></span> selected)</span>
+                    <p>
+                        <strong style="color: white;">Filter by</strong>: 
+                        <span class="info" id="filter-dropdown" if v-on:click="filterTrigger">Type of event</span> 
+                        <span id="copy-selected-acts">- (<span v-html="filterCount" style="font-weight: bold;"></span> selected)</span>
                     </p>
                 </li>
             </ul>
@@ -47,40 +48,16 @@
             <ul>
                 <li>Legend:</li>
                 <li>                    
-                    <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Asset-5" fill-rule="nonzero">
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#FFFFFF"></path>
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#B3BD35"></path>
-                                <circle id="Oval" fill="#FFFFFF" opacity="0.34" transform="translate(15.645299, 15.645299) rotate(-83.350000) translate(-15.645299, -15.645299) " cx="15.6452988" cy="15.6452988" r="10.5"></circle>
-                            </g>
-                        </g>
-                    </svg>
+                    <app-marker color="green"></app-marker>
                     <span>- Past</span>
                 </li>
                 <li>
-                    <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Asset-5" fill-rule="nonzero">
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#FFFFFF"></path>
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#ee7633"></path>
-                                <circle id="Oval" fill="#FFFFFF" opacity="0.34" transform="translate(15.645299, 15.645299) rotate(-83.350000) translate(-15.645299, -15.645299) " cx="15.6452988" cy="15.6452988" r="10.5"></circle>
-                            </g>
-                        </g>
-                    </svg>
-                    <span>- Within the next 30 days</span>
+                    <app-marker color="orange"></app-marker>
+                    <span>- In less than 30 days</span>
                 </li>
                 <li>
-                    <svg width="32px" height="40px" viewBox="0 0 32 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="Asset-5" fill-rule="nonzero">
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#FFFFFF"></path>
-                                <path d="M31.9883855,16.7909689 C32.321886,7.86124192 25.4323408,0.348926483 16.6001557,0.0117427985 C7.76797048,-0.325440886 0.337714122,6.64019178 0.00421358682,15.5699188 C-0.292102436,24.5076427 15.1387789,40 15.1387789,40 C15.1387789,40 31.6516627,25.6515261 31.9883855,16.7909689 Z" id="Shape" fill="#2bace0"></path>
-                                <circle id="Oval" fill="#FFFFFF" opacity="0.34" transform="translate(15.645299, 15.645299) rotate(-83.350000) translate(-15.645299, -15.645299) " cx="15.6452988" cy="15.6452988" r="10.5"></circle>
-                            </g>
-                        </g>
-                    </svg>
-                    <span>- In 30+ days</span>
+                    <app-marker color="blue"></app-marker>
+                    <span>- In more than 30 days</span>
                 </li>    
             </ul>
         </div>      
@@ -93,7 +70,11 @@
 </template>
 
 <script>
+    import Marker from './Marker.vue';
     export default {
+        components: {
+            appMarker: Marker
+        },
         data() {
             return {
                 showActivityList: false,
@@ -161,7 +142,7 @@
 
 <style lang="scss" scoped>
 
-@import '../styles/variables.scss';
-@import '../styles/components/filter.scss';
+@import '../../styles/variables.scss';
+@import '../../styles/components/filter.scss';
 
 </style>

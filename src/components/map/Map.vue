@@ -3,55 +3,7 @@
         <app-filter></app-filter>
         <div class="map-container" v-bind:class="{ 'list-open': this.$store.state.listViewState }">
             <section class="google-map" id="grants-map"></section>
-            <section class="map-list">
-                <h3>Upcoming Events</h3>
-                <div class="map-list-container" v-if="activeMarkers.length == 0">
-                    <!-- <div class="empty-message" v-if="activeMarkers.length == 0">No events match your search.</div> -->
-                    <div class="single-list-item" v-for="item in locations" :key="item.id" v-if="item.timeframe != 'past'">
-                        <div class="single-list-item-container">
-                            <div class="single-list-item__image">
-                                <img :src="item.image" :alt="item.title">
-                            </div>
-
-                            <h5>
-                                <a :href="'https://parkpeople.ca/listings/events/?n='+ item.slug+ '&id='+ item.id+'&tdgrant=true'" target="_blank" v-html="item.title" v-if="item.timeframe !== 'past'"></a>
-                                <span v-html="item.title" v-if="item.timeframe == 'past'"></span>
-                            </h5>
-                            
-                            <p v-if="item.listing[1] !='Title'"><i class="fa fa-users"></i> <span v-html="item.listing[1]"></span></p>
-    
-                            <p><i class="fa fa-calendar-o" aria-hidden="true"></i> <span v-html="item.nice_start_date"></span></p>
-    
-                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> <span v-html="item.start_time + ' - ' + item.end_time"></span></p>
-                            
-                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> <span v-html="item.address"></span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="map-list-container" v-else>
-                    <!-- <div class="empty-message" v-if="activeMarkers.length == 0">No events match your search.</div> -->
-                    <div class="single-list-item" v-for="item in activeMarkers" :key="item.id" v-if="item.timeframe != 'past'">
-                        <div class="single-list-item-container">
-                            <div class="single-list-item__image">
-                                <img :src="item.image" :alt="item.title">
-                            </div>
-
-                            <h5>
-                                <a :href="'https://parkpeople.ca/listings/events/?n='+ item.slug+ '&id='+ item.id+'&tdgrant=true'" target="_blank" v-html="item.title" v-if="item.timeframe !== 'past'"></a>
-                                <span v-html="item.title" v-if="item.timeframe == 'past'"></span>
-                            </h5>
-                            
-                            <p v-if="item.listing[1] !='Title'"><i class="fa fa-users"></i> <span v-html="item.listing[1]"></span></p>
-    
-                            <p><i class="fa fa-calendar-o" aria-hidden="true"></i> <span v-html="item.nice_start_date"></span></p>
-    
-                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> <span v-html="item.start_time + ' - ' + item.end_time"></span></p>
-                            
-                            <p><i class="fa fa-map-marker" aria-hidden="true"></i> <span v-html="item.address"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <app-map-list></app-map-list>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
             <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15;">
             <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Location</button>
@@ -61,9 +13,11 @@
 
 <script>
     import Filter from './Filter.vue';
+    import MapList from './MapList.vue';
     export default {
         components: {
-            appFilter: Filter
+            appFilter: Filter,
+            appMapList: MapList
         },
         props: {
             'latitude': {
@@ -565,19 +519,18 @@
                         /*
                         Add the event listener to open the info window for the marker.
                         */ 
-                        marker.addListener('click', function() {
-                            // infoWindow.close();
-                            // if (infoWindow) { infoWindow.close();}
-                            infoWindow.open(this.map, this);
-                        });
+                        // marker.addListener('click', function() {
+                        //     // infoWindow.close();
+                        //     // if (infoWindow) { infoWindow.close();}
+                        //     infoWindow.open(this.map, this);
+                        // });
                         //Allow each marker to have an info window    
-                        // google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
-                        //     console.log('hey');
-                        //     return function() {
-                        //         infoWindow.setContent(windowString);
-                        //         infoWindow.open(this.map, marker);
-                        //     }
-                        // })(marker, i));
+                        google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
+                            return function() {
+                                infoWindow.setContent(windowString);
+                                infoWindow.open(this.map, marker);
+                            }
+                        })(marker, i));
                         // let theMap = this.map;
                         // let infoWindow = new google.maps.InfoWindow();
                         // this.oms.addListener('click', function(marker, event, i) {
@@ -599,7 +552,7 @@
 
                 }
 
-                this.map.panBy(-80, -120);
+                this.map.panBy(-80, -200);
 
             },
             clearMarkers(){
@@ -1059,8 +1012,8 @@
 
 <style lang="scss" scoped>
 
-@import '../styles/variables.scss';
-@import '../styles/components/loader.scss';
-@import '../styles/components/map.scss';
+@import '../../styles/variables.scss';
+@import '../../styles/components/loader.scss';
+@import '../../styles/components/map.scss';
 
 </style>
