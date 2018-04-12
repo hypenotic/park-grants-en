@@ -44,6 +44,7 @@
 				<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>
 			</div>
 		</section>
+
 		<section class="grant-sponsors">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
@@ -52,38 +53,7 @@
 				</li>
 			</ul>
 		</section>
-		<!-- <section class="related-resources" id="related-resources-jump">
-			<h3 v-html="data.meta_box._page_grant_resource_heading"></h3>
-			<div class="related-resources-copy" v-html="data.meta_box._page_grant_resource_copy"></div>
-			<div class="wide-container">
-				<div class="columns is-multiline">
-					<div class="column is-one-quarter" v-for="related in relatedPosts" :key="related.title.rendered">
-						<div class="card">
-							<div class="card-image">
-								<figure class="image is-2by1">
-									<img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
-								</figure>
-							</div>
-							<div class="card-content">
-								<div class="content">
-									<small style="font-family: 'Dosis';font-size: 12px;"> {{ related.type | removeHyphen | toTitleCase }}</small>
-
-									<a :href="'https://parkpeople.ca/resources/en/'+related.type + '/' + related.id + '/' + related.slug"><h4 v-html="related.title.rendered"></h4></a>
-									<div v-html="$options.filters.readMore(related.excerpt.rendered, 100, '...')"></div>
-									<div v-if="related.pure_taxonomies.activity" class="activity-list-container">
-										<strong>Do in parks</strong>: <span v-for="tax in related.pure_taxonomies.activity" :key="tax.name">{{ tax.name  }}</span>
-									</div>
-									<div v-if="related.pure_taxonomies.learn" class="activity-list-container">
-										<strong>Know about parks:</strong> <span v-for="tax in related.pure_taxonomies.learn" :key="tax.name">{{ tax.name }}</span>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
+		
 		<app-related :title="data.meta_box._page_grant_resource_heading" :copy="data.meta_box._page_grant_resource_copy" :posts="relatedPosts"></app-related>
 	</div>
 	<div v-else class="loading-panel">
@@ -152,9 +122,9 @@ export default {
 		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/1825?_embed')
 		.then(response => {
             console.log(response.data)
-			this.data = response.data
+			this.data = response.data;
 			
-			this.loading = false
+			this.loading = false;
 
 			axios.all([
 				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=20'),

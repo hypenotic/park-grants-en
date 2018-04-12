@@ -9,7 +9,6 @@ export const state = {
     initialLoadCheck: true,
     language: '',
     listViewState: false,
-    listViewState: false,
     locationList: null,
     resourceList: [],
     singlePostCache: {}

@@ -319,7 +319,7 @@
 
                 app.clearMarkers();
 
-                let places = app.searchBox.getPlaces();
+                let places = this.searchBox.getPlaces();
                 
                 if (places.length == 0) {
                     return;
@@ -338,7 +338,7 @@
                     reset.classList.remove('hidden-reset-loc');
                 }
 
-                let inRange = app.hideOutsideRadius(places);
+                let inRange = this.hideOutsideRadius(places);
 
                 var bounds = new google.maps.LatLngBounds();
                 places.forEach(function(place) {
@@ -351,6 +351,8 @@
                     var placeLng = place.geometry.location.lng();
 
                     var originPlace = new google.maps.LatLng(placeLat, placeLng);
+                    // console.log(originPlace); 
+                    // console.log(placeLat, placeLng); 
                     
                     var icon = {
                         url: place.icon,
@@ -360,24 +362,46 @@
                         scaledSize: new google.maps.Size(25, 25)
                     };
 
-                    let here = 'https://parkpeople.ca/listings/custom/uploads/2018/04/pin_here.svg';
+                    let here = 'https://parkpeople.ca/listings/custom/uploads/2018/04/pin_fr.svg';
 
                     // Create a marker for each place.
                     var markerLabel = "YOU";
                     app.markers.push(new google.maps.Marker({
                         map: app.map,
+                        // label: {
+                        //     text: markerLabel,
+                        //     color: "#ffffff",
+                        //     fontSize: "10px",
+                        //     fontWeight: "bold"
+                        // },
                         icon: here,
-                        zIndex: 1,
+                        // title: place.name,
                         position: place.geometry.location,
                     }));
+
+                    // Do we add an infoWindow so that markers and infowWindows arrays have the same amount of items?
+
+                    // let windowString = "Current Location";
+
+                    // let infoWindow = new google.maps.InfoWindow({
+                    //     content: windowString
+                    // });
+
+                    // app.infoWindows.push( infoWindow );
+
+                    if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
                 })
-
-                
-
                 app.map.fitBounds(bounds);
 
                 console.log('inRange', inRange);
                 app.$store.dispatch("setActiveEvents", inRange );
+
+                // this.rebuildMarkers();
 
             },
             buildMarkers(){
@@ -497,14 +521,17 @@
                 return '<div style="width: 250px;">' + header +'<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  groupName +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  startDate +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+startTime+' - '+endTime+'</p><span style="display:none;">'+timeframe+'</span></div>';
             },
             rebuildMarkers(){
-                let app = this;
-                console.log('rebuild markers', app.activeMarkers);
-
-                // this.clearMarkers();
+                console.log('rebuild markers');
                 
-                // COMMINGTING THIS OUT MADE THE PLACES DISAPPEAR
-                // app.markers = [];
-                // app.infoWindows = [];
+                this.markers = [];
+                this.infoWindows = [];
+
+                let app = this;
+
+                // Icons
+                let blueMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg';
+                let orangeMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_svg.svg';
+                let greenMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.svg';
 
                 let bounds = new google.maps.LatLngBounds();
 
@@ -521,14 +548,16 @@
                         Choose marker style based on type
                     */
                     if (app.activeMarkers[i].type == 'event') {
+
+                        // console.log(this.locations[i]);
                         
                         let the_icon = '';
                         if (app.activeMarkers[i].timeframe == 'morethan30') {
-                            the_icon = app.bluePin;
+                            the_icon = blueMarker;
                         } else if (app.activeMarkers[i].timeframe == 'within30') {
-                            the_icon = app.orangePin;
+                            the_icon = orangeMarker;
                         } else {
-                            the_icon = app.greenPin; 
+                            the_icon = greenMarker; 
                         }
 
                         /*
@@ -551,11 +580,27 @@
                         app.markers.push( marker );
 
                         /*
+                            Create the group string
+                        */
+                        // let groupString ='';
+                        // if (locations[i].listing[1] != undefined) {
+                        //     groupString = '<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p>';
+                        // } else {
+                        //     groupString = '';
+                        // }
+
+                         let windowString = '';
+
+                        if (this.activeMarkers[i].timeframe == 'past') {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;">'+ this.activeMarkers[i].title + '</h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].nice_start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p><span style="display:none;">'+this.activeMarkers[i].timeframe+'</span></div>';
+                        } else {
+                            windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].nice_start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p><span style="display:none;">'+this.activeMarkers[i].timeframe+'</span></div>';
+                        }
+
+                        /*
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].timeframe);
-
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
                         });
@@ -565,22 +610,39 @@
                         /*
                         Add the event listener to open the info window for the marker.
                         */ 
+                        // marker.addListener('click', function() {
+                        //     // infoWindow.close();
+                        //     // if (infoWindow) { infoWindow.close();}
+                        //     infoWindow.open(app.map, this);
+                        // });
+                        // Allow each marker to have an info window    
                         google.maps.event.addListener(marker, 'spider_click', (function(marker, i) {
                             return function() {
                                 infoWindow.setContent(windowString);
-                                infoWindow.open(app.map, marker);
+                                infoWindow.open(this.map, marker);
                             }
                         })(marker, i));
+                        // let theMap = this.map;
+                        // let infoWindow = new google.maps.InfoWindow();
+                        // this.oms.addListener('click', function(marker, event, i) {
+                        //     infoWindow.setContent('hey');
+                        //     infoWindow.open(theMap, marker);
+                        // });
                         
                         bounds.extend( app.markers[i].getPosition()); 
                         app.oms.addMarker(marker);
 
+                        // windowArray.push(windowString);
+                        // this.windows.push(windowArray);
+                        
+                        // var infoWindow = new google.maps.InfoWindow(), marker, i;
                     } else {
                         return
                     }
 
                     app.map.fitBounds(bounds);
                 }
+
 
             },
             resetMarkers(){
@@ -715,11 +777,11 @@
                         
                         let the_icon = '';
                         if (this.locations[i].timeframe == 'morethan30') {
-                            the_icon = app.bluePin;
+                            the_icon = bluePin;
                         } else if (this.locations[i].timeframe == 'within30') {
-                            the_icon = app.orangePin;
+                            the_icon = orangePin;
                         } else {
-                            the_icon = app.greenPin; 
+                            the_icon = greenPin; 
                         }
 
                         /*
