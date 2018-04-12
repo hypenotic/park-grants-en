@@ -24,7 +24,7 @@
 				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
 					<h4 v-html="bucket._page_bucket_heading"></h4>
 					<p v-html="bucket._page_bucket_copy"></p>
-					<a :href="bucket._page_bucket_link" @click="downloadArea(bucket._page_bucket_heading)">Download</a>
+					<a :href="bucket._page_bucket_link" @click="downloadArea(bucket._page_bucket_heading)">Download .zip file</a>
 				</div>
 			</div>
 
