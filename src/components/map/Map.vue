@@ -6,7 +6,7 @@
             <app-map-list></app-map-list>
             <div class="loading" v-bind:class="{ 'active-loader': showLoader }">Loading&#8230;</div>
             <input id="pac-input" class="controls" type="text" placeholder="Enter your address to find park events near you." style="position: absolute; top: 0; z-index: 15;">
-            <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Location</button>
+            <button id="reset-location" class="button hidden-reset-loc" style="position: absolute; z-index: 1;">Reset Map</button>
         </div>
     </div>
 </template>
@@ -864,11 +864,17 @@
                 app.map.setZoom(4);
                 app.map.panBy(-80, -120);
 
+                // console.log('activityMatch', active);
+                let empty = [];
+                app.$store.dispatch("setActiveEvents", empty );
+
                 // let input = document.getElementById('pac-input');
                 // if (input.classList.contains('small-search')) {
                 // } else {
                 //     input.classList.remove('small-search');
                 // }
+
+                
             },
             setMarkers(type){
                 // app.clearMarkers();
