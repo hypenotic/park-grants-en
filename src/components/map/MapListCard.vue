@@ -44,6 +44,12 @@
 @import '../../styles/variables.scss';
 
 .single-list-item {
+    &:hover {
+        .single-list-item-container {
+            transform: scale(1.01) rotate(1deg);
+            box-shadow: 0 5px 10px rgba(10, 10, 10, 0.3), 0 0 0 1px rgba(10, 10, 10, 0.1);
+        }
+	}
     h5 {
         font-size: 18px;
         line-height: 1.3;
@@ -54,7 +60,9 @@
 }
 
 .single-list-item-container {
-    padding: 24px;
+    transition: all 0.5s ease;
+    margin: 24px;
+    border-radius: 8px;
     p {
         margin: 0;
         font-size: 14px;
@@ -64,6 +72,8 @@
 }
 
 .card-content {
+    border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
     background: $white;
     padding: 16px 24px;
     i {
@@ -80,6 +90,8 @@
         display: block;
         width: 100%;
         height: 100%;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
     }
 }
 

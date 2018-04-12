@@ -20,7 +20,7 @@
 
 		<section class="event-templates">
 			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
-			<div class="three-column">
+			<div class="three-column wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
 				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
 					<h4 v-html="bucket._page_bucket_heading"></h4>
 					<p v-html="bucket._page_bucket_copy"></p>

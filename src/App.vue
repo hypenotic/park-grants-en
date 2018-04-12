@@ -39,6 +39,7 @@
 @import url('https://fonts.googleapis.com/css?family=Dosis:400,700,800|Comfortaa|Merriweather');
 // Import Variables
 @import './styles/variables.scss';
+@import './styles/animate.scss';
 
 $family-cursive: "Comfortaa", cursive;
 $family-sanserif: "Dosis", sans-serif;

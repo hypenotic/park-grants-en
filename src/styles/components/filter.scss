@@ -650,7 +650,9 @@ input.chk-btn:checked + label {
 #filter-dropdown {
     border-bottom: 1px solid $white;
     &:hover {
-        cursor: pointer;
+      cursor: pointer;
+      color: lighten($blue, 10);
+      border-bottom: 1px solid lighten($blue, 10);
     }
 }
 
@@ -668,6 +670,16 @@ input.chk-btn:checked + label {
 	i {
 		color: #FF6A00;
 	}
+}
+
+#map-view-trigger,
+#list-view-trigger {
+  &:hover {
+    cursor: pointer;
+    i {
+      color: lighten(#FF6A00,10);
+    }
+  }
 }
 
 .legend {
