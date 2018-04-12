@@ -1,6 +1,6 @@
 <template>
      <div class="single-list-item">
-        <div class="single-list-item-container">
+        <a :href="'https://parkpeople.ca/listings/events/?n='+ item.slug+ '&id='+ item.id+'&tdgrant=true'" target="_blank" class="single-list-item-container">
             <div class="single-list-item__image">
                 <img :src="item.image" :alt="item.title">
             </div>
@@ -19,7 +19,7 @@
                 
                 <p class="single-list__location"><i class="fa fa-map-marker" aria-hidden="true"></i> <span v-html="item.address"></span></p>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -44,25 +44,34 @@
 @import '../../styles/variables.scss';
 
 .single-list-item {
-    &:hover {
-        .single-list-item-container {
-            transform: scale(1.01) rotate(1deg);
-            box-shadow: 0 5px 10px rgba(10, 10, 10, 0.3), 0 0 0 1px rgba(10, 10, 10, 0.1);
-        }
-	}
     h5 {
         font-size: 18px;
         line-height: 1.3;
         margin: 0;
         margin: 8px 0 12px;
         font-weight: bold;
+        &:hover {
+            a {
+                color: lighten($blue, 10);
+            } 
+        }
     }
 }
 
 .single-list-item-container {
-    transition: all 0.5s ease;
+    display: block;
+    transition: all 0.2s ease;
     margin: 24px;
     border-radius: 8px;
+    &:hover {
+        transform: scale(1.01) rotate(1deg);
+        box-shadow: 0 5px 10px rgba(10, 10, 10, 0.3), 0 0 0 1px rgba(10, 10, 10, 0.1);
+        h5 {
+            a {
+                color: lighten($blue, 10);
+            } 
+        }
+	}
     p {
         margin: 0;
         font-size: 14px;

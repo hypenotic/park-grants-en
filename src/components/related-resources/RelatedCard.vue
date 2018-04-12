@@ -1,6 +1,6 @@
 <template>
     <div class="column is-one-quarter single-card">
-        <div class="card">
+        <a :href="'https://parkpeople.ca/resources/en/'+related.type + '/' + related.id + '/' + related.slug" target="_blank" class="card">
             <div class="card-image">
                 <figure class="image is-2by1">
                     <img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
@@ -12,7 +12,7 @@
                     <p class="card-type-label"> {{ related.type | removeHyphen | toTitleCase }}</p> 	
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
