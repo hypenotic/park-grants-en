@@ -554,7 +554,7 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].timeframe);
+                        let windowString = app.infoWindowString(app.activeMarkers[i].slug,app.activeMarkers[i].id,app.activeMarkers[i].title,app.activeMarkers[i].listing[1],app.activeMarkers[i].nice_start_date,app.activeMarkers[i].start_time,app.activeMarkers[i].end_time,app.activeMarkers[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
