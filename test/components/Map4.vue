@@ -599,12 +599,10 @@
                 console.log('rebuild markers');
 
                 let app = this;
-
-                // this.clearMarkers();
                 
                 // COMMINGTING THIS OUT MADE THE PLACES DISAPPEAR
-                // app.markers = [];
-                // app.infoWindows = [];
+                app.markers = [];
+                app.infoWindows = [];
 
                 // Icons
                 let blueMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg';
@@ -863,12 +861,6 @@
                 app.map.panTo(LatLng);
                 app.map.setZoom(4);
                 app.map.panBy(-80, -120);
-
-                // let input = document.getElementById('pac-input');
-                // if (input.classList.contains('small-search')) {
-                // } else {
-                //     input.classList.remove('small-search');
-                // }
             },
             setMarkers(type){
                 // app.clearMarkers();
@@ -1035,7 +1027,7 @@
             locations(){
                 // this.clearMarkers();
                 this.buildMarkers();
-                // this.resetMarkers();
+                this.resetMarkers();
                 // this.checkLoader();
             },
             activeMarkers(){
