@@ -667,6 +667,9 @@ input.chk-btn:checked + label {
 
 #map-view-trigger.active-trigger,
 #list-view-trigger.active-trigger {
+  @media #{$small-and-down} {
+    margin-top: 25px;
+  }
 	i {
 		color: #FF6A00;
 	}
