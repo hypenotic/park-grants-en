@@ -32,6 +32,7 @@
             }
         },
         mounted() {
+            this.upcomingCount;
         },
         methods: { 
         },
@@ -42,6 +43,17 @@
             activeMarkers(){
                 return this.$store.getters.allActiveEvents;
             },
+            // upcomingCount(){
+            //     let upcoming = 0;
+            //     for( var i = 0; i < this.$store.state.locationList; i++ ){
+            //         if (this.$store.state.locationList[i].timeframe != 'past') {
+            //             console.log(this.$store.state.locationList[i].timeframe);
+            //             upcoming++;
+            //         }
+            //     }
+            //     console.log(upcoming);
+            //     return upcoming;
+            // }
         },
     }
 </script>
