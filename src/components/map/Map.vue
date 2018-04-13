@@ -434,7 +434,8 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
+                       console.log(app.locations[i].listing);
+                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
@@ -487,14 +488,14 @@
                     this.showLoader = false;
                 }
             },
-            infoWindowString(slug,id,title,groupName,startDate,startTime,endTime,address,timeframe) {
+            infoWindowString(slug,id,title,groupName,groupSlug,groupID,startDate,startTime,endTime,address,timeframe) {
                 let header = '';
                 if (timeframe =='past'){
                     header = '<h6 style="margin-bottom: 10px;font-size: 16px;">'+ title + '</h6>';
                 } else {
                     header = '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ slug + '&id='+ id +'&tdgrant=true" target="_blank">'+ title +'</a></h6>';
                 }
-                return '<div style="width: 250px;">' + header +'<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  groupName +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  startDate +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+startTime+' - '+endTime+'</p><span style="display:none;">'+timeframe+'</span><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-map-marker" aria-hidden="true"></i> '+address+'</p></div>';
+                return '<div style="width: 250px;">' + header +'<p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> <a href="https://parkpeople.ca/listings/groups/?n='+groupSlug+'&id='+groupID+'&tdgrant=true" target="_blank" style="font-weight: bold;">'+groupName+'</a></p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  startDate +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+startTime+' - '+endTime+'</p><span style="display:none;">'+timeframe+'</span><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-map-marker" aria-hidden="true"></i> '+address+'</p></div>';
             },
             rebuildMarkers(){
                 let app = this;
@@ -554,7 +555,7 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.activeMarkers[i].slug,app.activeMarkers[i].id,app.activeMarkers[i].title,app.activeMarkers[i].listing[1],app.activeMarkers[i].nice_start_date,app.activeMarkers[i].start_time,app.activeMarkers[i].end_time,app.activeMarkers[i].address,app.activeMarkers[i].timeframe);
+                        let windowString = app.infoWindowString(app.activeMarkers[i].slug,app.activeMarkers[i].id,app.activeMarkers[i].title,app.activeMarkers[i].listing[1],app.activeMarkers[i].listing[2],app.activeMarkers[i].listing[0],app.activeMarkers[i].nice_start_date,app.activeMarkers[i].start_time,app.activeMarkers[i].end_time,app.activeMarkers[i].address,app.activeMarkers[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
@@ -644,7 +645,7 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
+                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
@@ -745,7 +746,7 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
+                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
