@@ -52,7 +52,8 @@
                 showList: false,
                 bluePin: 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg',
                 orangePin: 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_svg.svg',
-                greenPin: 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.svg'
+                greenPin: 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.svg',
+                morePin: 'https://parkpeople.ca/listings/custom/uploads/2018/04/more_events_marker.svg',
             }
         },
         mounted() {
@@ -116,7 +117,7 @@
             app.oms = new OverlappingMarkerSpiderfier(app.map, {
                 markersWontMove: true,
                 markersWontHide: true,
-                basicFormatEvents: true
+                // basicFormatEvents: true
             });
 
             app.buildMarkers();
@@ -416,12 +417,15 @@
                             latitude and longitude to the latitude and longitude
                             of the location. Also set the map to be the local map.
                         */
-                        var marker = new google.maps.Marker({
+                        
+                        let iconSize = new google.maps.Size(42, 40);
+                        let marker = new google.maps.Marker({
                             position: theposition,
                             map: app.map,
                             title: app.locations[i].title,
                             icon: {
-                                url: the_icon
+                                url: the_icon,  
+                                scaledSize: iconSize
                             }
                         });
 
@@ -434,7 +438,7 @@
                             Create the info window and add it to the local
                             array.
                         */
-                       console.log(app.locations[i].listing);
+                        console.log(app.locations[i].listing);
                         let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
@@ -523,27 +527,62 @@
                     */
                     if (app.activeMarkers[i].type == 'event') {
                         
-                        let the_icon = '';
-                        if (app.activeMarkers[i].timeframe == 'morethan30') {
-                            the_icon = app.bluePin;
-                        } else if (app.activeMarkers[i].timeframe == 'within30') {
-                            the_icon = app.orangePin;
-                        } else {
-                            the_icon = app.greenPin; 
-                        }
+                        // let the_icon = '';
+                        // if (app.activeMarkers[i].timeframe == 'morethan30') {
+                        //     the_icon = app.bluePin;
+                        // } else if (app.activeMarkers[i].timeframe == 'within30') {
+                        //     the_icon = app.orangePin;
+                        // } else {
+                        //     the_icon = app.greenPin; 
+                        // }
 
                         /*
                             Create the marker for each of the locations and set the
                             latitude and longitude to the latitude and longitude
                             of the location. Also set the map to be the local map.
                         */
+                        // var iconSize = new google.maps.Size(100, 100);
                         var marker = new google.maps.Marker({
                             position: theposition,
                             map: app.map,
                             title: app.activeMarkers[i].title,
-                            icon: {
-                                url: the_icon
+                            // icon: {
+                            //     url: the_icon,
+                            //     scaledSize: iconSize
+                            // }
+                        });
+
+                        let the_icon = '';
+                        let flag = '';
+                        if (app.activeMarkers[i].timeframe == 'morethan30') {
+                            the_icon = app.bluePin;
+                            flag = 'morethan30';
+                        } else if (app.activeMarkers[i].timeframe == 'within30') {
+                            the_icon = app.orangePin;
+                            flag = 'within30';
+                        } else {
+                            the_icon = app.greenPin; 
+                            flag = 'past';
+                        }
+
+                        let iconSize = new google.maps.Size(45, 42);
+                        google.maps.event.addListener(marker, 'spider_format', function(status) {
+                            if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) {
+                                iconSize = new google.maps.Size(100, 100);
+                            } else if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED) {
+                                iconSize = new google.maps.Size(45, 42);
+                            } else {
+                                iconSize = new google.maps.Size(45, 42);
                             }
+                            var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? the_icon :
+                            status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? app.morePin :
+                            status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? the_icon : 
+                            the_icon;
+                            console.log('status:',status);
+                            marker.setIcon({
+                                url: iconURL,
+                                scaledSize: iconSize
+                            });
                         });
 
                         /*
@@ -556,6 +595,8 @@
                             array.
                         */
                         let windowString = app.infoWindowString(app.activeMarkers[i].slug,app.activeMarkers[i].id,app.activeMarkers[i].title,app.activeMarkers[i].listing[1],app.activeMarkers[i].listing[2],app.activeMarkers[i].listing[0],app.activeMarkers[i].nice_start_date,app.activeMarkers[i].start_time,app.activeMarkers[i].end_time,app.activeMarkers[i].address,app.activeMarkers[i].timeframe);
+
+                        // let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
@@ -627,12 +668,14 @@
                             latitude and longitude to the latitude and longitude
                             of the location. Also set the map to be the local map.
                         */
+                        var iconSize = new google.maps.Size(45, 42);
                         var marker = new google.maps.Marker({
                             position: theposition,
                             map: app.map,
                             title: app.locations[i].title,
                             icon: {
-                                url: the_icon
+                                url: the_icon,
+                                scaledSize: iconSize
                             }
                         });
 
@@ -645,7 +688,8 @@
                             Create the info window and add it to the local
                             array.
                         */
-                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
+                        console.log(app.locations[i].listing);
+                        let windowString = app.infoWindowString(app.locations[i].slug,app.locations[i].id,app.locations[i].title,app.locations[i].listing[1],app.locations[i].listing[2],app.locations[i].listing[0],app.locations[i].nice_start_date,app.locations[i].start_time,app.locations[i].end_time,app.locations[i].address,app.locations[i].timeframe);
 
                         let infoWindow = new google.maps.InfoWindow({
                             content: windowString
@@ -728,12 +772,14 @@
                             latitude and longitude to the latitude and longitude
                             of the location. Also set the map to be the local map.
                         */
+                         var iconSize = new google.maps.Size(35, 32);
                         var marker = new google.maps.Marker({
                             position: theposition,
                             map: this.map,
                             title: this.locations[i].title,
                             icon: {
-                                url: the_icon
+                                url: the_icon,
+                                scaledSize: iconSize
                             }
                         });
 
