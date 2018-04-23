@@ -533,10 +533,10 @@
                 let bounds = new google.maps.LatLngBounds();
 
                 /*
-                    Iterate over all of the cafes
+                    Iterate over all of the events
                 */
                 for( var i = 0; i < app.activeMarkers.length; i++ ){
-                    console.log('base', app.activeMarkers[i].id);
+                    console.log((i+1)+' - ', app.activeMarkers[i].id);
                     /*
                         Set marker position
                     */
@@ -565,11 +565,13 @@
                         var marker = new google.maps.Marker({
                             position: theposition,
                             map: app.map,
-                            title: app.activeMarkers[i].timeframe,
-                            icon: {
-                                url: the_icon,
-                                scaledSize: iconSize
-                            },
+                            title: app.activeMarkers[i].title,
+                            // title: app.activeMarkers[i].title,
+                            // icon: {
+                            //     url: the_icon,
+                            //     scaledSize: iconSize
+                            // },
+                            flag: app.activeMarkers[i].timeframe
                         });
 
                         // let the_icon = '';
@@ -589,29 +591,26 @@
                         let iconURL = '';
                         let special = app.morePin;
                         google.maps.event.addListener(marker, 'spider_format', function(status) {
+                            console.log('single_marker:', marker);
                             if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) {
                                 iconSize = new google.maps.Size(100, 100);
-                                iconURL = the_icon;
-                                iconSize = new google.maps.Size(45, 42);
-                                // iconURL = special;
+                                iconURL = special;
+                                // iconURL = the_icon;
+                                // iconSize = new google.maps.Size(45, 42);
                             } else {
                                 iconSize = new google.maps.Size(45, 42);
                                 iconURL = the_icon;
                             }
-                            // if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED) {
-                            //     iconSize = new google.maps.Size(45, 42);
-                            //     iconURL = the_icon;
-                            // }
-                            // let iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? the_icon :
-                            // status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? app.morePin :
-                            // status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? the_icon : 
-                            // the_icon;
-                            console.log('status:',status);
+                            console.log('status:', status, '- '+marker.title);
                             marker.setIcon({
                                 url: iconURL,
                                 scaledSize: iconSize
                             });
                         });
+
+                        console.log('markers',app.markers);
+
+                        // I think only one pin is showing up because there is no count for markers [i]
 
                         /*
                             Push the new marker on to the array.
@@ -647,27 +646,28 @@
                         return
                     }
 
-                    // let iconURL = '';
-                    // app.oms.addListener('format', function(marker, status) {
-                    //     // console.log(marker);
-                    //     if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) {
-                    //         iconSize = new google.maps.Size(100, 100);
-                    //         iconURL = app.morePin;
-                    //     } else {
-                    //         if (marker.title == 'morethan30') {
-                    //             iconURL = app.bluePin;
-                    //         } else if (marker.title == 'within30') {
-                    //             iconURL = app.orangePin;
-                    //         } else {
-                    //             iconURL = app.greenPin; 
-                    //         }
-                    //         iconSize = new google.maps.Size(45, 42);
-                    //     }
-                    //     marker.setIcon({
-                    //         url: iconURL,
-                    //         scaledSize: iconSize  // makes SVG icons work in IE
-                    //     });
-                    // });
+                    let iconURL = '';
+                    let iconSize = '';
+                    app.oms.addListener('format', function(marker, status) {
+                        // console.log(marker);
+                        if (status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE) {
+                            iconSize = new google.maps.Size(100, 100);
+                            iconURL = app.morePin;
+                        } else {
+                            if (marker.flag == 'morethan30') {
+                                iconURL = app.bluePin;
+                            } else if (marker.flag == 'within30') {
+                                iconURL = app.orangePin;
+                            } else {
+                                iconURL = app.greenPin; 
+                            }
+                            iconSize = new google.maps.Size(45, 42);
+                        }
+                        marker.setIcon({
+                            url: iconURL,
+                            scaledSize: iconSize  // makes SVG icons work in IE
+                        });
+                    });
 
                     app.map.fitBounds(bounds);
                 }
@@ -779,22 +779,9 @@
                     //     });
                     // });
 
-                    // let iconURL ='';
-                    // let iconSize = '';
-                    // app.oms.addListener('format', function(marker, status) {
-                    //     if (marker.title == 'morethan30') {
-                    //         iconURL = app.bluePin;
-                    //     } else if (marker.title == 'within30') {
-                    //         iconURL = app.orangePin;
-                    //     } else {
-                    //         iconURL = app.greenPin; 
-                    //     }
-                    //     iconSize = new google.maps.Size(45, 42);
-                    //     marker.setIcon({
-                    //         url: iconURL,
-                    //         scaledSize: iconSize  // makes SVG icons work in IE
-                    //     });
-                    // });
+                    let iconURL ='';
+                    let iconSize = '';
+                    app.oms.clearListeners('format');
 
                 }
                 
