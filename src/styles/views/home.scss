@@ -379,9 +379,10 @@ h1 {
 			// right: 50%;
 		}
 		@media #{$xlarge-and-up} {
-			width: 1300px;
+			width: 1000px;
 			left: 50%;
-			margin-left: -650px;
+			margin-left: -500px;
+			top: -100px;
 			// right: 50%;
 		}
 	}
