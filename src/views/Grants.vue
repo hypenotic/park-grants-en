@@ -69,7 +69,7 @@
 						<div class="card">
 							<div class="card-image">
 								<figure class="image is-2by1">
-									<!-- <img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url"> -->
+									<img v-if="related._embedded['wp:featuredmedia'] != undefined" :src="related._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url">
 								</figure>
 							</div>
 							<div class="card-content">
