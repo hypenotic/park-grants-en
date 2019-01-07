@@ -14,5 +14,5 @@ export const routes = [
 	{ path:'/', component: Grants, props: true },
 	{ path:'/grants', component: Grants, props: true },
 	{ path:'/faq', component: Single, props: true },
-	{ path:'*', component: Grants, props: true },
+	{ path:'*', component: Grants, props: false },
 ]
