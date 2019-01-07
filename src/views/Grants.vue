@@ -54,7 +54,7 @@
 		<section class="grant-sponsors">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
-				<li v-for="sponsor in data.meta_box._page_grant_sponsors">
+				<li v-for="(sponsor, index) in data.meta_box._page_grant_sponsors" :key="'sponsor-'+index">
 					<img :src="sponsor['_page_g_sponsor_img']" alt="logo">
 				</li>
 			</ul>
@@ -147,7 +147,7 @@ export default {
 	},
 	created() {
 		console.log('hi')
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
+		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/3224?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data
