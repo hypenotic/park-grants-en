@@ -98,6 +98,7 @@ h1 {
 	font-weight: bold;
 }
 
+
 img.heading {
 	position: relative;
 	z-index: -1;

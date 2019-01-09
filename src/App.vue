@@ -101,6 +101,23 @@ h3 {
     font-size: 2.75rem;
 }
 
+.FAQ-content {
+    h2 {
+        font-size: 2rem;
+        color: $orange;
+    }
+    h3 {
+        font-size: 1.3rem;
+    }
+    ol {
+        padding-left: 2rem;
+        margin-bottom: 1rem;
+    }
+    a, a span {
+        color: $blue !important;
+    }
+}
+
 h4 {
     font-size: 2.25rem;
     @media #{$small-and-down} {
@@ -351,10 +368,6 @@ ol.resource__bullets {
 
 
 .FAQ-content {
-	h2 {
-		font-size: 1.3rem;
-		line-height: 1.5;
-	}
     p + h2 {
         margin-top: 40px !important;
     }
