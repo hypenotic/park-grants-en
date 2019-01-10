@@ -59,6 +59,10 @@ export default {
 		moment: () => {
 			return moment();
 		},
+		scrollFix: function(hashbang)
+		{
+		location.href = hashbang;
+		}
 	},
 	created() {
 		console.log('hi faq')
@@ -73,6 +77,14 @@ export default {
 		})
 		
 	},
+	mounted: function(){
+		if(window.location.hash) {
+			setTimeout(() => this.scrollFix(this.$route.hash), 1)
+		} else {
+		return
+		}
+		
+	}
 };
 </script>
 
