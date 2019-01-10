@@ -79,7 +79,8 @@ export default {
 	},
 	mounted: function(){
 		if(window.location.hash) {
-			setTimeout(() => this.scrollFix(this.$route.hash), 1)
+			console.log('hiiii');
+			setTimeout(() => this.scrollFix(this.$route.hash), 500)
 		} else {
 		return
 		}
