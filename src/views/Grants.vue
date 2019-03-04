@@ -48,7 +48,7 @@
 		<section class="grants-newsletter">
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
-				<a class="button" href="http://parkpeople.us2.list-manage.com/subscribe?u=ba963c8c64482c0ad756245c3&id=efc9b053b8" target="_blank">Get the Park People newsletter!</a>
+				<a class="button" href="https://parkpeople.ca/subscribe" target="_blank">Get the Park People newsletter!</a>
 			</div>
 		</section>
 		<section class="grant-sponsors">
@@ -147,7 +147,7 @@ export default {
 	},
 	created() {
 		console.log('hi')
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/630?_embed')
+		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/3224?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data
@@ -457,12 +457,20 @@ img {
 	}
 	ul {
 		margin: 0 auto;
+		@media #{$large-and-up} {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 		li {
 			display: inline-block;
 			margin: 0 24px;
 			img {
-				max-width: 100px;
-				height: auto;
+				max-height: 80px;
+				// height: auto;
+				@media #{$large-and-up} {
+					max-height: 100px;
+				}
 			}
 		}
 	}
