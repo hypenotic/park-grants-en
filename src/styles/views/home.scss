@@ -59,6 +59,40 @@
 	min-height: 40vh;
 }
 
+.four-column {
+	@media #{$small-and-down} {
+		> div {
+			padding: 20px 0;
+		}
+	}
+	@media #{$large-and-up} {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 40px;
+		padding-bottom: 1rem;
+		flex-wrap: wrap;
+		> div {
+			width: 44%;
+			margin-bottom: 3rem;
+		}
+	}
+	
+	a {
+		display: inline-block;
+		border-radius: 50px;
+		padding: 8px 32px;
+		color: $orange;
+		border: 2px solid $orange;
+		background: $white;
+		&:hover {
+			background: $orange;
+			color: $white;
+			border: 2px solid $orange;
+		}
+	}
+}
+
+
 .three-column {
 	@media #{$small-and-down} {
 		> div {

@@ -20,14 +20,13 @@
 
 		<section class="event-templates">
 			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
-			<div class="three-column wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+			<div class="four-column wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
 				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
 					<h4 v-html="bucket._page_bucket_heading"></h4>
 					<p v-html="bucket._page_bucket_copy"></p>
 					<a :href="bucket._page_bucket_link" @click="downloadArea(bucket._page_bucket_heading)">Download .zip file</a>
 				</div>
 			</div>
-
 		</section>
 
 		<section class="grant-illustration">
@@ -119,7 +118,7 @@ export default {
 
 	},
 	created() {
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/1825?_embed')
+		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/4102?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data;
