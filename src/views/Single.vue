@@ -1,6 +1,6 @@
 <template>
 <div>
-	<img class="heading" src="https://parkpeople.ca/listings/custom/uploads/2018/01/placeimg_1000_500_nature2.jpg">
+	<img class="heading" src="https://parkpeople.ca/custom/uploads/2018/01/placeimg_1000_500_nature2.jpg">
 	<section style="margin-top: -200px;">
 		<div class="columns">
 			<div class="column is-three-fifths is-offset-one-fifth">
@@ -62,7 +62,7 @@ export default {
 	},
 	created() {
 		console.log('list')
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/4102?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/4102?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data

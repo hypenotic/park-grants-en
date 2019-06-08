@@ -7,7 +7,7 @@
                         <div class="columns is-centered">
                             <div class="column is-4">
                                 <p>Founding Sponsor</p>
-                                <a href="https://www.td.com/corporate-responsibility/ready-commitment/" target="_blank"><img src="https://parkpeople.ca/listings/custom/uploads/2018/04/td_shield_logo.png"></a>
+                                <a href="https://www.td.com/corporate-responsibility/ready-commitment/" target="_blank"><img src="https://parkpeople.ca/custom/uploads/2018/04/td_shield_logo.png"></a>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="columns is-centered">
                             <div class="column is-6">
                                 <p>Founding Sponsor</p>
-                                <a href="https://www.td.com/corporate-responsibility/ready-commitment/" target="_blank"><img src="https://parkpeople.ca/listings/custom/uploads/2018/04/td_shield_logo.png"></a>
+                                <a href="https://www.td.com/corporate-responsibility/ready-commitment/" target="_blank"><img src="https://parkpeople.ca/custom/uploads/2018/04/td_shield_logo.png"></a>
                             </div>
                         </div>
                     </div>

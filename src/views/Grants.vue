@@ -31,7 +31,7 @@
 
 		<section class="grant-illustration">
 			<div class="main-animation">
-				<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
+				<img src="https://parkpeople.ca/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
 			</div>
 			<div class="clouds">
 			</div>
@@ -57,7 +57,7 @@
 	</div>
 	<div v-else class="loading-panel">
 		<div>
-			<img src="https://parkpeople.ca/listings/custom/uploads/2018/01/birdflying_pp_small.gif" alt="">
+			<img src="https://parkpeople.ca/custom/uploads/2018/01/birdflying_pp_small.gif" alt="">
 		</div>
 	</div>
 </template>
@@ -118,7 +118,7 @@ export default {
 
 	},
 	created() {
-		axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/pages/4102?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/4102?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data;
@@ -126,9 +126,9 @@ export default {
 			this.loading = false;
 
 			axios.all([
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=20'),
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/research/?_embed&categories=133&per_page=20'),
-				axios.get('https://parkpeople.ca/listings/wp-json/wp/v2/resource/?_embed&categories=133&per_page=20')
+				axios.get('https://parkpeople.ca/wp-json/wp/v2/case-study/?_embed&categories=133&per_page=20'),
+				axios.get('https://parkpeople.ca/wp-json/wp/v2/research/?_embed&categories=133&per_page=20'),
+				axios.get('https://parkpeople.ca/wp-json/wp/v2/resource/?_embed&categories=133&per_page=20')
 			])
 			.then(axios.spread((response, response1, response2) => {
 				// console.log(response.data)

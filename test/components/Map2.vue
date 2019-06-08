@@ -13,7 +13,7 @@
                             </div>
 
                             <h5>
-                                <a :href="'https://parkpeople.ca/listings/events/?n='+ item.slug+ '&id='+ item.id+'&tdgrant=true'" target="_blank" v-html="item.title" v-if="item.timeframe !== 'past'"></a>
+                                <a :href="'https://parkpeople.ca/events/?n='+ item.slug+ '&id='+ item.id+'&tdgrant=true'" target="_blank" v-html="item.title" v-if="item.timeframe !== 'past'"></a>
                                 <span v-html="item.title" v-if="item.timeframe == 'past'"></span>
                             </h5>
                             
@@ -414,9 +414,9 @@
                 this.infoWindows = [];
 
                 // Icons
-                let blueMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg';
-                let orangeMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_svg.svg';
-                let greenMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.svg';
+                let blueMarker = 'https://parkpeople.ca/custom/uploads/2018/04/blue_marker_svg.svg';
+                let orangeMarker = 'https://parkpeople.ca/custom/uploads/2018/04/orange_marker_svg.svg';
+                let greenMarker = 'https://parkpeople.ca/custom/uploads/2018/04/green_marker_small.svg';
 
                 /*
                     Iterate over all of the cafes
@@ -472,7 +472,7 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'&tdgrant=true" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/events/?n='+ this.locations[i].slug+ '&id='+ this.locations[i].id +'&tdgrant=true" target="_blank">'+ this.locations[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.locations[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.locations[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.locations[i].start_time+' - '+this.locations[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
@@ -558,9 +558,9 @@
                 this.infoWindows = [];
 
                 // Icons
-                let blueMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/blue_marker_svg.svg';
-                let orangeMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/orange_marker_svg.svg';
-                let greenMarker = 'https://parkpeople.ca/listings/custom/uploads/2018/04/green_marker_small.svg';
+                let blueMarker = 'https://parkpeople.ca/custom/uploads/2018/04/blue_marker_svg.svg';
+                let orangeMarker = 'https://parkpeople.ca/custom/uploads/2018/04/orange_marker_svg.svg';
+                let greenMarker = 'https://parkpeople.ca/custom/uploads/2018/04/green_marker_small.svg';
 
                 let bounds = new google.maps.LatLngBounds();
 
@@ -618,7 +618,7 @@
                         //     groupString = '';
                         // }
 
-                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/listings/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p></div>';
+                        var windowString = '<div style="width: 250px;">' + '<h6 style="margin-bottom: 10px;font-size: 16px;"><a href="https://parkpeople.ca/events/?n='+ this.activeMarkers[i].slug+ '&id='+ this.activeMarkers[i].id +'&tdgrant=true" target="_blank">'+ this.activeMarkers[i].title +'</a></h6><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-users"></i> '+  this.activeMarkers[i].listing[1] +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-calendar-o" aria-hidden="true"></i> '+  this.activeMarkers[i].start_date +'</p><p style="margin:0;font-size:12px;line-height: 1.5;"><i class="fa fa-clock-o" aria-hidden="true"></i> '+this.activeMarkers[i].start_time+' - '+this.activeMarkers[i].end_time+'</p></div>';
 
                         /*
                             Create the info window and add it to the local
