@@ -2,7 +2,7 @@
     <nav v-if="scrolled == true" id="scrolling" class="navbar green">
         <div class="navbar-brand">
             <div>
-                <a href="https://parkpeople.ca/parkgrants"><img src="https://parkpeople.ca/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
+                <a href="https://parkpeople.ca/parkgrants"><img src="https://parkpeople.ca/listings/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
             </div>
         </div>
 
@@ -19,14 +19,14 @@
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
                 <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
-                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients"  exact>2019 Recipients</router-link></span>
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients"  exact>2018 Recipients</router-link></span>
             </div>
         </div>
     </nav>
     <nav v-else class="navbar green">
         <div class="navbar-brand">
             <div>
-                <a href="https://parkpeople.ca/parkgrants"><img src="https://parkpeople.ca/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
+                <a href="https://parkpeople.ca/parkgrants"><img src="https://parkpeople.ca/listings/custom/uploads/2018/01/TD_grants_white_nologos_nationalGrants_white_nologos.png" class="grants-logo"></a>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
                 <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
-                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients" exact>2019 Recipients</router-link></span>
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients" exact>2018 Recipients</router-link></span>
             </div>
         </div>
     </nav>
