@@ -182,6 +182,72 @@ h1 {
     }
 }
 
+.videos {
+	padding: 50px 0;
+
+	h2 {
+		color: #B9C050;
+		font-size: 35px;
+		text-align: center;
+		margin-bottom: 50px;
+		@media #{$medium-and-down} {
+			font-size: 30px;
+		}
+		@media #{$small-and-down} {
+			font-size: 25px;
+			margin-bottom: 25px;
+		}
+	}
+	.hero {
+		width: 100%;
+		height: 500px;
+		background: black;
+		iframe {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	.selection {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+	}
+	.thumbnail-button {
+		margin: 40px 20px;
+		width: 300px;
+		position: relative;
+		height: 168px;
+		border: none;
+		background-size: contain;
+		img {
+			width: 50px;
+			transition: filter 0.1s, width 0.1s;
+			filter: saturate(0%) brightness(150%);
+		}
+		&:hover {
+			img {
+				width: 75px;
+				fill: #000;
+				filter: none;
+			}
+		}
+	}
+}
+
+// video transition styles
+.fade-enter {
+  	opacity: 0;
+	transform: translateX(50px);
+}
+.fade-leave-to {
+
+}
+
+.fade-enter-active{
+  transition: 0.5s;
+}
+
 .application-eligibility {
 	position: relative;
 	z-index: 500;
