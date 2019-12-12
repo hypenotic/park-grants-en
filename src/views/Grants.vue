@@ -7,10 +7,10 @@
 			</div>
 		</section>
 
-		<section class="map-section">
+		<!-- <section class="map-section">
 			<h2>TD Park People Events Across Canada</h2>
 			<app-map></app-map>
-		</section>
+		</section> -->
 				
 		<section class="recipients">
 			<div class="align-center">
@@ -18,7 +18,7 @@
 			</div>
 		</section>
 
-		<section class="event-templates">
+		<section class="event-templates container">
 			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
 			<div class="four-column wow fadeInUp" data-wow-duration="0.8s">
 				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
@@ -37,14 +37,14 @@
 			</div>
 		</section>
 
-		<section class="grants-newsletter">
+		<section class="grants-newsletter container">
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
 				<a class="button" href="http://eepurl.com/dx3BWX" target="_blank">Get the Park People newsletter!</a>
 			</div>
 		</section>
 
-		<section class="grant-sponsors">
+		<section class="grant-sponsors container">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
 				<li v-for="sponsor in data.meta_box._page_grant_sponsors" :key="sponsor['_page_g_sponsor_img']">
@@ -65,11 +65,11 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import Map from '../components/map/Map.vue';
+// import Map from '../components/map/Map.vue';
 import RelatedList from '../components/related-resources/RelatedList.vue';
 export default {
 	components: {
-		appMap: Map,
+		// appMap: Map,
 		appRelated: RelatedList
     },
 	props: ['name'],
@@ -110,7 +110,7 @@ export default {
     },
 	methods: {
 		downloadArea(name) {
-			console.log('download event', name);
+			// console.log('download event', name);
 			this.$ga.event('download', 'TD Grants Download', name, 1);
 		}
 	},
@@ -120,7 +120,7 @@ export default {
 	created() {
 		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/4102?_embed')
 		.then(response => {
-            console.log(response.data)
+            // console.log(response.data)
 			this.data = response.data;
 			
 			this.loading = false;

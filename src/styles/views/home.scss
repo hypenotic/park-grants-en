@@ -60,20 +60,33 @@
 }
 
 .four-column {
+	display: flex;
+	flex-direction: column;
+	> div {
+		padding: 25px 0;
+		p {
+			width: 75%;
+		}
+	}
 	@media #{$small-and-down} {
 		> div {
 			padding: 20px 0;
+			p {
+				width: 100%;
+			}
 		}
 	}
 	@media #{$large-and-up} {
 		display: flex;
 		justify-content: space-between;
+		flex-direction: row;
 		margin-top: 40px;
 		padding-bottom: 1rem;
 		flex-wrap: wrap;
 		> div {
 			width: 44%;
 			margin-bottom: 3rem;
+			// padding: 0;
 		}
 	}
 	
@@ -139,7 +152,10 @@ h1 {
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
+	margin: 0 auto;
+	@media #{$medium-and-down} {
+		padding: 0 20px;
+	}
 }
 
 .loading-panel {
@@ -152,7 +168,10 @@ h1 {
 
 .wide-container {
     max-width: 1160px;
-    margin: 0 auto;
+	margin: 0 auto;
+	@media #{$medium-and-down} {
+		padding: 0 20px;
+	}
 }
 
 .skewed-bg{
