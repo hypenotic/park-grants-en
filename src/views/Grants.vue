@@ -12,13 +12,13 @@
 			<app-map></app-map>
 		</section>
 				
-		<section class="recipients">
+		<section class="recipients container">
 			<div class="align-center">
 				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
 			</div>
 		</section>
 
-		<section class="event-templates">
+		<section class="event-templates container">
 			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
 			<div class="four-column wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
 				<div v-for="bucket in data.meta_box._page_buckets" :key="bucket.bucket_copy">
@@ -37,14 +37,14 @@
 			</div>
 		</section>
 
-		<section class="grants-newsletter">
+		<section class="grants-newsletter container">
 			<div class="container">
 				<p>Want to stay up-to-date on Park People news?</p>
 				<a class="button" href="http://eepurl.com/dx3BWX" target="_blank">Get the Park People newsletter!</a>
 			</div>
 		</section>
 
-		<section class="grant-sponsors">
+		<section class="grant-sponsors container">
 			<p>Made possible by a great collaboration:</p>
 			<ul>
 				<li v-for="sponsor in data.meta_box._page_grant_sponsors" :key="sponsor['_page_g_sponsor_img']">
@@ -118,7 +118,7 @@ export default {
 
 	},
 	created() {
-		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/4102?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/16208?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data;
