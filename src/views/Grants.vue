@@ -120,7 +120,7 @@ export default {
 		}
 	},
 	created() {
-		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/16210?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/16208?_embed')
 		.then(response => {
 			this.data = response.data;
 			
