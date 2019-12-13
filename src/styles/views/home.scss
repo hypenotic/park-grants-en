@@ -220,33 +220,41 @@ h1 {
 		height: 168px;
 		border: none;
 		background-size: contain;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		
 		img {
-			width: 50px;
+			width: 40px;
 			transition: filter 0.1s, width 0.1s;
 			filter: saturate(0%) brightness(150%);
 		}
 		&:hover {
 			img {
-				width: 75px;
+				width: 55px;
 				fill: #000;
 				filter: none;
 			}
 		}
 	}
 }
-
-// video transition styles
+// video-thumbnail transition styles
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+	
+transition: none;
+//   transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
+  position: absolute;
   opacity: 0;
 }
+// end of transition styles
 
 .application-eligibility {
 	position: relative;

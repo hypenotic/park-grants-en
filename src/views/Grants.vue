@@ -14,11 +14,15 @@
 					<iframe v-show="selectedVideo==3" src="https://player.vimeo.com/video/247523214?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 				</div>
 				<div class="selection">
-					<transition-group name="slide-fade" mode="out-in">
-						<button v-if="selectedVideo!=1" @click="switchVideo(1)" :v-model="selected" value="0" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-1.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-						<button v-if="selectedVideo!=2" @click="switchVideo(2)" :v-model="selected" value="1" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-2.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-						<button v-if="selectedVideo!=3" @click="switchVideo(3)" :v-model="selected" value="2" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-3.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					</transition-group>
+					<transition name="slide-fade" mode="out-in">
+						<button :key="1" v-if="selectedVideo!=1" @click="switchVideo(1)"  value="0" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-1.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
+					</transition>
+					<transition name="slide-fade" mode="out-in">
+						<button :key="2" v-if="selectedVideo!=2" @click="switchVideo(2)" value="1" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-2.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
+					</transition>
+					<transition name="slide-fade" mode="out-in">
+						<button :key="3" v-if="selectedVideo!=3" @click="switchVideo(3)" value="2" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-3.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
+					</transition>
 				</div>
 			</section>
 			<section class="application-eligibility container">
@@ -94,11 +98,9 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import Map from '../components/map/Map.vue';
 import RelatedList from '../components/related-resources/RelatedList.vue';
 export default {
 	components: {
-		appMap: Map,
 		appRelated: RelatedList
     },
 	props: ['name'],
