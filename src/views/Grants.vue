@@ -9,20 +9,16 @@
 			<section class="videos">
 				<h2 class="container">The power of parks in action</h2>
 				<div class="hero">
-					<iframe v-if="selectedVideo==1" src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-					<iframe v-if="selectedVideo==2" src="https://player.vimeo.com/video/247218173?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-					<iframe v-if="selectedVideo==3" src="https://player.vimeo.com/video/247523214?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+					<iframe v-show="selectedVideo==1" src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+					<iframe v-show="selectedVideo==2" src="https://player.vimeo.com/video/247218173?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+					<iframe v-show="selectedVideo==3" src="https://player.vimeo.com/video/247523214?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 				</div>
 				<div class="selection">
-					<transition name="fade" mode="in-out">
+					<transition-group name="slide-fade" mode="out-in">
 						<button v-if="selectedVideo!=1" @click="switchVideo(1)" :v-model="selected" value="0" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-1.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					</transition>
-					<transition name="fade" mode="in-out">
 						<button v-if="selectedVideo!=2" @click="switchVideo(2)" :v-model="selected" value="1" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-2.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					</transition>
-					<transition name="fade" mode="in-out">
 						<button v-if="selectedVideo!=3" @click="switchVideo(3)" :v-model="selected" value="2" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-3.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					</transition>
+					</transition-group>
 				</div>
 			</section>
 			<section class="application-eligibility container">
@@ -151,7 +147,6 @@ export default {
 	created() {
 		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/16208?_embed')
 		.then(response => {
-            console.log(response.data)
 			this.data = response.data;
 			
 			this.loading = false;
