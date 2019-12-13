@@ -71,11 +71,9 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import Map from '../components/map/Map.vue';
 import RelatedList from '../components/related-resources/RelatedList.vue';
 export default {
 	components: {
-		appMap: Map,
 		appRelated: RelatedList
     },
 	props: ['name'],
