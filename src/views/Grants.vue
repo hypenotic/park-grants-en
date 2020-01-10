@@ -2,7 +2,7 @@
 	<div v-if="data != null">
 		<section class="videos">
 			<div class="hero">
-				<iframe src="https://player.vimeo.com/video/374961083?autoplay=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
 		</section>
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
