@@ -1,28 +1,15 @@
 <template>
 	<div v-if="data != null">
+		<section class="videos">
+			<h2 class="container">The power of parks in action</h2>
+			<div class="hero">
+				<iframe src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+			</div>
+		</section>
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
 			<div class="container">
 				<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
 				<div class="topContent" v-html="data.content.rendered"></div>
-			</div>
-		</section>
-		<section class="videos">
-			<h2 class="container">The power of parks in action</h2>
-			<div class="hero">
-				<iframe v-show="selectedVideo==1" src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo==2" src="https://player.vimeo.com/video/247218173?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo==3" src="https://player.vimeo.com/video/247523214?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-			</div>
-			<div class="selection">
-				<transition name="slide-fade" mode="out-in">
-					<button :key="1" v-if="selectedVideo!=1" @click="switchVideo(1)"  value="0" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-1.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-				</transition>
-				<transition name="slide-fade" mode="out-in">
-					<button :key="2" v-if="selectedVideo!=2" @click="switchVideo(2)" value="1" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-2.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-				</transition>
-				<transition name="slide-fade" mode="out-in">
-					<button :key="3" v-if="selectedVideo!=3" @click="switchVideo(3)" value="2" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-3.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-				</transition>
 			</div>
 		</section>
 		<section class="application-eligibility container">
