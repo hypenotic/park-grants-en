@@ -1,7 +1,6 @@
 <template>
 	<div v-if="data != null">
 		<section class="videos">
-			<h2 class="container">The power of parks in action</h2>
 			<div class="hero">
 				<iframe src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
@@ -30,6 +29,22 @@
 				</ul>
 			</div>
 		</section>
+
+		<section class="recipients container">
+			<div class="align-center">
+				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
+			</div>
+		</section>
+
+		<section class="grant-illustration">
+			<div class="main-animation">
+				<img src="https://parkpeople.ca/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
+			</div>
+			<div class="clouds">
+			</div>
+		</section>
+
+
 		<section class="more-info">
 			<div class="container">
 				<div v-html="data.meta_box._page_grant_more_info"></div>
@@ -37,11 +52,7 @@
 		</section>
 
 				
-		<section class="recipients container">
-			<div class="align-center">
-				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
-			</div>
-		</section>
+		
 
 		<section class="event-templates container">
 			<h3 v-html="data.meta_box._page_buckets_main_heading"></h3>
@@ -54,13 +65,7 @@
 			</div>
 		</section>
 
-		<section class="grant-illustration">
-			<div class="main-animation">
-				<img src="https://parkpeople.ca/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
-			</div>
-			<div class="clouds">
-			</div>
-		</section>
+		
 
 		<section class="grants-newsletter container">
 			<div class="container">
