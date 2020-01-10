@@ -3,9 +3,10 @@
 		<section class="videos">
 			<div class="overlay">
 				<h1>
-					Make something awesome in your park
+					Make something awesome happen in your park
 				</h1>
-				<a href="" class="cta-button">
+				<br>
+				<a href="" class="cta_button">
 					Learn more
 				</a>
 			</div>
