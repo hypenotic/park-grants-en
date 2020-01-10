@@ -2,13 +2,14 @@
 	<div v-if="data != null">
 		<section class="videos">
 			<div class="overlay">
-				<h1>
-					Make something awesome happen in your park
-				</h1>
-				<br>
-				<a href="" class="cta_button">
-					Learn more
-				</a>
+				<div>
+					<h1>
+						Make something awesome happen in your park
+					</h1>
+					<a href="" class="cta_button">
+						Learn more
+					</a>
+				</div>
 			</div>
 			<div class="hero">
 				<iframe src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
