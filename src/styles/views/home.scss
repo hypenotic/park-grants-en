@@ -182,14 +182,14 @@ h1 {
     }
 }
 
-@keyframes fadeout {
-	from{
-		opacity: 1;
-	}
-	to{
-		opacity: 0;
-	}
-}
+// @keyframes fadeout {
+// 	from{
+// 		opacity: 1;
+// 	}
+// 	to{
+// 		opacity: 0;
+// 	}
+// }
 
 .videos {
 	// padding: 50px 0;
@@ -223,7 +223,12 @@ h1 {
 		align-items: center;
 		justify-content: center;
 		background: rgba(0,0,0,0.5);
-		animation: 1s ease 10s 1 running fadeout;
+		transition: opacity 0.5s ease;
+		opacity: 0;
+		&:hover{
+			opacity: 1;
+		} 
+		// animation: 1s ease 10s 1 running fadeout;
 		h1{
 			color: #B9C050;
 		}
