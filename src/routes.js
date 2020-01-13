@@ -2,6 +2,7 @@
 route*/
 import Grants from './views/Grants.vue';
 import Single from './views/Single.vue';
+import Faq from './views/Faq.vue';
 
 /* export a const names routes with will 
 hold my routes. Holding routes means it has 
@@ -13,7 +14,7 @@ export const routes = [
 	then need the component to load*/
 	{ path:'/', component: Grants, props: true },
 	{ path:'/grants', component: Grants, props: true },
-	{ path:'/faq', component: Single, props: true },
+	{ path:'/faq', component: Faq, props: true },
 	{ path:'/grant-recipients', component: Single, props: true },
 	{ path: '*', redirect: '/' }
 ]
