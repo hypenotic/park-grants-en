@@ -107,7 +107,7 @@ h2 {
 }
 
 h3 {
-    font-size: 2.75rem;
+    font-size: 1.25rem;
 }
 
 h4 {
