@@ -225,6 +225,7 @@ h1 {
 		background: rgba(0,0,0,0.5);
 		transition: opacity 0.5s ease;
 		opacity: 0;
+		margin-bottom: 10vw;
 		&:hover{
 			opacity: 1;
 		} 
