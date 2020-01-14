@@ -118,7 +118,8 @@ export default {
 			errors: [],
 			loading: true,
 			selectedVideo: 0,
-			videoLengths: [72,61,65],
+			videoLengths: [5,5,5],
+			// videoLengths: [72,61,65],
 			time: 0
 		};
 	},
