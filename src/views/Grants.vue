@@ -188,11 +188,12 @@ export default {
 		})
 	},
 	mounted(){
+		var ctx = this;
 		setInterval(function(){
-			this.time += 1;
-			this.time < 10 ? console.log(this.time) : "";
-			if(this.time == this.videoLengths[this.selectedVideo]){
-				this.selectedVideo = (this.selectedVideo + 1) % 3;
+			ctx.time += 1;
+			ctx.time < 10 ? console.log(ctx.time) : "";
+			if(ctx.time == ctx.videoLengths[ctx.selectedVideo]){
+				ctx.selectedVideo = (ctx.selectedVideo + 1) % 3;
 			}
 		}, 1000);
 	}
