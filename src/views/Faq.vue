@@ -111,6 +111,7 @@ img.heading {
 }
 
 .FAQ-content {
+	padding-bottom: 200px;
 	h2 {
 		font-size: 2rem;
 		line-height: 1.5;

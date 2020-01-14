@@ -5,7 +5,7 @@
 				<h1>
 					Make something awesome happen in your park
 				</h1>
-				<a href="" class="cta_button">
+				<a href="#learnmore" class="cta_button">
 					Learn more
 				</a>
 			</div>
@@ -26,7 +26,7 @@
 				<div class="topContent" v-html="data.content.rendered"></div>
 			</div>
 		</section>
-		<section class="application-eligibility container">
+		<section class="application-eligibility container" id="learnmore">
 			<div class="application">
 				<h2>Application Process</h2>
 				<ol class="app-list">
