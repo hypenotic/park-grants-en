@@ -10,7 +10,9 @@
 				</a>
 			</div>
 			<div class="hero">
-				<iframe src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-show="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-show="selectedVideo == 1" src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-show="selectedVideo == 2" src="https://player.vimeo.com/video/374963755?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
 		</section>
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
@@ -115,7 +117,9 @@ export default {
 			relatedPosts: [],
 			errors: [],
 			loading: true,
-			selectedVideo: 1,
+			selectedVideo: 0,
+			videoLengths: [72,61,65],
+			time: 0
 		};
 	},
 	filters: {
@@ -183,6 +187,14 @@ export default {
 			this.errors.push(e)
 		})
 	},
+	mounted(){
+		setInterval(function(){
+			this.time += 1;
+			if(this.time == this.videoLengths[this.selectedVideo]){
+				this.selectedVideo = (this.selectedVideo + 1) % 3;
+			}
+		}, 1000);
+	}
 };
 </script>
 
