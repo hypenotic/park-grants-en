@@ -194,6 +194,7 @@ export default {
 			ctx.time += 1;
 			ctx.time < 10 ? console.log(ctx.time) : "";
 			if(ctx.time == ctx.videoLengths[ctx.selectedVideo]){
+				console.log(ctx.selectedVideo);
 				ctx.selectedVideo = (ctx.selectedVideo + 1) % 3;
 			}
 		}, 1000);
