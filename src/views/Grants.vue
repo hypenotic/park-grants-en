@@ -161,7 +161,7 @@ export default {
 			this.selectedVideo = value
 		},
 		isMobile() {
-			return /Android||webOS||iPhone||iPad||iPod||BlackBerry||IEMobile||Opera Mini/i.test(navigator.userAgent)
+			return (window.innerWidth <= 800 && window.innerHeight <= 600)
 		}
 	},
 	created() {
