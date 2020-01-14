@@ -10,9 +10,9 @@
 				</a>
 			</div>
 			<div class="hero">
-				<iframe v-show="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo == 1" src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo == 2" src="https://player.vimeo.com/video/374963755?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 1" src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 2" src="https://player.vimeo.com/video/374963755?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
 		</section>
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
@@ -190,6 +190,7 @@ export default {
 	mounted(){
 		setInterval(function(){
 			this.time += 1;
+			this.time < 10 ? console.log(this.time) : "";
 			if(this.time == this.videoLengths[this.selectedVideo]){
 				this.selectedVideo = (this.selectedVideo + 1) % 3;
 			}
