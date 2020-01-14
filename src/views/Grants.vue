@@ -189,6 +189,7 @@ export default {
 		})
 	},
 	mounted(){
+		this.selectedVideo = Math.floor(Math.random()*3);
 		var ctx = this;
 		setInterval(function(){
 			ctx.time += 1;
