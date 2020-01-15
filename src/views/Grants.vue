@@ -36,10 +36,12 @@
 			</div>
 			<div class="eligibility">
 				<h2>Eligibility</h2>
-				<div v-for="point in data.meta_box._page_eligibility" :key="point['_page_eligibility_copy']">
-					<img :src="point['_page_eligibility_img']" alt="">
-					<span v-html="point['_page_eligibility_copy']"></span>
-				</div>
+				<ul>
+					<li v-for="point in data.meta_box._page_eligibility" :key="point['_page_eligibility_copy']">
+						<img :src="point['_page_eligibility_img']" alt="">
+						<span v-html="point['_page_eligibility_copy']"></span>
+					</li>
+				</ul>
 			</div>
 		</section>
 
