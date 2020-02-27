@@ -183,7 +183,9 @@ h1 {
 }
 
 .videos {
-	padding: 50px 0;
+	// padding: 50px 0;
+	position: relative;
+	overflow: hidden;
 
 	h2 {
 		color: #B9C050;
@@ -198,11 +200,52 @@ h1 {
 			margin-bottom: 25px;
 		}
 	}
+
+	.overlay{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 56.25vw;
+		z-index: 10;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0,0,0,0.5);
+		transition: opacity 0.5s ease;
+		opacity: 0;
+		padding-bottom: 10vw;
+		&:hover{
+			opacity: 1;
+		} 
+		// animation: 1s ease 10s 1 running fadeout;
+		h1{
+			max-width: 700px;
+			margin-right: 50px;
+			margin-left: 50px;
+			// font-size: 30px;
+			color: #B9C050;
+			text-align: center;
+		}
+		.cta_button{
+			// font-size: 16px;
+			// padding: 8px 20px;
+			// margin-bottom: 0;
+		}
+	}
+
 	.hero {
 		width: 100%;
-		height: 500px;
+		// height: 500px;
 		background: black;
+		position: relative;
+    padding-bottom: 56.25%;
+    overflow: hidden;
 		iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
 			width: 100%;
 			height: 100%;
 		}

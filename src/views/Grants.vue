@@ -1,26 +1,34 @@
 <template>
 	<div v-if="data != null">
+		<section class="videos">
+			<div class="overlay">
+				<h1>
+					Make something awesome happen in your park
+				</h1>
+				<router-link to="/grant-recipients" class="cta_button" exact>
+					2019 Recipients
+				</router-link>
+				<!-- <a href="/parkgrants/grant-recipients" class="cta_button">
+					Past Recipients
+				</a> -->
+			</div>
+			<div class="hero" v-if="isMobile()">
+				<iframe v-if="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 1" src="https://player.vimeo.com/video/374961083?background=1&loop=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 2" src="https://player.vimeo.com/video/374963755?background=1&loop=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+			</div>
+			<div class="hero" v-else>
+				<iframe v-if="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 1" src="https://player.vimeo.com/video/374961083?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe v-if="selectedVideo == 2" src="https://player.vimeo.com/video/374963755?background=1&loop=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+			</div>
+		</section>
 		<section class="section" v-if="data && data.hasOwnProperty('meta_box')">
 			<div class="container">
 				<h1 id="bird-anchor" v-html="data.meta_box._page_grant_heading"></h1>
 				<div class="topContent" v-html="data.content.rendered"></div>
 			</div>
 		</section>
-		<!-- <section class="videos">
-			<h2 class="container">The power of parks in action</h2>
-			<div class="hero">
-				<iframe v-show="selectedVideo==1" src="https://player.vimeo.com/video/249442260?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo==2" src="https://player.vimeo.com/video/247218173?byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-				<iframe v-show="selectedVideo==3" src="https://player.vimeo.com/video/247523214?title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-			</div>
-			<div class="selection">
-				<transition-group name="slide-fade" mode="out-in">
-					<button v-if="selectedVideo!=1" @click="switchVideo(1)" :v-model="selected" value="0" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-1.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					<button v-if="selectedVideo!=2" @click="switchVideo(2)" :v-model="selected" value="1" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-2.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-					<button v-if="selectedVideo!=3" @click="switchVideo(3)" :v-model="selected" value="2" class="thumbnail-button" style="background-image: url(src/assets/thumbnail-3.png);"><img src="src/assets/playbutton-white.svg" alt=""></button>
-				</transition-group>
-			</div>
-		</section> -->
 		
 	
 
@@ -83,7 +91,10 @@ export default {
 			relatedPosts: [],
 			errors: [],
 			loading: true,
-			selectedVideo: 1,
+			selectedVideo: 0,
+			// videoLengths: [5,5,5],
+			videoLengths: [72,61,65],
+			time: 0
 		};
 	},
 	filters: {
@@ -117,6 +128,15 @@ export default {
 		},
 		switchVideo(value){
 			this.selectedVideo = value
+		},
+		isMobile() {
+			return (navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i))
 		}
 	},
 	created() {
