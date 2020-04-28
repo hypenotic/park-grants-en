@@ -53,7 +53,7 @@
 
 		<section class="grant-illustration">
 			<div class="main-animation">
-				<img src="https://parkpeople.ca/custom/uploads/2018/01/parkparadepeople_paradelayer.gif" alt="Parade animation">
+				<img src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg" alt="Illustration">
 			</div>
 			<div class="clouds">
 			</div>
