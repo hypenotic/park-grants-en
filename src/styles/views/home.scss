@@ -522,14 +522,14 @@ transition: none;
 		top: 50px;
 		z-index: 20;
 		@media #{$medium-and-up} {
-			top: 5%;
+			// top: 5%;
 			width: 700px;
 			left: 50%;
 			margin-left: -350px;
 			// right: 50%;
 		}
 		@media #{$large-and-up} {
-			top: -15%;
+			// top: -15%;
 			width: 800px;
 			left: 50%;
 			margin-left: -400px;
@@ -539,7 +539,7 @@ transition: none;
 			width: 1000px;
 			left: 50%;
 			margin-left: -500px;
-			top: -100px;
+			// top: -100px;
 			// right: 50%;
 		}
 	}

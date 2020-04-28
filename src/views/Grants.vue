@@ -6,9 +6,10 @@
 				<h1>
 					Make something awesome happen in your park
 				</h1>
-				<a href="#learnmore" class="cta_button">
+				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
+				<!-- <a href="#learnmore" class="cta_button">
 					Learn more
-				</a>
+				</a> -->
 			</div>
 			<div class="hero" v-if="isMobile()">
 				<iframe v-if="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -55,8 +56,8 @@
 			<div class="main-animation">
 				<img src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg" alt="Illustration">
 			</div>
-			<div class="clouds">
-			</div>
+			<!-- <div class="clouds">
+			</div> -->
 		</section>
 
 		<section class="grants-newsletter container">
@@ -162,7 +163,7 @@ export default {
 		}, 1000);
 	},
 	created() {
-		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/16208?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/17540?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data;
