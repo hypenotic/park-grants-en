@@ -7,7 +7,7 @@ import VueRouter from 'vue-router'
 import VueAnalytics from 'vue-analytics'
 import { routes } from './routes'
 import Buefy from 'buefy'
-import 'buefy/lib/buefy.css'
+// import 'buefy/lib/buefy.css'
 var SocialSharing = require('vue-social-sharing');
 import VuePaginate from 'vue-paginate'
 
