@@ -35,7 +35,7 @@
 <style lang="scss">
 
 // Import Bulma's core
-@import "~bulma/sass/utilities/_all";
+@import "../node_modules/bulma/bulma.sass";
 @import url('https://fonts.googleapis.com/css?family=Dosis:400,700,800|Comfortaa|Merriweather');
 // Import Variables
 @import './styles/variables.scss';
