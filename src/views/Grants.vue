@@ -53,9 +53,9 @@
 		</section>
 
 		<section class="grant-illustration">
-			<div class="main-animation">
-				<img src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg" alt="Illustration">
-			</div>
+			<img src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg" alt="Illustration">
+			<!-- <div class="main-animation">
+			</div> -->
 			<!-- <div class="clouds">
 			</div> -->
 		</section>

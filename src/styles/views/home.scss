@@ -507,8 +507,9 @@ transition: none;
 	position: relative;
 	margin-top: 0px;
 	z-index: 100;
-	padding-bottom: 15%;
 	min-height: 300px;
+	display: flex;
+	justify-content: center;
 	@media #{$medium-and-up} {
 		margin-top: 0px;
 		min-height: 400px;
@@ -516,56 +517,15 @@ transition: none;
 	@media #{$large-and-up} {
 		min-height: 400px;
 	}
-	.main-animation {
-		position: absolute;
-		left: 0;
-		top: 50px;
-		z-index: 20;
+	img {
 		@media #{$medium-and-up} {
-			// top: 5%;
 			width: 700px;
-			left: 50%;
-			margin-left: -350px;
-			// right: 50%;
 		}
 		@media #{$large-and-up} {
-			// top: -15%;
 			width: 800px;
-			left: 50%;
-			margin-left: -400px;
-			// right: 50%;
 		}
 		@media #{$xlarge-and-up} {
 			width: 1000px;
-			left: 50%;
-			margin-left: -500px;
-			// top: -100px;
-			// right: 50%;
-		}
-	}
-	.clouds {
-		position: absolute;
-		background: url('https://parkpeople.ca/custom/uploads/2018/01/park_people_event_greenline_background_long.jpg') repeat 0 0;
-		width: 100%;
-		height: 500px;
-		background-size: cover;
-		left: 0;
-		top: 0%;
-		z-index: 10;
-		-webkit-animation: slide 20s linear infinite alternate;
-		animation: slide 20s linear infinite alternate;
-		@media #{$small-and-down} {
-			height: 350px;
-		}
-		@media #{$medium-and-up} {
-			height: 400px;
-		}
-		@media #{$large-and-up} {
-			height: 350px;
-		}
-		@media #{$xlarge-and-up} {
-			// width: 1000px;
-			background-size: contain;
 		}
 	}
 }
