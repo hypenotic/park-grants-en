@@ -6,10 +6,7 @@
 				<h1>
 					Make something awesome happen in your park
 				</h1>
-				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
-				<!-- <a href="#learnmore" class="cta_button">
-					Learn more
-				</a> -->
+				<router-link v-if="data.meta_box._page_grant_cta_text" class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
 			</div>
 			<div class="hero" v-if="isMobile()">
 				<iframe v-if="selectedVideo == 0" src="https://player.vimeo.com/video/374742599?background=1&loop=1&autoplay=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

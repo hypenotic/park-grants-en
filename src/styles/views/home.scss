@@ -29,6 +29,7 @@
 }
 
 .event-templates {
+	margin-top: 80px;
 	padding: 0 24px;
 	@media #{$medium-and-up} {
 		padding: 0;
@@ -556,5 +557,5 @@ transition: none;
 }
 
 .recipients {
-    padding-bottom: 80px;
+    // padding-bottom: 80px;
 }
