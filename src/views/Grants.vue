@@ -35,7 +35,7 @@
 			<app-map></app-map>
 		</section>
 				
-		<section class="recipients container">
+		<section v-if="data.meta_box._page_grant_cta_text" class="recipients container">
 			<div class="align-center">
 				<router-link class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
 			</div>
