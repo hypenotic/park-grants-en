@@ -15,13 +15,13 @@
             <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
 
-        <!-- <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'menu-open': showMobileMenu }">
+        <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'menu-open': showMobileMenu }">
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
                 <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
                 <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients"  exact>2019 Recipients</router-link></span>
             </div>
-        </div> -->
+        </div>
     </nav>
     <nav v-else class="navbar green">
         <div class="navbar-brand">
@@ -42,8 +42,8 @@
         <div id="navbarExampleTransparentExample" class="navbar-menu" v-bind:class="{ 'menu-open': showMobileMenu }">
             <div class="navbar-end">
                 <a href="https://parkpeople.ca" class="navbar-item">Home</a>
-                <!-- <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
-                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients" exact>2019 Recipients</router-link></span> -->
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/grant-recipients'"><router-link to="/" exact>Back to Grants Page</router-link></span>
+                <span class="navbar-item" v-on:click="showMobileMenu = !showMobileMenu" v-if="this.$route.path == '/'"><router-link to="/grant-recipients" exact>2019 Recipients</router-link></span>
             </div>
         </div>
     </nav>
