@@ -62,7 +62,7 @@ export default {
 	},
 	created() {
 		console.log('list')
-		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/4102?_embed')
+		axios.get('https://parkpeople.ca/wp-json/wp/v2/pages/17540?_embed')
 		.then(response => {
             console.log(response.data)
 			this.data = response.data
