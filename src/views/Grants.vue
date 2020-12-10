@@ -4,7 +4,7 @@
 		<section class="videos">
 			<div class="overlay">
 				<h1>
-					TD Park People Winter Grants: Making Winter Warmer
+					Unlock the power of parks
 				</h1>
 				<router-link v-if="data.meta_box._page_grant_cta_text" class="cta_button" :to="data.meta_box._page_grant_cta_link" v-html="data.meta_box._page_grant_cta_text"></router-link>
 			</div>
