@@ -3,7 +3,7 @@
     <section class="videos">
       <div class="overlay">
         <h1>
-          Make something awesome happen in your park
+          TD Park People Winter Grants: Making Winter Warmer
         </h1>
         <a href="#learnmore" class="cta_button">
           Learn more
