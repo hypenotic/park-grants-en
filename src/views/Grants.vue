@@ -3,7 +3,7 @@
     <section class="videos">
       <div class="overlay">
         <h1>
-          TD Park People Winter Grants: Making Winter Warmer
+          Building vital connections between people and parks
         </h1>
         <a href="#learnmore" class="cta_button">
           Learn more
