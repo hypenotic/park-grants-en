@@ -98,6 +98,14 @@
     </section>
 
     <section class="grant-illustration">
+      <img
+        src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg"
+        alt="Illustration"
+      />
+    </section>
+
+    <!--
+    <section class="grant-illustration">
       <div class="main-animation">
         <img
           src="https://parkpeople.ca/custom/uploads/2018/01/parkparadepeople_paradelayer.gif"
@@ -106,6 +114,7 @@
       </div>
       <div class="clouds"></div>
     </section>
+    -->
 
     <section class="more-info">
       <div class="container">
