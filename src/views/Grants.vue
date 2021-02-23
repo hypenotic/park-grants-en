@@ -2,9 +2,7 @@
   <div v-if="data != null">
     <section class="videos">
       <div class="overlay">
-        <h1>
-          Make something awesome happen in your park
-        </h1>
+        <h1>Building vital connections between people and parks</h1>
         <router-link to="/grant-recipients" class="cta_button" exact>
           2020 Recipients
         </router-link>
