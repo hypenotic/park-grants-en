@@ -6,7 +6,7 @@
           Make something awesome happen in your park
         </h1>
         <router-link to="/grant-recipients" class="cta_button" exact>
-          2019 Recipients
+          2020 Recipients
         </router-link>
         <!-- <a href="/parkgrants/grant-recipients" class="cta_button">
 					Past Recipients
