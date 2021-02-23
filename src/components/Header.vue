@@ -89,7 +89,7 @@
           v-on:click="showMobileMenu = !showMobileMenu"
           v-if="this.$route.path == '/'"
           ><router-link to="/grant-recipients" exact
-            >2019 Recipients</router-link
+            >2020 Recipients</router-link
           ></span
         >
       </div>
