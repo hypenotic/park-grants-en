@@ -3,9 +3,9 @@
     <section class="videos">
       <div class="overlay">
         <h1>Building vital connections between people and parks</h1>
-        <router-link to="/grant-recipients" class="cta_button" exact>
+        <!-- <router-link to="/grant-recipients" class="cta_button" exact>
           2020 Recipients
-        </router-link>
+        </router-link> -->
         <!-- <a href="/parkgrants/grant-recipients" class="cta_button">
 					Past Recipients
 				</a> -->
