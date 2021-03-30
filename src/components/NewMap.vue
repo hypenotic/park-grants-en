@@ -409,7 +409,7 @@ export default {
         let marker = new window.google.maps.Marker({
           position: location,
           //icon: "src/assets/pin.png",
-          icon: "./pin.png",
+          icon: "https://hypelabs.dev/park-grants-en/pin.png",
           map: map,
           title: location.title
         });
@@ -448,7 +448,7 @@ export default {
       // Add a marker clusterer to manage the markers.
       new MarkerClusterer(map, markers, {
         //imagePath: "src/assets/m"
-        imagePath: "./m"
+        imagePath: "https://hypelabs.dev/park-grants-en/m"
       });
     }
   }
