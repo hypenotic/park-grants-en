@@ -408,7 +408,8 @@ export default {
       const markers = this.locations.map((location, i) => {
         let marker = new window.google.maps.Marker({
           position: location,
-          icon: "src/assets/pin.png",
+          //icon: "src/assets/pin.png",
+          icon: "./pin.png",
           map: map,
           title: location.title
         });
@@ -446,7 +447,8 @@ export default {
       });
       // Add a marker clusterer to manage the markers.
       new MarkerClusterer(map, markers, {
-        imagePath: "src/assets/m"
+        //imagePath: "src/assets/m"
+        imagePath: "./m"
       });
     }
   }
