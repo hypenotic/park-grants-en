@@ -69,7 +69,6 @@
 
     <section class="map-section">
       <h2>TD Park People Events Across Canada</h2>
-      <!--<app-map></app-map>-->
       <NewMap />
     </section>
 
@@ -113,10 +112,6 @@
         src="https://parkpeople.ca/custom/uploads/2020/04/TD_PPgrants_isolation_webart.jpg"
         alt="Illustration"
       />
-      <!-- <div class="main-animation">
-			</div> -->
-      <!-- <div class="clouds">
-			</div> -->
     </section>
 
     <section class="grants-newsletter container">
@@ -160,13 +155,10 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex";
-//import Map from "../components/map/Map.vue";
 import NewMap from "../components/NewMap.vue";
 import RelatedList from "../components/related-resources/RelatedList.vue";
 export default {
   components: {
-    //appMap: Map,
     appRelated: RelatedList,
     NewMap
   },
@@ -240,11 +232,8 @@ export default {
     axios
       .get("https://parkpeople.ca/wp-json/wp/v2/pages/21796?_embed")
       .then(response => {
-        console.log(response.data);
         this.data = response.data;
-
         this.loading = false;
-
         axios
           .all([
             axios.get(

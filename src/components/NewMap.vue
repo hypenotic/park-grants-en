@@ -18,7 +18,7 @@ export default {
   },
   mounted() {
     axios
-      .get("https://parkpeople.ca/wp-json/wp/v2/eventsapp")
+      .get("http://parkpeople.test/wp-json/wp/v2/eventsapp")
       .then(response => {
         this.events = response.data;
         this.setLocations();
@@ -38,6 +38,11 @@ export default {
             title: e.title,
             image: e.image,
             slug: e.slug,
+            time_start: e.event_start_time,
+            time_end: e.event_end_time,
+            date_start: e.event_start_date,
+            date_end: e.event_end_date,
+            park_name: e.event_park_name,
             address: e.address,
             description: e.description
           });
@@ -425,10 +430,13 @@ export default {
                   '"/>' +
                   '<table><tr><td style="width:50%; vertical-align: top; padding: 20px 10px 20px 20px;">' +
                   '<div class="iw-title">' +
+                  "<a style='color: #4678A7; font-size: 15px; line-height: 20px; text-decoration-line: underline;' href=https://listings.parkpeople.ca/event/" +
+                  location.slug +
+                  ">" +
                   location.title +
                   "</a>" +
                   "<br><br>" +
-                  location.address +
+                  location.park_name +
                   "</td>" +
                   '<td style="width:50%; vertical-align: top; padding: 20px 20px 20px 10px;">' +
                   "<p style=\"font: normal normal 15px/18px 'Dosis'\">" +
@@ -469,5 +477,10 @@ body {
 #map {
   height: 600px;
   background: gray;
+}
+
+.gm-style-iw {
+  width: 350px;
+  min-height: 150px;
 }
 </style>
