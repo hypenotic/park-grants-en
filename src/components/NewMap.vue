@@ -476,7 +476,7 @@ body {
 }
 #map {
   height: 600px;
-  background: gray;
+  background: white;
 }
 
 .gm-style-iw {
