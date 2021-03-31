@@ -3,7 +3,7 @@
     <section class="videos">
       <div class="overlay">
         <h1>
-          Unlock the power of parks
+          Building vital connections between people and parks
         </h1>
         <router-link
           v-if="data.meta_box._page_grant_cta_text"
