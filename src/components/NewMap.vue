@@ -18,7 +18,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://parkpeople.test/wp-json/wp/v2/eventsapp")
+      .get("https://parkpeople.ca/wp-json/wp/v2/eventsapp")
       .then(response => {
         this.events = response.data;
         this.setLocations();
