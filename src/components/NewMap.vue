@@ -34,7 +34,9 @@ export default {
         if (e.event_td_grant == 1) {
           this.locations.push({
             lat: parseFloat(e.lat),
-            lng: parseFloat(e.lng),
+            lng:
+              parseFloat(e.lng) +
+              ((Math.random() > 0.5 ? 0.001 : -0.009) + Math.random() * 0.0009),
             title: e.title,
             image: e.image,
             slug: e.slug,
